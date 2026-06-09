@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema Registral e Notarial | CRECI-SP PROECCI EAD</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Raleway+Dots&display=swap" rel="stylesheet">
+<style>
+:root{
+  --roxo:#6B2D8B;
+  --roxo2:#4A1A6A;
+  --roxo3:#9B5CBE;
+  --roxo-claro:#E8D5F5;
+  --dourado:#C8960A;
+  --dourado2:#F5C842;
+  --cinza-escuro:#2A2A2A;
+  --cinza:#4A4A4A;
+  --fundo:#F7F5FA;
+  --branco:#FFFFFF;
+  --borda:#DDD0EF;
+  --destaque:#F0E8F8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Raleway',sans-serif;background:var(--fundo);color:var(--cinza-escuro);font-size:16px;line-height:1.75}
+
+/* NAV LATERAL */
+#nav{position:fixed;top:0;left:0;height:100vh;width:265px;background:var(--roxo2);overflow-y:auto;z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+#nav::-webkit-scrollbar{width:3px}
+#nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:2px}
+.nav-logo{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.nav-logo .sigla{font-size:22px;font-weight:900;color:#fff;letter-spacing:.5px}
+.nav-logo .sigla span{color:var(--dourado2)}
+.nav-logo small{display:block;font-size:10.5px;color:rgba(255,255,255,.42);margin-top:3px;letter-spacing:.4px}
+.nav-sec{padding:14px 20px 4px;font-size:9.5px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase}
+#nav a{display:flex;align-items:flex-start;gap:10px;padding:9px 20px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;transition:all .2s;border-left:3px solid transparent;line-height:1.4}
+#nav a:hover,#nav a.ativo{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--dourado2)}
+#nav a .n{font-size:10px;font-weight:800;background:rgba(255,255,255,.08);border-radius:4px;padding:2px 6px;min-width:26px;text-align:center;flex-shrink:0;margin-top:1px;color:var(--dourado2)}
+
+/* TOGGLE */
+#btn-menu{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--roxo2);color:#fff;border:none;width:42px;height:42px;border-radius:10px;cursor:pointer;font-size:20px;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+
+/* MAIN */
+main{margin-left:265px;max-width:900px;padding:48px 60px 100px}
+
+/* BARRA */
+.scroll-progress{position:fixed;top:0;left:265px;right:0;height:3px;z-index:99}
+.scroll-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--roxo3),var(--dourado2));transition:width .1s}
+
+/* CAPA */
+.capa{background:linear-gradient(135deg,var(--roxo2) 0%,var(--roxo) 55%,var(--roxo3) 100%);border-radius:20px;padding:60px 48px;color:#fff;margin-bottom:64px;position:relative;overflow:hidden}
+.capa::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cdiamond cx='25' cy='25' r='12'/%3E%3Cpath d='M13 25L25 13L37 25L25 37Z'/%3E%3C/g%3E%3C/svg%3E")}
+.capa-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:24px;color:rgba(255,255,255,.9)}
+.capa h1{font-size:clamp(30px,5vw,58px);font-weight:900;line-height:1.08;letter-spacing:-1px;margin-bottom:14px}
+.capa h1 .dourado{color:var(--dourado2)}
+.capa .sub{font-size:16px;color:rgba(255,255,255,.72);max-width:500px;line-height:1.65;margin-bottom:32px}
+.capa-info{display:flex;flex-wrap:wrap;gap:14px}
+.capa-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,.8)}
+.capa-chip strong{display:block;color:#fff;font-size:14px;font-weight:800}
+
+/* SEÇÕES */
+.secao{margin-bottom:68px;scroll-margin-top:24px}
+.secao-hdr{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,var(--roxo2),var(--roxo));border-radius:12px;padding:16px 22px;margin-bottom:28px;color:#fff}
+.secao-hdr .ic{font-size:22px;flex-shrink:0}
+.secao-hdr h2{font-size:clamp(17px,2.8vw,23px);font-weight:900;letter-spacing:.3px;line-height:1.2}
+
+/* TIPOGRAFIA */
+.cont p{margin-bottom:16px;font-size:15px;line-height:1.78;color:var(--cinza-escuro)}
+.cont h3{font-size:17px;font-weight:800;color:var(--roxo2);margin:28px 0 10px;padding-left:14px;border-left:4px solid var(--roxo3)}
+.cont h4{font-size:14px;font-weight:800;color:var(--roxo);margin:18px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+
+/* LISTA */
+.lista{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:8px}
+.lista li{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.65;color:var(--cinza-escuro)}
+.lista li::before{content:'';flex-shrink:0;width:9px;height:9px;border-radius:2px;background:var(--roxo3);margin-top:7px;transform:rotate(45deg)}
+.lista li strong{color:var(--roxo2)}
+
+/* DEFINIÇÕES — BOX */
+.def-box{border-radius:14px;padding:20px 24px;margin:18px 0;border-left:5px solid}
+.def-box.roxo{background:var(--destaque);border-color:var(--roxo3);border:1px solid var(--borda);border-left:5px solid var(--roxo3)}
+.def-box.dourado{background:#FFFBEF;border:1px solid #EFE0A0;border-left:5px solid var(--dourado)}
+.def-box.vermelho{background:#FFF5F5;border:1px solid #FED7D7;border-left:5px solid #E53E3E}
+.def-box.verde{background:#F0FFF8;border:1px solid #B2EDD8;border-left:5px solid #2E9E6B}
+.def-box .def-titulo{font-size:11px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;display:block}
+.def-box.roxo .def-titulo{color:var(--roxo)}
+.def-box.dourado .def-titulo{color:var(--dourado)}
+.def-box.vermelho .def-titulo{color:#C53030}
+.def-box.verde .def-titulo{color:#276749}
+.def-box p,.def-box li{font-size:14.5px;line-height:1.7;color:var(--cinza-escuro)}
+
+/* COMPARATIVO 3 COLUNAS */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+.trio-item{background:#fff;border-radius:14px;padding:22px;border:1px solid var(--borda);box-shadow:0 2px 10px rgba(107,45,139,.07);transition:box-shadow .2s,transform .2s}
+.trio-item:hover{box-shadow:0 6px 22px rgba(107,45,139,.14);transform:translateY(-2px)}
+.trio-item .ti-ic{font-size:28px;margin-bottom:10px}
+.trio-item h4{font-size:14px;font-weight:800;color:var(--roxo2);margin-bottom:8px}
+.trio-item p{font-size:13px;color:#555;line-height:1.55;margin:0}
+.trio-item .ti-tag{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--roxo3);margin-bottom:8px;display:block}
+
+/* EXEMPLOS */
+.exemplos-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.exemplo{background:var(--roxo);border-radius:14px;padding:22px;color:#fff}
+.exemplo .ex-titulo{font-size:11px;font-weight:900;letter-spacing:1px;color:var(--dourado2);text-transform:uppercase;margin-bottom:10px;display:block}
+.exemplo p{font-size:13.5px;line-height:1.65;color:rgba(255,255,255,.88);margin:0}
+
+/* PRINCÍPIOS */
+.principio{background:#fff;border-radius:12px;padding:18px 22px;margin:12px 0;border:1px solid var(--borda);border-left:5px solid var(--roxo);box-shadow:0 1px 8px rgba(107,45,139,.06)}
+.principio .p-nome{font-size:13px;font-weight:900;color:var(--roxo2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.principio p{font-size:14px;line-height:1.65;color:var(--cinza-escuro);margin:0}
+.principio .p-lei{font-size:11px;color:var(--roxo3);margin-top:6px;font-style:italic}
+
+/* TABELA */
+.tw{overflow-x:auto;margin:20px 0}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(107,45,139,.08);font-size:13.5px}
+thead tr{background:var(--roxo2);color:#fff}
+thead th{padding:12px 16px;text-align:left;font-weight:800;font-size:12.5px;letter-spacing:.3px}
+tbody tr:nth-child(even){background:var(--destaque)}
+tbody td{padding:11px 16px;border-bottom:1px solid var(--borda);vertical-align:top;line-height:1.5}
+tbody tr:last-child td{border-bottom:none}
+
+/* ATENÇAO */
+.atencao{background:#FFFBEF;border:1px solid #EFE0A0;border-left:4px solid var(--dourado);border-radius:0 10px 10px 0;padding:14px 20px;margin:16px 0;font-size:14px;color:#5A3A00;font-weight:700}
+.atencao::before{content:'⚠️  '}
+
+/* IMPORTANTE */
+.importante{background:var(--roxo2);border-radius:14px;padding:24px 28px;margin:20px 0;color:#fff}
+.importante .imp-titulo{font-size:14px;font-weight:900;color:var(--dourado2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.importante p{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.88);margin-bottom:8px}
+.importante p:last-child{margin:0}
+
+/* FLUXO */
+.fluxo{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:20px 0}
+.fluxo-item{background:#fff;border:2px solid var(--roxo3);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700;color:var(--roxo2);text-align:center}
+.fluxo-seta{font-size:20px;color:var(--roxo3)}
+
+/* RODAPÉ */
+footer{margin-top:72px;padding:28px;background:var(--roxo2);border-radius:14px;color:rgba(255,255,255,.55);text-align:center;font-size:13px}
+footer strong{color:#fff}
+
+/* RESPONSIVO */
+@media(max-width:860px){
+  #btn-menu{display:flex}
+  #nav{transform:translateX(-100%)}
+  #nav.aberto{transform:translateX(0)}
+  main{margin-left:0;padding:56px 22px 80px}
+  .scroll-progress{left:0}
+  .trio{grid-template-columns:1fr}
+  .exemplos-grid{grid-template-columns:1fr}
+  .capa{padding:36px 22px}
+}
+@media(max-width:480px){main{padding:56px 14px 80px}}
+</style>
+</head>
+<body>
+<div class="scroll-progress"><div class="scroll-bar" id="scrollBar"></div></div>
+<button id="btn-menu" onclick="toggleMenu()" aria-label="Menu">☰</button>
+
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="sigla">CRECI<span>SP</span></div>
+    <small>PROECCI EAD · Sistema Registral e Notarial</small>
+  </div>
+  <div class="nav-sec">Fundamentos</div>
+  <a href="#introducao"><span class="n">01</span>Serventias Extrajudiciais</a>
+  <a href="#conceitos"><span class="n">02</span>Fato, Ato e Negócio Jurídico</a>
+  <a href="#direitos"><span class="n">03</span>Direito Notarial e Registral</a>
+  <div class="nav-sec">Cartórios</div>
+  <a href="#rcpn"><span class="n">04</span>Registro Civil — Pessoas Naturais</a>
+  <a href="#rcpj"><span class="n">05</span>Registro Civil — Pessoas Jurídicas</a>
+  <a href="#notas"><span class="n">06</span>Tabelionato de Notas</a>
+  <a href="#imoveis"><span class="n">07</span>Registro de Imóveis</a>
+  <a href="#principios"><span class="n">08</span>Princípios do Direito Registral</a>
+  <a href="#digital"><span class="n">09</span>Cartórios Digitais</a>
+  <a href="#protestos"><span class="n">10</span>Protestos de Títulos</a>
+  <a href="#tribunais"><span class="n">11</span>Cartórios nos Tribunais</a>
+</nav>
+
+<main>
+
+<!-- CAPA -->
+<div class="capa">
+  <div class="capa-badge">📜 PROECCI · EAD · CRECI-SP</div>
+  <h1>Sistema Registral<br>e <span class="dourado">Notarial</span></h1>
+  <p class="sub">Programa de Educação Continuada ao Corretor de Imóveis. Entenda o funcionamento dos cartórios e sua importância nas transações imobiliárias.</p>
+  <div class="capa-info">
+    <div class="capa-chip"><strong>CRECI-SP</strong>Conselho Regional SP</div>
+    <div class="capa-chip"><strong>PROECCI</strong>Ed. Continuada</div>
+    <div class="capa-chip"><strong>Modalidade</strong>EAD Online</div>
+    <div class="capa-chip"><strong>Foco</strong>Corretores de Imóveis</div>
+  </div>
+</div>
+
+<!-- 01 INTRODUÇÃO -->
+<section class="secao" id="introducao">
+  <div class="secao-hdr"><div class="ic">🏛️</div><h2>Serventias Extrajudiciais — Os Cartórios</h2></div>
+  <div class="cont">
+    <p>O <strong>Sistema Registral e Notarial brasileiro</strong> é formado pelas Serventias Extrajudiciais — comumente chamadas apenas de <strong>cartórios</strong>.</p>
+
+    <div class="def-box roxo">
+      <span class="def-titulo">Serventia Extrajudicial</span>
+      <p>Uma Serventia Extrajudicial é uma organização técnica e administrativa destinada a garantir a <strong>publicidade, autenticidade, segurança e eficácia</strong> tanto dos ATOS jurídicos quanto dos NEGÓCIOS jurídicos.</p>
+    </div>
+
+    <h3>Legislação Aplicável</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Lei</th><th>Nome</th><th>O que regula</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Lei nº 8.935/1994</strong></td><td>Lei dos Notários e Registradores (Lei dos Cartórios)</td><td>Regulamenta o art. 236 da Constituição Federal, dispondo sobre serviços notariais e de registro.</td></tr>
+          <tr><td><strong>Lei nº 6.015/1973</strong></td><td>Lei dos Registros Públicos</td><td>Disciplina os registros públicos em si — nascimentos, imóveis, etc.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="def-box dourado">
+      <span class="def-titulo">Regra de Ouro</span>
+      <p>Todo <strong>NEGÓCIO jurídico</strong> é um ATO jurídico, mas nem todo ATO jurídico é um negócio jurídico.<br>Não confunda <strong>ATO jurídico</strong> com <strong>FATO jurídico</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 CONCEITOS -->
+<section class="secao" id="conceitos">
+  <div class="secao-hdr"><div class="ic">⚖️</div><h2>Fato, Ato e Negócio Jurídico</h2></div>
+  <div class="cont">
+    <div class="trio">
+      <div class="trio-item">
+        <div class="ti-ic">🌩️</div>
+        <span class="ti-tag">Acontece</span>
+        <h4>FATO Jurídico</h4>
+        <p>Um acontecimento — natural ou provocado por alguém — que seja suscetível de produzir efeitos jurídicos. Um <em>efeito jurídico</em> é um resultado prático, lícito e legal que tem origem na incidência da lei. O fato é algo que <strong>acontece</strong>, e é jurídico porque tem relação com questões legalmente estabelecidas.</p>
+      </div>
+      <div class="trio-item">
+        <div class="ti-ic">✍️</div>
+        <span class="ti-tag">Ação intencional</span>
+        <h4>ATO Jurídico</h4>
+        <p>Não é algo que simplesmente acontece — é o resultado de uma <strong>ação dirigida</strong>, feita de caso pensado. É o resultado da ação intencional de uma pessoa (por expressão verbal, documento público ou particular, ou expressão simbólica), cujo objetivo é gerar, modificar, defender, transmitir ou cessar direitos. Não há ato jurídico sem a devida expressão da vontade.</p>
+      </div>
+      <div class="trio-item">
+        <div class="ti-ic">🤝</div>
+        <span class="ti-tag">Entre partes</span>
+        <h4>NEGÓCIO Jurídico</h4>
+        <p>Um ato jurídico com uma característica específica: <strong>criar uma relação entre partes</strong> na qual se determinem direitos e obrigações. Decorre de uma vontade autorregulada — as partes definem o que deve ser feito para alcançar um objetivo, estabelecendo direitos e obrigações recíprocos. O negócio jurídico mais comum é o <strong>CONTRATO</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 DIREITO NOTARIAL E REGISTRAL -->
+<section class="secao" id="direitos">
+  <div class="secao-hdr"><div class="ic">📋</div><h2>Direito Notarial e Direito Registral</h2></div>
+  <div class="cont">
+    <h3>Direito Notarial</h3>
+    <p>Conjunto de normas que regulamentam e disciplinam as declarações humanas formuladas sob o caráter da autenticidade pública. A garantia da publicidade, autenticidade, segurança e eficácia desses atos é mantida pela atuação do <strong>NOTÁRIO</strong>.</p>
+    <p>Entendem-se como NOTÁRIOS os <strong>Tabeliães</strong> e os <strong>Escrivães públicos</strong>, cujas funções devem ser exercidas com os seguintes caracteres:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Caráter</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Jurídico</strong></td><td>Por se tratar de ato jurídico.</td></tr>
+          <tr><td><strong>Cautelar</strong></td><td>Há função de orientação prévia para a concretização do instrumento jurídico adequado à situação.</td></tr>
+          <tr><td><strong>Imparcial</strong></td><td>O agente notarial deve manter sigilo profissional, com responsabilidades civil, administrativa e criminal.</td></tr>
+          <tr><td><strong>Público</strong></td><td>A atividade notarial é exercida em colaboração com o Poder Público, por meio de delegação dessa função pública.</td></tr>
+          <tr><td><strong>Técnico</strong></td><td>Devem ser preenchidos requisitos formais para que o ato praticado tenha validade jurídica.</td></tr>
+          <tr><td><strong>Rogatório</strong></td><td>Refere-se a pedido — o notário não pode agir por iniciativa própria; deve sempre ser acionado pela parte interessada.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def-box roxo">Os atos notariais têm a finalidade de <strong>construção de prova do fato</strong>, sendo revestidos de tal forma para documentar a realização do respectivo ato jurídico.</div>
+
+    <h3>Direito Registral</h3>
+    <p>No contexto imobiliário, é um conjunto de normas e princípios acerca do <strong>registro de imóveis</strong>, regulando a organização e funcionamento das serventias imobiliárias. A finalidade da função registral reside na construção e declaração do respectivo título, que consignado, oferece segurança e publicidade necessárias — até prova em contrário. O registro de imóveis deve conter as devidas averbações que espelham a realidade dos fatos jurídicos.</p>
+  </div>
+</section>
+
+<!-- 04 RCPN -->
+<section class="secao" id="rcpn">
+  <div class="secao-hdr"><div class="ic">👶</div><h2>Registro Civil das Pessoas Naturais — RCPN</h2></div>
+  <div class="cont">
+    <p>O <strong>RCPN</strong> trata das mudanças do estado de cidadania das pessoas — é responsável por manter anotado e documentado a realidade civil de cada pessoa. Os cartórios de Registro Civil prestam este serviço público, ainda que de forma privada, garantindo a publicidade, autenticidade, segurança e eficácia dos atos jurídicos.</p>
+    <p>Os registros ficam sob a responsabilidade do <strong>Tabelião, Notário, Registrador</strong> ou <strong>Oficial de Registro</strong> — profissional do direito que exerce função em caráter privado, por delegação do Poder Público (conforme a Constituição Federal).</p>
+
+    <h3>Registro, Averbação e Anotação — Conceitos</h3>
+    <div class="trio">
+      <div class="trio-item">
+        <div class="ti-ic">📌</div>
+        <span class="ti-tag">Cria ou extingue direito</span>
+        <h4>REGISTRO</h4>
+        <p>Serve para firmar os elementos <strong>originais</strong> de um ato ou fato jurídico, constituindo, modificando ou extinguindo direitos e obrigações. O registro modifica a situação jurídica das pessoas envolvidas. Ex.: o casamento é registrado.</p>
+      </div>
+      <div class="trio-item">
+        <div class="ti-ic">✏️</div>
+        <span class="ti-tag">Modifica o registro</span>
+        <h4>AVERBAÇÃO</h4>
+        <p>Feita num registro existente. Trata-se do apontamento de um fato jurídico que <strong>modifique</strong> esse registro. É um ato acessório — só pode ser feito se existir um registro. Ex.: a separação é averbada no registro de casamento.</p>
+      </div>
+      <div class="trio-item">
+        <div class="ti-ic">🏷️</div>
+        <span class="ti-tag">Apenas indica</span>
+        <h4>ANOTAÇÃO</h4>
+        <p>Serve apenas para <strong>dispor a existência</strong> de um registro ou averbação. Não altera direitos, sendo apenas um indicador. Facilita consultas ao verificar se todos os registros foram efetuados corretamente.</p>
+      </div>
+    </div>
+
+    <h3>Exemplos Práticos</h3>
+    <div class="exemplos-grid">
+      <div class="exemplo">
+        <span class="ex-titulo">Exemplo 1 — Anotação</span>
+        <p>Um indivíduo tem seu registro de nascimento. Passado algum tempo, vem a se casar. No registro de nascimento, faz-se uma <strong>anotação</strong> de que existe um registro de casamento. Não é uma averbação — o fato jurídico de ser nascido não foi modificado. Mas existe outro registro que altera o estado civil desse indivíduo.</p>
+      </div>
+      <div class="exemplo">
+        <span class="ex-titulo">Exemplo 2 — Averbação vs. Anotação</span>
+        <p>Um indivíduo tem registro de casamento. O casal decide se separar. É feita uma <strong>averbação</strong> no registro de casamento (modifica o registro — o casado passa a ser separado). No registro de nascimento, haverá uma <strong>anotação</strong> da separação — pois nem o casamento nem a separação modificam o fato de ter nascido.</p>
+      </div>
+    </div>
+
+    <h3>Registros Feitos no Cartório de Registro Civil</h3>
+    <ul class="lista">
+      <li><strong>Nascimentos:</strong> realizados pelos pais, ou pelo menos um deles.</li>
+      <li><strong>Casamentos:</strong> assim como de conversão da união estável em casamento.</li>
+      <li><strong>Óbitos.</strong></li>
+      <li><strong>Emancipações:</strong> pela outorga dos pais ou por sentença do juiz.</li>
+      <li><strong>Interdições:</strong> por incapacidade absoluta ou relativa.</li>
+      <li><strong>Sentenças Declaratórias de Ausência</strong> e de morte presumida.</li>
+      <li><strong>Opções de Nacionalidade.</strong></li>
+      <li><strong>Sentenças que deferirem a legitimação adotiva</strong> de menores.</li>
+      <li><strong>Sentenças de Separação ou Divórcio.</strong></li>
+      <li><strong>Restabelecimento da sociedade conjugal.</strong></li>
+    </ul>
+
+    <h3>Averbações no Registro de Nascimento</h3>
+    <ul class="lista">
+      <li>Alteração de nome.</li>
+      <li>Reconhecimento de filho.</li>
+      <li>Opção e a perda da nacionalidade.</li>
+      <li>Retificação de nome e de outros dados do registro.</li>
+      <li>Perda ou suspensão do poder familiar.</li>
+      <li>Alteração de sobrenome materno ou paterno em decorrência de casamento.</li>
+      <li>Adoção.</li>
+      <li>Sentença que declara a negativa de paternidade ou de maternidade.</li>
+      <li>Cancelamento de registro.</li>
+    </ul>
+
+    <h3>Averbações no Registro de Casamento</h3>
+    <ul class="lista">
+      <li>Escritura pública e Sentença de Separação, de Divórcio ou de Restabelecimento da Sociedade Conjugal.</li>
+      <li>Sentença de Nulidade ou de Anulação de Casamento.</li>
+      <li>Alteração ou Modificação do Regime de Bens (após o casamento, à vista de mandado judicial com escritura pública de pacto nupcial ou termo judicial).</li>
+      <li>Retificações e Alterações de nome e outros dados do registro.</li>
+      <li>Cancelamento do Registro.</li>
+    </ul>
+
+    <h3>Averbações no Registro de Emancipação / Interdição</h3>
+    <ul class="lista">
+      <li>Sentenças que venham a anular, desconstituir ou pôr termo à interdição.</li>
+      <li>Substituições dos curadores de interditos ou ausentes.</li>
+      <li>Alterações dos limites da curatela.</li>
+      <li>Cessação ou mudança de internação.</li>
+      <li>Cessação de ausência pelo aparecimento do ausente.</li>
+      <li>Sentença de abertura de sucessão provisória do ausente (após trânsito em julgado, com referência ao testamento do ausente e indicação de herdeiros habilitados).</li>
+    </ul>
+
+    <h3>Pontos Importantes: Emancipação e Interdição</h3>
+    <div class="def-box roxo">
+      <span class="def-titulo">Emancipação</span>
+      <p>A menoridade termina aos 18 anos completos. Com a maioridade, as pessoas passam a ter capacidade plena para praticar todos os atos da vida civil. A <strong>emancipação</strong> antecipa essa capacidade para uma idade menor que 18 anos.</p>
+    </div>
+    <div class="def-box roxo">
+      <span class="def-titulo">Interdição</span>
+      <p>Pela interdição é possível incapacitar uma pessoa de praticar os atos da vida civil, passando o cuidado dos seus bens e direitos para um <strong>curador</strong>. As limitações devem ser atestadas por perícia médica. A interdição não é eterna nem definitiva — cessada a causa, a pessoa pode recuperar a capacidade plena. Nesse caso, haverá a averbação da sentença para anular a interdição.</p>
+    </div>
+
+    <h3>Certidões Emitidas pelo Cartório de Registro Civil</h3>
+    <ul class="lista">
+      <li>Certidão de Nascimento</li>
+      <li>Certidão de Naturalização</li>
+      <li>Certidão de Interdição, Tutela e Curatela</li>
+      <li>Certidão de Casamento</li>
+      <li>Certidão de União Estável</li>
+      <li>Certidão de Óbito</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 05 RCPJ -->
+<section class="secao" id="rcpj">
+  <div class="secao-hdr"><div class="ic">🏢</div><h2>Registro Civil das Pessoas Jurídicas — RCPJ e Junta Comercial</h2></div>
+  <div class="cont">
+    <p>No mundo jurídico, uma <strong>pessoa jurídica</strong> é um agrupamento de pessoas reunidas para um fim distinto dos indivíduos que a compõe, com capacidade jurídica reconhecida por norma. Uma PJ é uma criação do direito — fora da previsão legal, não existe em lugar algum.</p>
+
+    <h3>Três Requisitos da Pessoa Jurídica</h3>
+    <ul class="lista">
+      <li>Deve haver uma <strong>organização de pessoas ou bens</strong>.</li>
+      <li><strong>Liceidade de propósitos</strong> — o objetivo deve ser lícito.</li>
+      <li><strong>Capacidade jurídica reconhecida por norma</strong>.</li>
+    </ul>
+
+    <h3>Onde Registrar a Pessoa Jurídica?</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Tipo de Sociedade</th><th>Características</th><th>Onde Registrar</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Sociedade Empresária</strong></td><td>Atividade econômica organizada voltada à produção ou circulação de bens/serviços. O produto é da empresa, não dos sócios diretamente.</td><td><strong>Junta Comercial</strong></td></tr>
+          <tr><td><strong>Sociedade Simples</strong></td><td>A atividade-fim é desenvolvida pelos sócios (médicos, dentistas, advogados etc.). O serviço é de natureza pessoal e está ligado à profissão dos sócios.</td><td><strong>Cartório de Registro Civil das PJ</strong></td></tr>
+          <tr><td><strong>Cooperativas, Associações, Fundações e Partidos Políticos</strong></td><td>Sempre independentemente de outras características.</td><td><strong>Cartório de Registro Civil das PJ</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="atencao">LTDA (Limitada) refere-se à responsabilidade dos sócios — não determina onde registrar. Uma LTDA simples vai para o Cartório de RC das PJ; uma LTDA empresária vai para a Junta Comercial. O que decide é a natureza (simples ou empresária) no contrato social.</div>
+
+    <h3>Certidões no Cartório de Registro Civil das Pessoas Jurídicas</h3>
+    <ul class="lista">
+      <li><strong>Certidão de Cópia:</strong> resumo do registro da PJ + cópias de documentos específicos (ex.: edital de convocação, lista de presença).</li>
+      <li><strong>Certidão de Breve Relato:</strong> resumo de todos os registros e averbações da PJ.</li>
+      <li><strong>Certidão de Inteiro Teor:</strong> inclui imagens de todos os documentos apresentados para registro.</li>
+      <li><strong>Certidão Negativa de Registro:</strong> verifica a inexistência de registros em nome de uma pessoa específica.</li>
+    </ul>
+
+    <h3>Serviços e Documentos na Junta Comercial</h3>
+    <ul class="lista">
+      <li><strong>Pesquisas:</strong> simples por razão social ou pelo NIRE (Número de Identificação do Registro de Empresas); avançadas por tipo jurídico, nome de sócios etc.</li>
+      <li><strong>Dados Cadastrais:</strong> ficha cadastral com dados da empresa na constituição e extrato de arquivamentos posteriores.</li>
+      <li><strong>Documentos Digitalizados:</strong> cópia de documento original arquivado nos assentamentos.</li>
+      <li><strong>Certidões:</strong> simplificada, com teor ou de Inteiro Teor (cópia de todos os atos arquivados).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 TABELIONATO DE NOTAS -->
+<section class="secao" id="notas">
+  <div class="secao-hdr"><div class="ic">🖊️</div><h2>Tabelionato de Notas — Cartório de Notas</h2></div>
+  <div class="cont">
+    <p>O termo "tabelionato" vem do Latim <em>TABELION</em> — na Roma, os <em>TABELIONES</em> instrumentalizavam negócios por anotações em pequenas tábuas (tabuletas). O Tabelionato de Notas trata principalmente do <strong>direito real de propriedade</strong>. O titular é chamado de <strong>tabelião</strong> ou <strong>notário</strong>.</p>
+    <p>A finalidade notarial é de garantir que os atos jurídicos sejam <strong>públicos</strong> (outras pessoas possam saber de sua existência), <strong>autênticos</strong> (origem, elaboração e autoria comprovadas) e <strong>eficazes</strong> (respondem à finalidade de suas existências). Desde 2007, separações, divórcios, inventários e partilhas são realizados extrajudicialmente no Tabelionato de Notas por escritura pública, sem necessidade do Judiciário.</p>
+
+    <h3>Serviços Exclusivos do Tabelionato de Notas</h3>
+    <div class="def-box roxo">
+      <span class="def-titulo">É SOMENTE e EXCLUSIVAMENTE no Tabelionato de Notas que se pode:</span>
+      <ul class="lista" style="margin-top:8px">
+        <li>Lavrar escrituras públicas.</li>
+        <li>Lavrar procurações públicas.</li>
+        <li>Lavrar testamentos públicos e aprovar os cerrados.</li>
+        <li>Lavrar atas notariais.</li>
+        <li>Reconhecer firmas.</li>
+        <li>Autenticar cópias.</li>
+      </ul>
+    </div>
+
+    <h3>Outros Serviços do Tabelionato de Notas</h3>
+    <ul class="lista">
+      <li>Formalizar juridicamente a vontade das partes.</li>
+      <li>Intervir nos atos e negócios jurídicos a que as partes queiram dar forma legal ou autenticidade, redigindo os instrumentos adequados, conservando os originais e expedindo cópias fidedignas.</li>
+      <li>Autenticar fatos.</li>
+    </ul>
+
+    <h3>Escrituras Públicas Mais Comuns (por mútuo consentimento)</h3>
+    <ul class="lista">
+      <li>Escritura de compra e venda de bens imóveis.</li>
+      <li>Escritura de doação de imóveis.</li>
+      <li>Pacto antenupcial.</li>
+      <li>Declaração de união estável.</li>
+      <li>Escrituras Públicas de Divórcio e Separação, Inventário e Partilha (desde 2007).</li>
+    </ul>
+
+    <h3>Autenticação vs. Reconhecimento de Firma</h3>
+    <div class="atencao">O reconhecimento de firma e a autenticação são dois serviços DIFERENTES.</div>
+    <div class="def-box roxo">
+      <span class="def-titulo">Autenticação</span>
+      <p>Ato pelo qual se declara, dando fé pública, que um determinado documento é uma <strong>cópia fiel e idêntica ao documento original</strong>. É necessário apresentar tanto a cópia quanto o documento original — ambos serão conferidos.</p>
+    </div>
+    <div class="def-box roxo">
+      <span class="def-titulo">Reconhecimento de Firma</span>
+      <p>Ato pelo qual se declara como <strong>verdadeira uma assinatura</strong> emitida por pessoa física ou jurídica em um documento. Há duas modalidades:</p>
+      <ul class="lista" style="margin-top:8px">
+        <li><strong>Por Semelhança:</strong> existe no cartório uma assinatura original do autor num cartão-autógrafo. A assinatura do documento é comparada com a do cartão e declarada como semelhante.</li>
+        <li><strong>Por Autenticidade:</strong> o autor da assinatura deve estar presente, com RG e CPF, e realizar a assinatura sob a observação do cartório.</li>
+      </ul>
+    </div>
+
+    <div class="importante">
+      <div class="imp-titulo">📌 IMPORTANTE!</div>
+      <p>A escritura pública de compra e venda lavrada no Tabelionato de Notas <strong>NÃO finaliza a transmissão da propriedade</strong>. Ela dá publicidade, por mútuo consentimento, formalizando juridicamente a vontade das partes.</p>
+      <p>Formalizar a vontade das partes <strong>não significa executar a vontade das partes</strong>.</p>
+      <p>Para que se efetive a transferência da propriedade, após lavrar a escritura no Tabelionato de Notas, deve-se <strong>averbar essa mudança de proprietários no registro de matrícula do imóvel</strong> — no Cartório de Registro de Imóveis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 REGISTRO DE IMÓVEIS -->
+<section class="secao" id="imoveis">
+  <div class="secao-hdr"><div class="ic">🏠</div><h2>Registro de Imóveis</h2></div>
+  <div class="cont">
+    <p>O <strong>Registro de Imóveis</strong> é um fiel repositório informativo da propriedade de imóvel e dos negócios jurídicos a ele referentes. É no Cartório de Registro de Imóveis que se pratica a abertura de uma matrícula, seu registro e as respectivas averbações.</p>
+
+    <h3>A Matrícula do Imóvel</h3>
+    <p>A matrícula consigna em documento o caráter cadastral do imóvel, individualizando sua propriedade. Cada matrícula possui um <strong>número exclusivo</strong>. O documento contém:</p>
+    <ul class="lista">
+      <li>Descrição do imóvel com todas as suas características.</li>
+      <li>Nome dos legítimos proprietários.</li>
+      <li>Número de cadastro de contribuinte.</li>
+      <li>Existência de transcrição anterior.</li>
+      <li>Todos os registros e averbações relativos ao imóvel em ordem crescente.</li>
+    </ul>
+
+    <h3>Registro vs. Averbação no CRI</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Ato</th><th>Símbolo</th><th>Finalidade</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Registro</strong></td><td>R.</td><td><strong>Criação</strong> de direitos e relações jurídicas. Ex.: abertura da matrícula, transferência de propriedade.</td></tr>
+          <tr><td><strong>Averbação</strong></td><td>Av.</td><td><strong>Modificação</strong> do registro — seja alteração de informações, retificação ou extinção. Ex.: demolição, mudança de nome do proprietário, ônus reais.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>No livro de Registro Geral (na prática, fichas), o lançamento de um registro é precedido pela letra <strong>"R."</strong> e o de averbação pelas letras <strong>"Av."</strong>, seguidos do número de ordem do ato e o da matrícula.</p>
+
+    <div class="def-box dourado">
+      <span class="def-titulo">Princípio Fundamental</span>
+      <p>O objetivo do registro é <strong>criar ou declarar os direitos ou as relações jurídicas</strong>. Para registro ou averbação são praticados apenas os atos previstos em lei. A lei autoriza averbação de dados que de alguma forma alterem os dados da matrícula — sem necessidade de lei específica para cada averbação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 PRINCÍPIOS -->
+<section class="secao" id="principios">
+  <div class="secao-hdr"><div class="ic">📐</div><h2>Princípios do Direito Registral Imobiliário</h2></div>
+  <div class="cont">
+    <p>Os registros e averbações no Cartório de Registro de Imóveis devem respeitar os seguintes princípios:</p>
+
+    <div class="principio">
+      <div class="p-nome">1. Princípio da Unidade de Matrículas</div>
+      <p>Cada imóvel somente tem uma única matrícula, assim como cada matrícula se refere a somente um único imóvel.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">2. Princípio da Concentração</div>
+      <p>Tudo que diga respeito ao imóvel deve estar centralizado na sua matrícula.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">3. Princípio da Presunção ou Força Probante</div>
+      <p>Os registros são dotados de força comprobatória e gozam de presunção de veracidade — tudo até que, eventualmente, se prove o contrário.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">4. Princípio da Fé Pública</div>
+      <p>O adquirente dotado de boa-fé fica protegido, estabelecendo a lei uma presunção jurídica em seu favor, a partir da fé pública quanto àquilo que é praticado pelo cartorário.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">5. Princípio da Prioridade</div>
+      <p>Sempre tem prioridade o título apresentado em primeiro lugar no Cartório, em respeito à precedência da prenotação. Quem primeiro solicita o registro tem prioridade sobre os demais. Garantido pela prenotação no livro de Protocolo do CRI.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">6. Princípio da Especialidade</div>
+      <p>A matrícula exige dados que determinem a minuciosa individualização do bem imóvel e dos sujeitos. Imóvel rural: código CCIR, denominação, características, confrontações, localização e área. Imóvel urbano: características, confrontações, localização, área, logradouro, número e designação cadastral.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">7. Princípio da Legitimação ou Qualificação Registral</div>
+      <p>O oficial tem o dever de analisar as eventuais nulidades absolutas no título levado ao registro e verificar a existência de <strong>vícios extrínsecos</strong> do negócio (defeitos no procedimento de registro, não no negócio em si). Ex.: registro efetuado por cartório incompetente — invalida o registro, não o título aquisitivo.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">8. Princípio da Continuidade</div>
+      <p>Encadeamento numa ordem lógica e cronológica para a prática dos atos. A pessoa que consta no título como alienante deve ser a mesma que figura como proprietária. Previsto na LRP (Lei nº 6.015/1973, arts. 195, 222, 223, 225 e 237) e no Código Civil (art. 1.245, §1°).</p>
+      <p class="p-lei">Ex.: se a matrícula indica o proprietário como solteiro, mas a escritura o apresenta como casado, o oficial deve exigir a certidão de casamento.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">9. Princípio da Instância</div>
+      <p>O oficial de Registro de Imóveis deve ser provocado para sua atuação — exerce papel passivo, sem iniciativa própria. Atende às ordens judiciais, requerimentos do interessado e pedidos do MP (art. 13, LRP). Exceção: o art. 213 autoriza o oficial a promover retificação em 4 casos específicos (omissão/erro de transposição; atualização de confrontação; alteração de denominação de logradouro; retificação de rumos/coordenadas sem alterar medidas).</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">10. Princípio da Publicidade</div>
+      <p>Qualquer pessoa poderá solicitar uma certidão daquilo que consta nos livros da serventia, sem necessidade de justificar o pedido. Exceção apenas quando a lei expressamente proibir.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">11. Princípio da Legalidade</div>
+      <p>Enquanto os títulos não forem levados para registro, não geram eficácia perante terceiros. Em outras palavras: <strong>para o caso de registro de imóveis, só é dono quem registra.</strong></p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">12. Princípio da Disponibilidade</div>
+      <p>O registro ganha finalidade comprobatória, publicitária e constitutiva. Com isso — e somente com isso — torna-se possível exercer o direito de dispor. Sem o registro, o herdeiro (mesmo sendo proprietário pelo óbito) ou o usucapiente não pode dispor do bem.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">13. Princípio da Tipicidade</div>
+      <p>Somente pode ser levado a registro o direito representado no título hábil para sua criação, e somente se registram os títulos previstos em lei (arts. 167 e 172 da LRP). Ex.: não se pode registrar instrumento particular de pacto antenupcial — é necessária escritura pública.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">14. Princípio da Territorialidade</div>
+      <p>Os registros e averbações devem ser feitos no local da situação do imóvel (definido pela organização judiciária de cada Estado). Qualquer registro feito fora da atribuição territorial do Cartório é <strong>ato nulo de pleno direito</strong>.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">15. Princípio da Cindibilidade do Título</div>
+      <p>Permite-se a cisão do título para que seja praticado apenas um dos atos nele versado, não praticando os demais. Ex.: formal de partilha com 5 imóveis — a parte pode solicitar o registro de apenas 2, devendo constar na prenotação a ressalva de quais direitos são solicitados.</p>
+    </div>
+
+    <div class="principio">
+      <div class="p-nome">16. Princípio da Obrigatoriedade</div>
+      <p>Os atos da lei são obrigatórios — devem ser praticados sob pena de não haver constituição, modificação, extinção, comprovação, publicitação ou disponibilidade do direito.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 09 CARTÓRIOS DIGITAIS -->
+<section class="secao" id="digital">
+  <div class="secao-hdr"><div class="ic">💻</div><h2>Cartórios Digitais</h2></div>
+  <div class="cont">
+    <p>Diversos serviços de cartórios digitais já eram oferecidos desde 2018, mas foi a partir de 2020 que tanto a procura quanto a oferta foram largamente ampliadas.</p>
+
+    <h3>Digitalização vs. Digitação</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Conceito</th><th>O que é</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Digitalização</strong></td><td>Colocar um documento num scanner — converte o documento físico para o ambiente digital. O original existiu fisicamente.</td></tr>
+          <tr><td><strong>Digitação</strong></td><td>Produção de um documento <em>nativamente</em> em ambiente digital. O documento já nasce eletrônico, com recursos de certificação.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Como Funciona</h3>
+    <p>Os dados dos cartórios digitais são armazenados em espécie de livro eletrônico onde são registradas todas as transações — baseado na tecnologia <strong>blockchain</strong>. Os registros são imutáveis e não podem ser apagados. O trânsito de documentos digitais é feito por <strong>Centrais de Compartilhamento de Documentos Eletrônicos</strong>, integrando milhares de cartórios distribuídos pelo Brasil.</p>
+    <ul class="lista">
+      <li><strong>Segurança jurídica:</strong> na fé pública dos cartórios.</li>
+      <li><strong>Segurança tecnológica:</strong> nos recursos de blockchain.</li>
+    </ul>
+
+    <h3>Legislação</h3>
+    <ul class="lista">
+      <li><strong>Federal:</strong> Provimento do CNJ nº 48/2016.</li>
+      <li><strong>Estado de São Paulo:</strong> Provimento da Corregedoria Geral da Justiça nº 16/2019.</li>
+    </ul>
+
+    <h3>Passo a Passo da Escritura Digital</h3>
+    <div class="fluxo">
+      <div class="fluxo-item">Acesse o canal digital do Tabelionato</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Escolha o serviço (ex.: escritura pública)</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Remeta os documentos para análise</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Confira a minuta enviada pelo tabelionato</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Aprove a minuta</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Videoconferência para assinaturas digitais</div>
+    </div>
+    <div class="def-box verde">As escrituras digitais possuem a <strong>mesma validade jurídica</strong> das escrituras assinadas de forma física e presencialmente. É necessário ter <strong>certificado digital</strong>.</div>
+  </div>
+</section>
+
+<!-- 10 PROTESTOS -->
+<section class="secao" id="protestos">
+  <div class="secao-hdr"><div class="ic">⚠️</div><h2>Protestos de Títulos</h2></div>
+  <div class="cont">
+    <p>O <strong>protesto</strong> é um ato formal e solene destinado a comprovar a inadimplência — o não pagamento ou o não cumprimento de uma obrigação originada em títulos extrajudiciais (Cheque, Duplicata Mercantil, Nota Promissória e quaisquer documentos de dívida).</p>
+    <p>Protegido pela <strong>Lei nº 9.492/97</strong>. Somente o tabelião e seus prepostos designados podem lavrar o protesto, no <strong>Cartório de Protesto</strong>.</p>
+
+    <h3>Como Realizar um Protesto</h3>
+    <div class="fluxo">
+      <div class="fluxo-item">Credor vai ao Cartório de Protesto com documentos pessoais</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Apresenta o título original não quitado</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Tabelião verifica aspectos formais (sem rasuras, preenchimento correto, datas, assinaturas)</div>
+      <div class="fluxo-seta">→</div>
+      <div class="fluxo-item">Protesto é lavrado</div>
+    </div>
+
+    <h3>Utilidade do Protesto</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Âmbito</th><th>Utilidade</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Judicial</strong></td><td>Fornece ao credor a prova formal, revestida de veracidade e fé pública, de que o devedor está inadimplente. Com essa prova, pode tomar providências judiciais.</td></tr>
+          <tr><td><strong>Extrajudicial</strong></td><td>Interessa a quem realiza empréstimos ou financiamentos, pois serve para analisar a real capacidade econômico-financeira do devedor. <strong>Relevante para corretores de imóveis</strong> na análise de locatários ou proprietários de imóveis a vender.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="def-box verde">Uma vez que um protesto seja feito, ele pode ser cancelado. Aliás, uma vez que o devedor quite sua dívida, o credor <strong>deve cancelar o protesto</strong>.</div>
+  </div>
+</section>
+
+<!-- 11 TRIBUNAIS -->
+<section class="secao" id="tribunais">
+  <div class="secao-hdr"><div class="ic">⚖️</div><h2>Cartórios nos Tribunais — Cartórios Judiciais</h2></div>
+  <div class="cont">
+    <p>Todos os cartórios abordados até aqui são <strong>extrajudiciais</strong>. Os Cartórios Judiciais existem nos Tribunais e têm natureza diferente.</p>
+
+    <h3>O que é um Cartório Judicial?</h3>
+    <p>O <strong>Cartório Judicial</strong> é o local privativo onde um serventuário da Justiça exerce seu ofício e no qual são guardados livros, documentos e processos. Também recebe o nome de <strong>vara</strong>. É o local onde são praticados os atos judiciais relativos ao processamento e procedimento dos feitos civis e criminais.</p>
+
+    <div class="def-box roxo">
+      <span class="def-titulo">Segundo o TJSP — Boas Práticas Cartorárias</span>
+      <p>"O trabalho realizado dentro de um cartório judicial consiste em um fluxo contínuo, formado por diversas atividades concatenadas e mutuamente dependentes, cujo resultado final pretendido é a entrega da <strong>tutela jurisdicional pretendida</strong>."</p>
+    </div>
+
+    <h3>O que é Tutela Jurisdicional?</h3>
+    <p><strong>Tutela</strong> = responsabilidade legal assumida de realizar a representação legal de alguém. <strong>Jurisdicional</strong> = referente à extensão territorial em que atua um juiz. Portanto, <strong>tutela jurisdicional</strong> é a função do Estado de pacificar e resolver conflitos no seu âmbito de atuação na aplicação de leis.</p>
+
+    <h3>Principais Funções do Cartório Judicial</h3>
+    <ul class="lista">
+      <li>Atendimento ao público externo.</li>
+      <li>Cadastro e juntada de petições (quando um documento deve ser juntado ao processo, é no cartório que é numerado e cadastrado).</li>
+      <li>Realização das diversas publicações.</li>
+      <li>Controle de prazos.</li>
+      <li>Elaboração de minutas.</li>
+      <li>Cumprimento de determinações judiciais.</li>
+      <li>Auxílio à sala de audiências.</li>
+    </ul>
+
+    <div class="def-box verde">A relação do público externo ao tribunal com o público interno do tribunal passa pelo <strong>cartório judicial</strong>. Ele é a interface entre a sociedade e a Justiça.</div>
+
+    <h3>Resumo: Tipos de Cartórios</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Cartório</th><th>Tipo</th><th>Função Principal</th></tr></thead>
+        <tbody>
+          <tr><td>Registro Civil das Pessoas Naturais (RCPN)</td><td>Extrajudicial</td><td>Nascimentos, casamentos, óbitos, emancipações, interdições</td></tr>
+          <tr><td>Registro Civil das Pessoas Jurídicas (RCPJ)</td><td>Extrajudicial</td><td>Sociedades simples, cooperativas, associações, fundações, partidos políticos</td></tr>
+          <tr><td>Junta Comercial</td><td>Extrajudicial (admin.)</td><td>Sociedades empresárias e mercantis</td></tr>
+          <tr><td>Tabelionato de Notas</td><td>Extrajudicial</td><td>Escrituras públicas, procurações, testamentos, atas notariais, autenticações, reconhecimento de firma</td></tr>
+          <tr><td>Registro de Imóveis (CRI)</td><td>Extrajudicial</td><td>Matrícula, registro e averbações de imóveis</td></tr>
+          <tr><td>Protesto de Títulos</td><td>Extrajudicial</td><td>Lavrar e cancelar protestos por inadimplência</td></tr>
+          <tr><td>Cartório Judicial (Vara)</td><td>Judicial</td><td>Atos judiciais relativos ao processamento de feitos civis e criminais</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>CRECI-SP</strong> — Conselho Regional de Corretores de Imóveis do Estado de São Paulo<br>
+  PROECCI — Programa de Educação Continuada ao Corretor de Imóveis<br>
+  EAD · Sistema Registral e Notarial para Corretores de Imóveis<br><br>
+  Todos os direitos reservados. É proibida a reprodução parcial ou total deste material.
+</footer>
+
+</main>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('scrollBar').style.width=pct+'%';
+});
+const secoes=document.querySelectorAll('.secao');
+const links=document.querySelectorAll('#nav a');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove('ativo'));
+      const a=document.querySelector(`#nav a[href="#${e.target.id}"]`);
+      if(a)a.classList.add('ativo');
+    }
+  });
+},{threshold:0.3});
+secoes.forEach(s=>obs.observe(s));
+function toggleMenu(){
+  document.getElementById('nav').classList.toggle('aberto');
+}
+document.querySelectorAll('#nav a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    if(window.innerWidth<=860)document.getElementById('nav').classList.remove('aberto');
+  });
+});
+</script>
+</body>
+</html>
