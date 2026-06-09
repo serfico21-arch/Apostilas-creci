@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentação Imobiliária – CRECI-SP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --red:      #C0202A;
+      --red-dark: #8B1219;
+      --red-soft: #F9E8E9;
+      --ink:      #1A1A1A;
+      --ink-mid:  #444;
+      --ink-low:  #777;
+      --rule:     #E0E0E0;
+      --bg:       #FAFAFA;
+      --white:    #FFFFFF;
+      --gold:     #B8922A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── SKIP LINK ───────────────────────────────────────── */
+    .skip { position: absolute; left: -9999px; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--red); color: #fff; padding: .4rem .8rem; border-radius: 4px; z-index: 9999; }
+
+    /* ── TOP BAR ─────────────────────────────────────────── */
+    .topbar {
+      background: var(--red-dark);
+      color: #fff;
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .4rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar a { color: #fff; text-decoration: none; opacity: .8; }
+    .topbar a:hover { opacity: 1; }
+
+    /* ── HEADER ──────────────────────────────────────────── */
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: .9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: .9rem; }
+    .logo-emblem {
+      width: 52px; height: 52px;
+      background: var(--red);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .logo-emblem svg { width: 30px; height: 30px; fill: #fff; }
+    .logo-text { line-height: 1.1; }
+    .logo-text strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      color: var(--red);
+      letter-spacing: -.01em;
+    }
+    .logo-text span {
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ink-low);
+    }
+
+    nav { display: flex; gap: .2rem; flex-wrap: wrap; }
+    nav a {
+      font-size: .8rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--ink-mid);
+      padding: .45rem .8rem;
+      border-radius: 5px;
+      transition: background .15s, color .15s;
+    }
+    nav a:hover, nav a.active { background: var(--red-soft); color: var(--red); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, #E03540 100%);
+      color: #fff;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner { position: relative; max-width: 780px; margin: 0 auto; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.15);
+      padding: .3rem .9rem;
+      border-radius: 20px;
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      letter-spacing: -.02em;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      opacity: .88;
+      max-width: 580px;
+      margin: 0 auto 2rem;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: #fff;
+      color: var(--red);
+      font-weight: 700;
+      font-size: .88rem;
+      padding: .8rem 1.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: .03em;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+
+    /* ── STATS STRIP ─────────────────────────────────────── */
+    .stats-strip {
+      background: var(--ink);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .stat-item {
+      padding: 1.4rem 2.5rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-label { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+
+    /* ── LAYOUT ──────────────────────────────────────────── */
+    .page-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ─────────────────────────────────────────── */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar-title {
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      color: var(--ink-low);
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--red);
+    }
+    .sidebar nav { flex-direction: column; gap: 0; }
+    .sidebar nav a {
+      display: block;
+      border-radius: 0;
+      border-left: 3px solid transparent;
+      font-size: .82rem;
+      padding: .5rem .8rem;
+      color: var(--ink-mid);
+    }
+    .sidebar nav a:hover, .sidebar nav a.active {
+      border-left-color: var(--red);
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    /* ── MAIN CONTENT ────────────────────────────────────── */
+    .main-content { min-width: 0; }
+
+    /* ── SECTION ─────────────────────────────────────────── */
+    .doc-section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 90px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      margin-bottom: 1.4rem;
+    }
+    .section-icon {
+      width: 44px; height: 44px;
+      background: var(--red-soft);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .section-icon svg { width: 22px; height: 22px; stroke: var(--red); fill: none; stroke-width: 1.8; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ── CARD GRID ───────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1.2rem 1.1rem;
+      transition: box-shadow .2s, border-color .2s;
+      cursor: default;
+    }
+    .card:hover {
+      border-color: var(--red);
+      box-shadow: 0 4px 20px rgba(192,32,42,.1);
+    }
+    .card-tag {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--red);
+      margin-bottom: .5rem;
+    }
+    .card h3 { font-size: .92rem; font-weight: 600; color: var(--ink); margin-bottom: .4rem; }
+    .card p { font-size: .8rem; color: var(--ink-low); line-height: 1.5; }
+
+    /* ── DOC LIST ────────────────────────────────────────── */
+    .doc-list-wrap {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .doc-list-head {
+      background: var(--red);
+      color: #fff;
+      padding: .9rem 1.3rem;
+      font-weight: 600;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .doc-list-head svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; flex-shrink: 0; }
+    .doc-list { list-style: none; }
+    .doc-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .75rem 1.3rem;
+      border-bottom: 1px solid var(--rule);
+      font-size: .86rem;
+      color: var(--ink-mid);
+      transition: background .12s;
+    }
+    .doc-list li:last-child { border-bottom: none; }
+    .doc-list li:hover { background: var(--red-soft); }
+    .doc-list li::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      margin-top: .45em;
+      flex-shrink: 0;
+    }
+
+    /* ── TABS ────────────────────────────────────────────── */
+    .tabs { display: flex; gap: .3rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn {
+      border: 1px solid var(--rule);
+      background: var(--white);
+      color: var(--ink-mid);
+      font-size: .8rem;
+      font-weight: 600;
+      padding: .45rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .tab-btn:hover { border-color: var(--red); color: var(--red); }
+    .tab-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── ALERT BOX ───────────────────────────────────────── */
+    .alert {
+      display: flex;
+      gap: .9rem;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 1.2rem;
+      font-size: .84rem;
+      line-height: 1.55;
+    }
+    .alert svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: .1em; }
+    .alert-info { background: #EFF6FF; color: #1E40AF; }
+    .alert-info svg { stroke: #1E40AF; fill: none; stroke-width: 2; }
+    .alert-warn { background: #FFFBEB; color: #92400E; }
+    .alert-warn svg { stroke: #D97706; fill: none; stroke-width: 2; }
+
+    /* ── USUCAPIÃO TABLE ──────────────────────────────────── */
+    .usu-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--rule); }
+    table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+    thead { background: var(--ink); color: #fff; }
+    thead th { padding: .75rem 1rem; text-align: left; font-weight: 600; letter-spacing: .04em; }
+    tbody tr { border-bottom: 1px solid var(--rule); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #F5F5F5; }
+    tbody td { padding: .7rem 1rem; vertical-align: top; color: var(--ink-mid); }
+    tbody td:first-child { font-weight: 600; color: var(--red); white-space: nowrap; }
+
+    /* ── GLOSSARY ────────────────────────────────────────── */
+    .gloss-search {
+      width: 100%;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: .6rem 1rem;
+      font-size: .88rem;
+      outline: none;
+      margin-bottom: 1rem;
+    }
+    .gloss-search:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,32,42,.15); }
+    .gloss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: .8rem; }
+    .gloss-item {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: .9rem 1rem;
+      transition: border-color .15s;
+    }
+    .gloss-item:hover { border-color: var(--red); }
+    .gloss-item dt { font-weight: 700; font-size: .88rem; color: var(--red); margin-bottom: .35rem; }
+    .gloss-item dd { font-size: .8rem; color: var(--ink-mid); line-height: 1.5; }
+    .gloss-item.hidden { display: none; }
+
+    /* ── ACCORDION ───────────────────────────────────────── */
+    .accordion { border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+    .acc-item { border-bottom: 1px solid var(--rule); }
+    .acc-item:last-child { border-bottom: none; }
+    .acc-btn {
+      width: 100%;
+      background: var(--white);
+      border: none;
+      padding: 1rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      transition: background .12s;
+    }
+    .acc-btn:hover { background: var(--red-soft); color: var(--red); }
+    .acc-btn.open { background: var(--red-soft); color: var(--red); }
+    .acc-arrow {
+      width: 20px; height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+    .acc-btn.open .acc-arrow { transform: rotate(180deg); }
+    .acc-body {
+      display: none;
+      padding: 0 1.2rem 1rem;
+      font-size: .84rem;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+    .acc-body.open { display: block; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 2rem;
+      font-size: .78rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .page-body { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .topbar { display: none; }
+      .stat-item { padding: 1rem 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      nav { width: 100%; }
+    }
+
+    /* ── SCROLL HINT ─────────────────────────────────────── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .doc-section { animation: fade-up .35s ease both; }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip">Pular para o conteúdo</a>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>CRECI-SP — Conselho Regional de Corretores de Imóveis da 2ª Região</span>
+  <span>
+    <a href="#">Portal do Corretor</a> &nbsp;|&nbsp;
+    <a href="#">Fale Conosco</a>
+  </span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <div class="logo-emblem">
+        <!-- House icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 9.5L12 3l9 6.5V21H3V9.5z"/>
+          <rect x="9" y="13" width="6" height="8" rx="1"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <strong>CRECI-SP</strong>
+        <span>2ª Região — Documentação Imobiliária</span>
+      </div>
+    </div>
+    <nav aria-label="Principal">
+      <a href="#escritura" class="active">Escritura</a>
+      <a href="#documentos">Documentos</a>
+      <a href="#certidoes">Certidões</a>
+      <a href="#contratos">Contratos</a>
+      <a href="#usucapiao">Usucapião</a>
+      <a href="#glossario">Glossário</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" aria-label="Cabeçalho da página">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Curso Oficial · CRECI-SP</span>
+    <h1>Documentação Imobiliária para Corretores</h1>
+    <p>Guia completo sobre escrituras, registros, certidões, contratos e responsabilidades legais para o exercício da corretagem com segurança e conformidade.</p>
+    <a href="#documentos" class="hero-cta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      Ver Lista de Documentos
+    </a>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip" role="region" aria-label="Destaques">
+  <div class="stat-item">
+    <span class="stat-num">7</span>
+    <span class="stat-label">Listas de Documentos</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">5</span>
+    <span class="stat-label">Tipos de Cartórios</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">4</span>
+    <span class="stat-label">Modelos de Contrato</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">8</span>
+    <span class="stat-label">Modalidades de Usucapião</span>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Navegação lateral">
+    <div class="sidebar-title">Índice do Conteúdo</div>
+    <nav aria-label="Seções">
+      <a href="#escritura">Escritura</a>
+      <a href="#documentos">Lista de Documentos</a>
+      <a href="#registro">Registro de Imóveis</a>
+      <a href="#certidoes">Certidões</a>
+      <a href="#contratos">Contratos</a>
+      <a href="#fraudes">Fraudes e Penhora</a>
+      <a href="#doacao">Doação e Usufruto</a>
+      <a href="#usucapiao">Usucapião</a>
+      <a href="#glossario">Glossário</a>
+      <a href="#responsabilidade">Responsabilidade Civil</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main id="main" class="main-content">
+
+    <!-- ── ESCRITURA ──────────────────────────────────────── -->
+    <section id="escritura" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        </div>
+        <h2 class="section-title">Escritura Pública</h2>
+      </div>
+
+      <div class="alert alert-info">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>A escritura pública é <strong>essencial à validade</strong> dos negócios jurídicos de imóveis com valor superior a 30 salários mínimos (Art. 108, CC/2002). Pode ser lavrada em <strong>qualquer Cartório de Notas</strong>, independentemente da localização do imóvel.</div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-tag">Conceito</div>
+          <h3>Fato Jurídico</h3>
+          <p>Todo acontecimento relevante para o direito, decorrente de ocorrência natural ou conduta pessoal.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Conceito</div>
+          <h3>Ato Jurídico</h3>
+          <p>Conduta lícita com objetivo de aquisição, transmissão, modificação ou extinção do direito.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Art. 215 CC</div>
+          <h3>Fé Pública</h3>
+          <p>A escritura lavrada em notas de tabelião é documento dotado de fé pública, fazendo prova plena.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Importante</div>
+          <h3>Cartório de Notas</h3>
+          <p>É o cartório competente para lavrar a Escritura Pública. Qualquer um serve, mesmo fora do município do imóvel.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DOCUMENTOS ─────────────────────────────────────── -->
+    <section id="documentos" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h2 class="section-title">Lista de Documentos</h2>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab(event,'vendedor')">Vendedor PF</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab(event,'comprador')">Comprador PF</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab(event,'pj')">Pessoa Jurídica</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab(event,'imovel')">Imóvel</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab(event,'corretor')">Corretor</button>
+      </div>
+
+      <!-- Vendedor PF -->
+      <div id="tab-vendedor" class="tab-panel active">
+        <div class="doc-list-wrap">
+          <div class="doc-list-head">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Vendedor — Pessoa Física
+          </div>
+          <ul class="doc-list">
+            <li>Documento de identificação válido (RG com menos de 10 anos ou CNH válida)</li>
+            <li>CPF — Cadastro de Pessoas Físicas</li>
+            <li>Solteiro: Certidão de Nascimento original ou cópia autenticada (máx. 90 dias)</li>
+            <li>Casado: Certidão de Casamento original ou cópia autenticada (máx. 90 dias)</li>
+            <li>Se casado antes de 31/12/1977 (Comunhão Parcial ou Separação Total): Escritura de Pacto Antenupcial com registro no RGI</li>
+            <li>Se casado após 31/12/1977 (Comunhão Universal, Separação Total ou Aquestos): Escritura de Pacto Antenupcial com registro no RGI</li>
+            <li>Separado, divorciado ou viúvo: Certidão de Casamento com averbação (máx. 90 dias)</li>
+            <li>Declaração de não convivência em união estável (se não for casado)</li>
+            <li>Companheiro(a) em união estável: anuência no ato + Escritura Pública de União Estável (se houver)</li>
+            <li>Estrangeiros: certidão com legalização consular e tradução juramentada</li>
+            <li>Comprovante de residência (água, luz, telefone fixo ou declaração)</li>
+            <li>Certidão Negativa da Secretaria da Fazenda Estadual</li>
+            <li>Certidão Negativa de Débitos Trabalhistas (CNDT)</li>
+            <li>Certidão Conjunta de Débitos — Tributos Federais e Dívida Ativa da União</li>
+            <li>Certidão Negativa da Previdência Social (se empregador ou produtor)</li>
+            <li>Informar a profissão</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Comprador PF -->
+      <div id="tab-comprador" class="tab-panel">
+        <div class="alert alert-info">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div>O comprador apresenta os <strong>mesmos documentos do vendedor</strong>, exceto as Certidões Negativas da Fazenda Estadual, Trabalhista, Previdência Social e Conjunta de Tributos Federais.</div>
+        </div>
+        <div class="doc-list-wrap">
+          <div class="doc-list-head">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Comprador — Pessoa Física
+          </div>
+          <ul class="doc-list">
+            <li>Documento de identificação válido (RG com menos de 10 anos ou CNH válida)</li>
+            <li>CPF — Cadastro de Pessoas Físicas</li>
+            <li>Solteiro: Certidão de Nascimento (máx. 90 dias)</li>
+            <li>Casado: Certidão de Casamento (máx. 90 dias)</li>
+            <li>Pacto Antenupcial (quando exigido pelo regime de bens)</li>
+            <li>Separado, divorciado ou viúvo: Certidão de Casamento com averbação</li>
+            <li>Declaração de não convivência em união estável (se aplicável)</li>
+            <li>Comprovante de residência</li>
+            <li>Informar a profissão</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PJ -->
+      <div id="tab-pj" class="tab-panel">
+        <div class="doc-list-wrap">
+          <div class="doc-list-head">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            Comprador ou Vendedor — Pessoa Jurídica
+          </div>
+          <ul class="doc-list">
+            <li>Cópia autenticada do Contrato Social (ou última Alteração Consolidada)</li>
+            <li>Estatuto Social (Associações, S.A. e entidades sem fins lucrativos)</li>
+            <li>Cópia autenticada da Ata de Eleição da Diretoria</li>
+            <li>Ata de autorização de alienação (quando previsto no Estatuto/Contrato)</li>
+            <li>Cartão do CNPJ</li>
+            <li>Certidão Conjunta de Débitos — Tributos Federais e Dívida Ativa</li>
+            <li>Certidão Negativa da Previdência Social</li>
+            <li>Certidão Negativa da Secretaria da Fazenda Estadual</li>
+            <li>Certidão Simplificada da Junta Comercial (validade 90 dias)</li>
+            <li>Certidão Negativa de Débitos Trabalhistas</li>
+            <li>Documentos pessoais do representante legal (RG/CNH, CPF, comprovante, estado civil, profissão)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Imóvel -->
+      <div id="tab-imovel" class="tab-panel">
+        <div class="doc-list-wrap">
+          <div class="doc-list-head">
+            <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21H3V9.5z"/></svg>
+            Documentos do Imóvel
+          </div>
+          <ul class="doc-list">
+            <li>Certidão Negativa de Ônus, Ações Reais ou Pessoais Reipersecutórias e de Inteiro Teor — validade 30 dias</li>
+            <li>Carnês do IPTU</li>
+            <li>Certidão Negativa de Débitos Municipais</li>
+            <li>Declaração de Quitação de Condomínio (Administradora ou Síndico)</li>
+            <li>Isenção do ITBI emitida pela Prefeitura</li>
+            <li>Cópia do Contrato Particular da negociação</li>
+            <li><em>Imóvel de marinha:</em> CAT (SPU) + Recolhimento do Laudêmio</li>
+            <li><em>Imóvel COHAB:</em> Termo de quitação ou fotocópia do cancelamento no RGI</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Corretor -->
+      <div id="tab-corretor" class="tab-panel">
+        <div class="doc-list-wrap">
+          <div class="doc-list-head">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+            Corretor de Imóveis
+          </div>
+          <ul class="doc-list">
+            <li><strong>PF:</strong> Documento de identificação válido</li>
+            <li><strong>PF:</strong> CPF</li>
+            <li><strong>PF:</strong> Número e comprovante de inscrição no CRECI da Região</li>
+            <li><strong>PF:</strong> Comprovante de residência</li>
+            <li><strong>PJ:</strong> Cartão do CNPJ</li>
+            <li><strong>PJ:</strong> Certidão Conjunta de Débitos Federais e Dívida Ativa</li>
+            <li><strong>PJ:</strong> Certidão Negativa da Previdência Social</li>
+            <li><strong>PJ:</strong> Certidão Simplificada da Junta Comercial (validade 90 dias)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── REGISTRO ────────────────────────────────────────── -->
+    <section id="registro" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h2 class="section-title">Registro de Imóveis</h2>
+      </div>
+
+      <div class="alert alert-warn">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>Enquanto não for registrado, <strong>o alienante continua como dono do imóvel</strong> (Art. 1.245 §1º, CC/2002). A transferência entre vivos só ocorre com o registro do título translativo no Cartório de Registro de Imóveis.</div>
+      </div>
+
+      <h3 style="margin-bottom:.8rem;font-size:1rem;font-weight:600;">Tipos de Cartórios</h3>
+      <div class="accordion">
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggleAcc(this)">
+            Cartório de Registro Civil
+            <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">Responsável por certidões de nascimento, casamento, acordos pré-nupciais, adoção, óbito, reconhecimento de paternidade, interdição, opções de nacionalidade e emancipação de menores.</div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggleAcc(this)">
+            Cartório de Notas
+            <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">Dá fé pública a documentos: lavra escrituras, procurações e testamentos, reconhece firmas e autentica cópias. <strong>É o cartório para a Escritura Pública do imóvel.</strong></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggleAcc(this)">
+            Cartório de Registro de Imóveis
+            <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">Responsável pela matrícula, registro e averbação de atos relativos a bens imóveis. <strong>O registro é restrito ao cartório da região onde o imóvel se localiza.</strong> Cada imóvel possui uma matrícula única, exclusiva e intransferível.</div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggleAcc(this)">
+            Tabelionato de Protesto
+            <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">Dá publicidade à inadimplência. Protocola documentos de dívida, intima devedores, recebe pagamentos, lavra protestos em caso de não quitação e expede certidões relativas a dívidas.</div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggleAcc(this)">
+            Cartório de Registro de Títulos e Pessoas Jurídicas
+            <svg class="acc-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">Registra e guarda documentos particulares de pessoas jurídicas: contratos, atos constitutivos, estatutos de sociedades civis, fundações e associações de utilidade pública.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CERTIDÕES ───────────────────────────────────────── -->
+    <section id="certidoes" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h2 class="section-title">Certidões</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card"><div class="card-tag">Criminal</div><h3>Distribuidores Criminais</h3><p>Verifica condenações criminais com efeito de perda de bens em favor da União (Art. 91, CP).</p></div>
+        <div class="card"><div class="card-tag">Dívida</div><h3>Cartórios de Protestos</h3><p>Indica inadimplência. Recomenda-se dos últimos 5 anos. Em cidades com mais de um cartório, pesquisar em todos.</p></div>
+        <div class="card"><div class="card-tag">Civil</div><h3>Distribuidores Cíveis Estaduais</h3><p>Abrange todas as ações cíveis em que o requerente figura como parte.</p></div>
+        <div class="card"><div class="card-tag">Falência</div><h3>Falência e Concordata</h3><p>Útil para aferir a qualificação econômico-financeira do vendedor.</p></div>
+        <div class="card"><div class="card-tag">Fiscal</div><h3>Executivos Fiscais</h3><p>Atesta cobranças de impostos, taxas e tributos em nome do vendedor. Se positiva, exige Certidão de Objeto e Pé.</p></div>
+        <div class="card"><div class="card-tag">Processo</div><h3>Objeto e Pé</h3><p>Resumo do processo: natureza da ação, partes, principais atos, movimentação e fase processual.</p></div>
+        <div class="card"><div class="card-tag">Federal</div><h3>Distribuição Justiça Federal</h3><p>Informa processos cíveis, fiscais ou criminais nos Fóruns da Justiça Federal do Estado.</p></div>
+        <div class="card"><div class="card-tag">Trabalho</div><h3>CNDT</h3><p>Certidão Negativa de Débitos Trabalhistas. Emitida pelo TST via BNDT.</p></div>
+        <div class="card"><div class="card-tag">Civil</div><h3>Interdição, Tutela e Curatela</h3><p>Comprova capacidade civil para o ato jurídico. Pessoas interditadas não podem administrar bens.</p></div>
+        <div class="card"><div class="card-tag">Federal</div><h3>Tributos Federais e Dívida Ativa</h3><p>Emitida pela Receita Federal e PGFN. Comprova regularidade fiscal quanto a débitos e declarações.</p></div>
+        <div class="card"><div class="card-tag">Imóvel</div><h3>Certidão Negativa Municipal</h3><p>Aponta débitos de IPTU, Contribuição de Melhoria e taxas diversas, inscritos ou não na Dívida Ativa.</p></div>
+        <div class="card"><div class="card-tag">Rural</div><h3>CCIR + Débito Florestal</h3><p>Obrigatória para imóveis rurais. Emitida pelo INCRA. Inclui Certidão Negativa de Débito Florestal (SICAFI).</p></div>
+      </div>
+    </section>
+
+    <!-- ── CONTRATOS ───────────────────────────────────────── -->
+    <section id="contratos" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        </div>
+        <h2 class="section-title">Contratos Imobiliários</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-tag">Compra e Venda</div>
+          <h3>Contrato de Compra e Venda</h3>
+          <p>Deve conter dados das partes, descrição do imóvel (localização, matrícula, área, confrontações), preço e forma de pagamento, sinal e prazo de financiamento.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Locação</div>
+          <h3>Contrato de Locação</h3>
+          <p>Inclui dados das partes e fiador, descrição do imóvel, valor e reajuste do aluguel, garantia (caução, fiança, seguro), despesas do locatário, destinação e vigência.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Temporada</div>
+          <h3>Contrato de Temporada</h3>
+          <p>Similar ao de locação. Destinado à residência temporária por até <strong>90 dias</strong>. Deve incluir inventário de móveis e utensílios com termo de vistoria.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Administração</div>
+          <h3>Administração de Imóveis</h3>
+          <p>O proprietário paga percentual do aluguel à administradora pelos serviços de gestão: vistoria, renovação, recebimento e repasse de aluguéis.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── USUCAPIÃO ───────────────────────────────────────── -->
+    <section id="usucapiao" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2 class="section-title">Modalidades de Usucapião</h2>
+      </div>
+      <div class="alert alert-info">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>Pré-requisito fundamental: <strong>posse contínua, ininterrupta e sem oposição</strong> pelo prazo legal. Previsto na CF/1988 (Arts. 183 e 191) e no CC/2002 (Arts. 1.238 a 1.244).</div>
+      </div>
+      <div class="usu-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Modalidade</th>
+              <th>Prazo</th>
+              <th>Requisitos Principais</th>
+              <th>Base Legal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ordinária</td>
+              <td>10 anos</td>
+              <td>Justo título + boa-fé</td>
+              <td>Art. 1.242 CC</td>
+            </tr>
+            <tr>
+              <td>Ordinária Reduzida</td>
+              <td>5 anos</td>
+              <td>Moradia ou obras + registro cancelado</td>
+              <td>Art. 1.242 §ú CC</td>
+            </tr>
+            <tr>
+              <td>Extraordinária</td>
+              <td>15 anos</td>
+              <td>Posse contínua</td>
+              <td>Art. 1.238 CC</td>
+            </tr>
+            <tr>
+              <td>Extraordinária Reduzida</td>
+              <td>10 anos</td>
+              <td>Moradia ou obras produtivas</td>
+              <td>Art. 1.238 §ú CC</td>
+            </tr>
+            <tr>
+              <td>Especial Rural</td>
+              <td>5 anos</td>
+              <td>Área máx. 50 ha, produtiva, moradia, sem outro imóvel</td>
+              <td>Art. 191 CF; Art. 1.239 CC</td>
+            </tr>
+            <tr>
+              <td>Especial Urbana Individual</td>
+              <td>5 anos</td>
+              <td>Área máx. 250 m², moradia, sem outro imóvel</td>
+              <td>Art. 183 CF; Art. 1.240 CC</td>
+            </tr>
+            <tr>
+              <td>Especial Urbana Coletiva</td>
+              <td>5 anos</td>
+              <td>Área acima de 250 m², baixa renda, sem outro imóvel</td>
+              <td>Lei 10.257/2001</td>
+            </tr>
+            <tr>
+              <td>Abandono de Lar</td>
+              <td>2 anos</td>
+              <td>Ex-cônjuge abandona lar, imóvel urbano até 250 m²</td>
+              <td>Art. 1.240-A CC</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── FRAUDES ─────────────────────────────────────────── -->
+    <section id="fraudes" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h2 class="section-title">Fraudes e Penhora</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-tag">Fraude</div>
+          <h3>Fraude contra Credor</h3>
+          <p>Ocorre quando a dívida <strong>já existe antes</strong> de qualquer demanda judicial. Negócios podem ser anulados pelos credores (Art. 158–165, CC).</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Fraude</div>
+          <h3>Fraude contra Execução</h3>
+          <p>Ocorre quando a demanda judicial <strong>já está em curso</strong> no momento da alienação (Art. 674, CPC).</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Proteção</div>
+          <h3>Bem de Família</h3>
+          <p>Imóvel residencial próprio é <strong>impenhorável</strong> e não responde por dívidas civis, fiscais ou previdenciárias (Lei 8.009/90), salvo exceções legais.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Exceções</div>
+          <h3>Quando o Bem de Família pode ser penhorado</h3>
+          <p>Financiamento do próprio imóvel, pensão alimentícia, impostos do imóvel, hipoteca pelo casal, fiança em contrato de locação, produto de crime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DOAÇÃO ──────────────────────────────────────────── -->
+    <section id="doacao" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h2 class="section-title">Doação e Usufruto</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-tag">Doação</div>
+          <h3>Como Fazer</h3>
+          <p>Lavra-se uma <strong>Escritura Pública de Doação</strong> no Cartório de Notas com os mesmos documentos de compra e venda. A propriedade só se transfere após o registro na matrícula.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Usufruto</div>
+          <h3>Doação com Reserva</h3>
+          <p>O doador transfere a nua-propriedade mas <strong>reserva para si o usufruto</strong>, podendo permanecer no uso e gozo do imóvel pelo prazo estipulado, inclusive vitalício.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Art. 1.410 CC</div>
+          <h3>Extinção do Usufruto</h3>
+          <p>Ocorre por renúncia ou morte do usufrutuário, término do prazo, extinção da PJ, destruição do bem, consolidação, culpa do usufrutuário ou não uso.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RESPONSABILIDADE ────────────────────────────────── -->
+    <section id="responsabilidade" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h2 class="section-title">Responsabilidade Civil do Corretor</h2>
+      </div>
+      <div class="alert alert-warn">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>O Corretor <strong>responde civil e penalmente</strong> por atos danosos ao cliente causados por imperícia, imprudência, negligência ou infrações éticas (Art. 5º, Código de Ética COFECI 326/1992).</div>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-tag">Art. 723 CC</div>
+          <h3>Dever de Diligência</h3>
+          <p>O corretor deve executar a mediação com diligência e prudência, prestando ao cliente, espontaneamente, todas as informações sobre o andamento do negócio.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">CDC Art. 14</div>
+          <h3>Responsabilidade pelo Serviço</h3>
+          <p>Responde pela reparação de danos por defeitos relativos à prestação do serviço ou por informações insuficientes ou inadequadas.</p>
+        </div>
+        <div class="card">
+          <div class="card-tag">Art. 927 CC</div>
+          <h3>Obrigação de Reparar</h3>
+          <p>Quem, por ato ilícito, causar dano a outrem, fica obrigado a repará-lo, independentemente de culpa quando a atividade gerar risco.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── GLOSSÁRIO ───────────────────────────────────────── -->
+    <section id="glossario" class="doc-section">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <h2 class="section-title">Glossário</h2>
+      </div>
+      <input type="search" class="gloss-search" placeholder="Buscar termo…" oninput="filterGloss(this.value)" aria-label="Buscar no glossário" />
+      <dl class="gloss-grid" id="glossGrid">
+        <div class="gloss-item"><dt>Alvará</dt><dd>Autorização judicial necessária quando o imóvel está em inventário ou em nome de menor.</dd></div>
+        <div class="gloss-item"><dt>Carta de Adjudicação</dt><dd>Documento judicial quando herdeiros renunciam herança em favor de um deles ou cônjuge renuncia a favor do outro no divórcio.</dd></div>
+        <div class="gloss-item"><dt>Carta de Arrematação</dt><dd>Documento que o comprador recebe ao adquirir imóvel em leilão judicial.</dd></div>
+        <div class="gloss-item"><dt>Convenção de Condomínio</dt><dd>Normas, regras, deveres e obrigações de um condomínio.</dd></div>
+        <div class="gloss-item"><dt>Escritura de Cessão</dt><dd>O vendedor cede definitivamente os direitos de uma promessa de compra e venda ao novo comprador.</dd></div>
+        <div class="gloss-item"><dt>Escritura Definitiva</dt><dd>Lavrada quando o comprador paga o preço total, entregando a posse definitiva do imóvel.</dd></div>
+        <div class="gloss-item"><dt>Escritura de Doação</dt><dd>Transferência gratuita de imóvel; o doador pode reservar para si o usufruto.</dd></div>
+        <div class="gloss-item"><dt>Escritura de Permuta</dt><dd>Troca de um imóvel por outro, mesmo de valores diferentes.</dd></div>
+        <div class="gloss-item"><dt>Formal de Partilha</dt><dd>Documento quando o imóvel é adquirido por inventário de herança ou divórcio.</dd></div>
+        <div class="gloss-item"><dt>Laudêmio</dt><dd>Encargo pago à União na transmissão de imóveis de marinha.</dd></div>
+        <div class="gloss-item"><dt>Matrícula</dt><dd>Número único e exclusivo que um imóvel recebe ao ser registrado pela primeira vez no CRI. Todos os atos jurídicos são nela averbados.</dd></div>
+        <div class="gloss-item"><dt>Procuração em Causa Própria</dt><dd>Permite ao procurador formalizar a venda sem anuência do outorgante; sujeita ao ITBI e averbação no RGI.</dd></div>
+        <div class="gloss-item"><dt>Pró-soluto</dt><dd>Compra a prazo onde as promissórias ficam desvinculadas do imóvel como garantia.</dd></div>
+        <div class="gloss-item"><dt>Pró-solvendo</dt><dd>Compra a prazo onde o preço só é considerado pago após quitação da última promissória.</dd></div>
+        <div class="gloss-item"><dt>Re-Ratificação</dt><dd>Retifica erros ou omissões em escritura anterior.</dd></div>
+        <div class="gloss-item"><dt>Rescisão</dt><dd>Documento lavrado para desfazer uma determinada transação imobiliária.</dd></div>
+        <div class="gloss-item"><dt>Usucapião</dt><dd>Aquisição de imóvel via processo judicial pela posse prolongada, contínua e ininterrupta.</dd></div>
+        <div class="gloss-item"><dt>ITBI</dt><dd>Imposto de Transmissão de Bens Imóveis, pago pelo comprador à Prefeitura do município do imóvel.</dd></div>
+        <div class="gloss-item"><dt>ITCMD</dt><dd>Imposto de Transmissão Causa Mortis e Doação, incidente em heranças e doações.</dd></div>
+        <div class="gloss-item"><dt>Nua-propriedade</dt><dd>Propriedade do bem sem o direito de uso e gozo, que fica reservado ao usufrutuário.</dd></div>
+      </dl>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>CRECI-SP — Conselho Regional de Corretores de Imóveis — 2ª Região</strong></p>
+  <p style="margin-top:.4rem;">Apostila do Curso de Documentação Imobiliária · Material de uso educacional · Baseado no CC/2002, CPC/2015, CF/1988 e legislação correlata</p>
+</footer>
+
+<script>
+  /* ── TABS ─────────────────────────────────────── */
+  function switchTab(e, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected','false');
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    e.currentTarget.setAttribute('aria-selected','true');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  /* ── ACCORDION ────────────────────────────────── */
+  function toggleAcc(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    // close all
+    document.querySelectorAll('.acc-btn').forEach(b => {
+      b.classList.remove('open');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      body.classList.add('open');
+    }
+  }
+
+  /* ── GLOSSARY FILTER ──────────────────────────── */
+  function filterGloss(val) {
+    const v = val.toLowerCase();
+    document.querySelectorAll('#glossGrid .gloss-item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.classList.toggle('hidden', v !== '' && !text.includes(v));
+    });
+  }
+
+  /* ── SIDEBAR ACTIVE LINK ──────────────────────── */
+  const sections = document.querySelectorAll('.doc-section');
+  const sideLinks = document.querySelectorAll('.sidebar nav a');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        sideLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sidebar nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
