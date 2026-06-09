@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locação e Administração de Imóveis – CRECI-SP</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --azul:      #0D3B6E;
+    --azul-med:  #1A5FA8;
+    --azul-claro:#3B9FE8;
+    --ceu:       #EBF4FD;
+    --branco:    #FFFFFF;
+    --cinza-claro:#F5F7FA;
+    --cinza:     #6B7280;
+    --texto:     #1A2332;
+    --borda:     #D1E4F5;
+    --destaque:  #E8530A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cinza-claro);
+    color: var(--texto);
+    line-height: 1.7;
+  }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul-med) 60%, var(--azul-claro) 100%);
+    color: var(--branco);
+    padding: 64px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--azul-claro); }
+  .hero p {
+    font-size: 16px;
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto 32px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── NAV LATERAL ──────────────────────────── */
+  .layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    padding: 40px 24px;
+    align-items: start;
+  }
+  @media(max-width:860px){
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 24px;
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 20px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
+  .sidebar h3 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cinza);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--borda);
+  }
+  .sidebar nav a {
+    display: block;
+    font-size: 13px;
+    color: var(--azul-med);
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    transition: background .15s;
+    line-height: 1.4;
+  }
+  .sidebar nav a:hover { background: var(--ceu); }
+
+  /* ── CONTEÚDO ─────────────────────────────── */
+  .content { min-width: 0; }
+
+  .section {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    padding: 40px 40px;
+    margin-bottom: 28px;
+    scroll-margin-top: 24px;
+  }
+  @media(max-width:600px){ .section { padding: 24px 20px; } }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--azul-claro);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    color: var(--azul);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ceu);
+  }
+  .section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--azul-med);
+    margin: 28px 0 10px;
+  }
+  .section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--texto);
+    margin: 20px 0 8px;
+  }
+  .section p {
+    margin-bottom: 14px;
+    font-size: 15px;
+    color: #334155;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* caixas legais */
+  .lei-box {
+    background: var(--ceu);
+    border-left: 4px solid var(--azul-med);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: var(--azul);
+  }
+  .lei-box strong { display: block; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; color: var(--azul-claro); }
+
+  .important-box {
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: #7C2D12;
+  }
+  .important-box strong { color: var(--destaque); }
+
+  .destaque-box {
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul-med) 100%);
+    color: var(--branco);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  /* tabelas / grades */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 18px 0;
+  }
+  @media(max-width:600px){ .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--cinza-claro);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .card h4 { margin-top: 0; color: var(--azul); }
+  .card p { font-size: 14px; margin-bottom: 0; }
+
+  /* listas */
+  .lista {
+    list-style: none;
+    margin: 14px 0 18px;
+  }
+  .lista li {
+    font-size: 14px;
+    padding: 8px 12px 8px 36px;
+    position: relative;
+    border-bottom: 1px solid var(--borda);
+    color: #334155;
+  }
+  .lista li:last-child { border-bottom: none; }
+  .lista li::before {
+    content: '▸';
+    position: absolute;
+    left: 12px;
+    color: var(--azul-claro);
+    font-size: 12px;
+    top: 10px;
+  }
+
+  .lista-num { counter-reset: item; list-style: none; margin: 14px 0 18px; }
+  .lista-num li {
+    font-size: 14px;
+    padding: 8px 12px 8px 40px;
+    position: relative;
+    border-bottom: 1px solid var(--borda);
+    color: #334155;
+    counter-increment: item;
+  }
+  .lista-num li::before {
+    content: counter(item);
+    position: absolute; left: 12px;
+    background: var(--azul-med);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    top: 9px;
+  }
+
+  /* garantias cards */
+  .garantia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+  }
+  .garantia-card {
+    border: 2px solid var(--borda);
+    border-radius: 12px;
+    padding: 18px;
+    transition: border-color .2s;
+  }
+  .garantia-card:hover { border-color: var(--azul-claro); }
+  .garantia-card .icon { font-size: 28px; margin-bottom: 10px; }
+  .garantia-card h4 { color: var(--azul); margin: 0 0 8px; font-size: 14px; }
+  .garantia-card p { font-size: 13px; color: var(--cinza); margin: 0; }
+
+  /* tabela prazos */
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+  }
+  .tabela th {
+    background: var(--azul);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .tabela td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--borda);
+    color: #334155;
+  }
+  .tabela tr:nth-child(even) td { background: var(--ceu); }
+  .tabela tr:last-child td { border-bottom: none; }
+
+  /* jurisprudência */
+  .juris {
+    background: #F0FDF4;
+    border: 1px solid #86EFAC;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 18px 0;
+    font-size: 13px;
+    color: #166534;
+  }
+  .juris .juris-titulo {
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #15803D;
+    margin-bottom: 8px;
+  }
+
+  /* docs list */
+  .doc-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .doc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--cinza-claro);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  .doc-item .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--azul-claro);
+    flex-shrink: 0;
+  }
+
+  /* multa exemplo */
+  .exemplo-box {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: #78350F;
+  }
+  .exemplo-box strong { color: #92400E; }
+
+  /* rodapé */
+  footer {
+    background: var(--azul);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+    margin-top: 20px;
+  }
+  footer strong { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">CRECI-SP · Curso EAD</div>
+  <h1>Locação e <span>Administração</span><br>de Imóveis</h1>
+  <p>Material completo baseado na Lei do Inquilinato (Lei nº 8.245/1991) e legislação complementar.</p>
+  <div class="hero-meta">
+    <span>📋 Lei nº 8.245/1991</span>
+    <span>📚 Código Civil</span>
+    <span>⚖️ Jurisprudência STJ</span>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h3>Conteúdo</h3>
+    <nav>
+      <a href="#intro">Introdução</a>
+      <a href="#diferenca">Locação vs Empréstimo</a>
+      <a href="#comodato">Comodato (7 artigos)</a>
+      <a href="#obrigacoes">Obrigações das Partes</a>
+      <a href="#sublocacao">Sublocação e Cessão</a>
+      <a href="#aluguel">O Aluguel e Reajuste</a>
+      <a href="#prazo">Prazo e Multas</a>
+      <a href="#garantias">Garantias Locatícias</a>
+      <a href="#semgarantia">Locação Sem Garantia</a>
+      <a href="#inadimplencia">Inadimplência e Despejo</a>
+      <a href="#analise">Análise do Locatário</a>
+      <a href="#vistoria">Vistoria</a>
+      <a href="#nao-residencial">Locação Não Residencial</a>
+      <a href="#built">Built to Suit</a>
+      <a href="#renovatoria">Ação Renovatória</a>
+      <a href="#temporada">Locação para Temporada</a>
+      <a href="#revisional">Ação Revisional</a>
+      <a href="#despejo">Ação de Despejo</a>
+    </nav>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="content">
+
+    <!-- INTRODUÇÃO -->
+    <section class="section" id="intro">
+      <div class="section-label">Módulo 01</div>
+      <h2>Introdução à Locação Urbana</h2>
+      <p>O contrato imobiliário mais celebrado no Brasil é o de <strong>locação de imóvel urbano</strong>. Os procedimentos pertinentes à locação estão dispostos na <strong>Lei nº 8.245 de 18 de outubro de 1991</strong>, comumente conhecida como <em>Lei do Inquilinato</em>.</p>
+
+      <div class="lei-box">
+        <strong>Lei do Inquilinato – Histórico</strong>
+        A lei vigente é de outubro de 1991. Ao longo do tempo recebeu alterações pelas Leis nº 10.931/2004, nº 11.196/2005, nº 9.256/1996, nº 12.112/2009 e nº 12.744/2012 (contratos built to suit).
+      </div>
+
+      <div class="important-box">
+        <strong>⚠️ Importante:</strong> Muitas vezes nos valemos do Código Civil e do Código de Processo Civil, conforme estabelece o art. 79 da própria Lei do Inquilinato.
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>🏠 Locador</h4>
+          <p>Aquele que <strong>detém o direito de dispor</strong> do imóvel. Na maioria das vezes é o próprio proprietário; eventualmente pode ser um usufrutuário.</p>
+        </div>
+        <div class="card">
+          <h4>🔑 Locatário</h4>
+          <p>Aquele que <strong>usufrui da posse</strong> de um imóvel cedida pelo locador, mediante pagamento de aluguel.</p>
+        </div>
+      </div>
+
+      <h3>Elementos essenciais da locação urbana</h3>
+      <ul class="lista-num">
+        <li>Um <strong>imóvel urbano</strong> com destinação residencial, comercial ou industrial</li>
+        <li>Um <strong>locador</strong> com direito de dispor do imóvel</li>
+        <li>Um <strong>locatário</strong> com condições de pagar o aluguel</li>
+        <li>Um <strong>contrato de locação</strong> estabelecendo as obrigações de ambas as partes</li>
+      </ul>
+
+      <div class="destaque-box">
+        O corretor de imóveis atua como intermediador. Seus honorários só são devidos na <strong>concretização da intermediação</strong> do contrato de locação.
+      </div>
+
+      <h3>Imóvel Urbano – Atenção</h3>
+      <p>A Lei nº 8.245/1991 se aplica exclusivamente a imóveis com <strong>destinação urbana</strong> (residência, comércio ou indústria). Imóveis com atividade rural — mesmo dentro do perímetro urbano — são regidos pelo Código Civil e pelo Estatuto da Terra.</p>
+    </section>
+
+    <!-- DIFERENÇA LOCAÇÃO / EMPRÉSTIMO -->
+    <section class="section" id="diferenca">
+      <div class="section-label">Módulo 02</div>
+      <h2>Diferença entre Locação e Empréstimo</h2>
+
+      <div class="lei-box">
+        <strong>Art. 565 do Código Civil (Lei nº 10.406/2002)</strong>
+        "Na locação de coisas, uma das partes se obriga a ceder à outra, por tempo determinado ou não, o uso e gozo de coisa não fungível, mediante <em>certa retribuição</em>."
+      </div>
+
+      <div class="lei-box">
+        <strong>Art. 579 do Código Civil – Comodato</strong>
+        "O comodato é o empréstimo gratuito de coisas não fungíveis. Perfaz-se com a tradição do objeto."
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>📄 Locação</h4>
+          <p><strong>Exige retribuição</strong> (aluguel). Quem cede: <em>Locador</em>. Quem recebe: <em>Locatário</em>.</p>
+        </div>
+        <div class="card">
+          <h4>🤝 Comodato</h4>
+          <p><strong>Gratuito</strong>. Quem cede: <em>Comodante</em>. Quem recebe: <em>Comodatário</em>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMODATO -->
+    <section class="section" id="comodato">
+      <div class="section-label">Módulo 03</div>
+      <h2>7 Artigos do Código Civil sobre Comodato</h2>
+      <p>O Código Civil apresenta apenas sete artigos sobre o comodato, do art. 579 ao art. 585.</p>
+
+      <h3>Principais regras</h3>
+      <ul class="lista">
+        <li><strong>Art. 580</strong> – Tutores e curadores não podem dar bens em comodato sem autorização especial.</li>
+        <li><strong>Art. 581</strong> – O prazo é o estabelecido em contrato; sem prazo, presume-se o necessário para o uso concedido.</li>
+        <li><strong>Art. 582</strong> – O comodatário deve conservar o bem como se seu fosse; se em mora, paga aluguel-pena ao comodante.</li>
+        <li><strong>Art. 583</strong> – Se o comodatário salvar seus bens em detrimento do bem do comodante, responde pelo dano mesmo em caso fortuito.</li>
+        <li><strong>Art. 584</strong> – O comodatário <em>jamais</em> pode recobrar do comodante as despesas feitas com o uso do bem.</li>
+        <li><strong>Art. 585</strong> – Múltiplos comodatários respondem solidariamente.</li>
+      </ul>
+
+      <h3>Encerramento do comodato</h3>
+      <ul class="lista-num">
+        <li>Término do prazo contratual</li>
+        <li>Resolução por quebra de cláusula contratual</li>
+        <li>Sentença judicial a pedido do comodante (necessidade urgente)</li>
+        <li>Morte do comodatário, se a coisa era para uso exclusivo e pessoal</li>
+      </ul>
+
+      <div class="juris">
+        <div class="juris-titulo">STJ – Informativo de Jurisprudência nº 504</div>
+        O comodante pode fixar aluguel-pena de forma unilateral em caso de mora do comodatário, desde que em montante <strong>não superior ao dobro do valor de mercado</strong>. A natureza desse aluguel é de pena privada, não de indenização (REsp 1.175.848-PR).
+      </div>
+    </section>
+
+    <!-- OBRIGAÇÕES -->
+    <section class="section" id="obrigacoes">
+      <div class="section-label">Módulo 04</div>
+      <h2>Obrigações do Locador e do Locatário</h2>
+
+      <h3>Obrigações do Locador — Art. 22 da Lei do Inquilinato</h3>
+      <ul class="lista">
+        <li>Entregar o imóvel em estado de servir ao uso a que se destina</li>
+        <li>Garantir o uso pacífico durante toda a locação</li>
+        <li>Manter a forma e o destino do imóvel</li>
+        <li>Responder por vícios ou defeitos anteriores à locação</li>
+        <li>Fornecer descrição minuciosa do estado do imóvel (vistoria)</li>
+        <li>Fornecer recibo discriminado dos pagamentos recebidos</li>
+        <li>Pagar taxas de administração imobiliária e de intermediação</li>
+        <li>Pagar impostos, taxas e prêmio de seguro contrafogo</li>
+        <li>Exibir comprovantes das parcelas exigidas ao locatário</li>
+        <li>Pagar as <strong>despesas extraordinárias de condomínio</strong></li>
+      </ul>
+
+      <h3>Obrigações do Locatário — Art. 23 da Lei do Inquilinato</h3>
+      <ul class="lista">
+        <li>Pagar pontualmente o aluguel e encargos no prazo estipulado</li>
+        <li>Usar o imóvel para o fim convencionado, com o mesmo cuidado como se fosse seu</li>
+        <li>Restituir o imóvel no estado em que o recebeu (salvo desgaste normal)</li>
+        <li>Comunicar imediatamente danos ou defeitos ao locador</li>
+        <li>Reparar imediatamente danos causados por si ou dependentes</li>
+        <li>Não modificar a forma interna ou externa sem consentimento escrito do locador</li>
+        <li>Entregar ao locador documentos de cobrança de tributos e condominiais</li>
+        <li>Pagar despesas de telefone, luz, gás, água e esgoto</li>
+        <li>Permitir vistoria do imóvel mediante combinação prévia</li>
+        <li>Cumprir a convenção de condomínio e regulamentos internos</li>
+        <li>Pagar o prêmio do seguro de fiança (se for a garantia escolhida)</li>
+        <li>Pagar as <strong>despesas ordinárias de condomínio</strong></li>
+      </ul>
+
+      <div class="important-box">
+        <strong>Despesas Ordinárias vs Extraordinárias:</strong> O locatário paga as <em>ordinárias</em> (manutenção rotineira do edifício). O locador paga as <em>extraordinárias</em> (obras estruturais, pintura de fachada, constituição de fundo de reserva, etc.).
+      </div>
+    </section>
+
+    <!-- SUBLOCAÇÃO -->
+    <section class="section" id="sublocacao">
+      <div class="section-label">Módulo 05</div>
+      <h2>Locação, Sublocação e Cessão</h2>
+
+      <div class="lei-box">
+        <strong>Art. 13 da Lei do Inquilinato</strong>
+        A cessão da locação, a sublocação e o empréstimo do imóvel, total ou parcialmente, dependem do <strong>consentimento prévio e escrito do locador</strong>. O locador tem 30 dias para manifestar oposição após notificação escrita do locatário; o silêncio caracteriza anuência tácita.
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>🔄 Sublocação</h4>
+          <p>O locatário subaluga para um terceiro (sublocatário) todo o imóvel ou parte dele. O subaluguel <strong>não pode exceder o aluguel principal</strong>. Em habitações coletivas, a soma não pode superar o dobro do aluguel.</p>
+        </div>
+        <div class="card">
+          <h4>📝 Cessão da Locação</h4>
+          <p>Transferência de <strong>todos os direitos e obrigações</strong> do contrato para outra pessoa, que passa a ser o novo locatário. Diferente do empréstimo (gratuito) e da sublocação (onerosa).</p>
+        </div>
+      </div>
+
+      <h3>Fluxo da Relação Jurídica</h3>
+      <table class="tabela">
+        <thead><tr><th>Quem cede</th><th>Com pagamento?</th><th>Tipo</th></tr></thead>
+        <tbody>
+          <tr><td>Proprietário/Locador</td><td>Sim</td><td><strong>Locação</strong></td></tr>
+          <tr><td>Proprietário/Locador</td><td>Não</td><td><strong>Comodato/Empréstimo</strong></td></tr>
+          <tr><td>Locatário (total ou parte)</td><td>Sim</td><td><strong>Sublocação</strong></td></tr>
+          <tr><td>Locatário (todos os direitos)</td><td>—</td><td><strong>Cessão da Locação</strong></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ALUGUEL -->
+    <section class="section" id="aluguel">
+      <div class="section-label">Módulo 06</div>
+      <h2>O Aluguel</h2>
+
+      <div class="lei-box">
+        <strong>Art. 17 da Lei do Inquilinato</strong>
+        É livre a convenção do aluguel, <strong>vedada</strong> a sua estipulação em moeda estrangeira e a vinculação à variação cambial ou ao salário mínimo.
+      </div>
+
+      <p>O aluguel é a retribuição pelo uso e gozo do imóvel. Pode ser pago de qualquer forma (dinheiro, bens, direitos ou serviços), desde que não vinculado a moeda estrangeira.</p>
+
+      <h3>Reajuste</h3>
+      <p>O prazo mínimo entre reajustes é de <strong>1 (um) ano</strong>, conforme a Lei do Sistema Monetário Brasileiro (Lei nº 9.069/1995, art. 28). Essa obrigatoriedade se aplica especialmente às locações residenciais.</p>
+
+      <h3>Índices mais usados</h3>
+      <table class="tabela">
+        <thead><tr><th>Índice</th><th>Divulgado por</th><th>Base de cálculo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>IGP-M</strong></td><td>FGV</td><td>IPA + IPC + INCC</td></tr>
+          <tr><td><strong>IPCA</strong></td><td>IBGE</td><td>Gastos em saúde, alimentação, habitação e mobilidade</td></tr>
+          <tr><td><strong>INPC</strong></td><td>IBGE</td><td>Famílias com renda entre 1 e 5 salários mínimos</td></tr>
+          <tr><td><strong>IPC-FIPE</strong></td><td>FIPE</td><td>Preços ao consumidor na cidade de São Paulo</td></tr>
+          <tr><td><strong>IGP-DI</strong></td><td>FGV</td><td>Disponibilidade interna de preços</td></tr>
+        </tbody>
+      </table>
+
+      <div class="lei-box">
+        <strong>Art. 18 da Lei do Inquilinato</strong>
+        É lícito às partes fixar, de comum acordo, novo valor para o aluguel, bem como inserir ou modificar cláusula de reajuste.
+      </div>
+    </section>
+
+    <!-- PRAZO E MULTAS -->
+    <section class="section" id="prazo">
+      <div class="section-label">Módulo 07</div>
+      <h2>Prazo da Locação e Multas</h2>
+
+      <div class="lei-box">
+        <strong>Art. 3º da Lei do Inquilinato</strong>
+        O contrato de locação pode ser ajustado por <strong>qualquer prazo</strong>. Se igual ou superior a 10 anos, exige vênia conjugal de ambas as partes.
+      </div>
+
+      <h3>Contratos ≥ 30 meses (Art. 46)</h3>
+      <p>A locação termina ao final do prazo, <strong>sem necessidade de notificação</strong>. Se o locatário permanecer por mais de 30 dias sem oposição, o contrato é prorrogado por prazo indeterminado. Após a prorrogação, o locador pode denunciar a qualquer tempo, concedendo 30 dias para desocupação — <strong>Denúncia Vazia</strong>.</p>
+
+      <h3>Contratos &lt; 30 meses (Art. 47)</h3>
+      <p>Ao fim do prazo, a locação prorroga-se automaticamente por prazo indeterminado. Para reaver o imóvel, o locador precisa apresentar <strong>Denúncia Cheia (Motivada)</strong>, com pelo menos um dos motivos previstos em lei.</p>
+
+      <h3>Tipos de Multa</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>💰 Multa Moratória</h4>
+          <p>Pela <strong>mora no pagamento</strong>. Caráter punitivo. Prática de mercado: <strong>10% para residencial</strong> + juros de 1% ao mês.</p>
+        </div>
+        <div class="card">
+          <h4>📋 Multa Compensatória</h4>
+          <p>Pelo <strong>descumprimento do contrato</strong> (ex: devolução antecipada). Caráter indenizatório. Deve ser proporcional ao período não cumprido.</p>
+        </div>
+      </div>
+
+      <div class="exemple-box">
+        <div class="importante-box">
+          <strong>Cálculo da multa proporcional:</strong> Divide-se o valor total da multa pelo prazo do contrato → obtém-se o valor por mês → multiplica-se pelos meses restantes. Ex.: multa de R$ 15.000 em contrato de 30 meses = R$ 500/mês. Se restam 10 meses: multa = R$ 5.000.
+        </div>
+      </div>
+
+      <h3>Dispensa de multa</h3>
+      <p>O locatário é dispensado da multa compensatória se a devolução decorrer de <strong>transferência profissional para outra cidade</strong>, notificando o locador com mínimo de 30 dias de antecedência (Art. 4º, parágrafo único).</p>
+    </section>
+
+    <!-- GARANTIAS -->
+    <section class="section" id="garantias">
+      <div class="section-label">Módulo 08</div>
+      <h2>Garantias Locatícias</h2>
+
+      <div class="destaque-box">
+        Garantia locatícia é uma segurança conferida por lei ao locador, em face da eventualidade do inadimplemento do contrato de locação. É <strong>vedada dupla garantia</strong> num mesmo contrato — constitui contravenção penal punível com prisão ou multa (Art. 43).
+      </div>
+
+      <div class="lei-box">
+        <strong>Art. 37 da Lei do Inquilinato — 4 Modalidades</strong>
+        I – Caução &nbsp;|&nbsp; II – Fiança &nbsp;|&nbsp; III – Seguro de Fiança Locatícia &nbsp;|&nbsp; IV – Cessão Fiduciária de Quotas de Fundo de Investimento
+      </div>
+
+      <div class="garantia-grid">
+        <div class="garantia-card">
+          <div class="icon">🏦</div>
+          <h4>Caução</h4>
+          <p>O inquilino oferece bens (móveis, imóveis ou dinheiro) em garantia. Dinheiro: limitado a <strong>3 meses de aluguel</strong>, depositado em caderneta de poupança conjunta.</p>
+        </div>
+        <div class="garantia-card">
+          <div class="icon">🤝</div>
+          <h4>Fiança</h4>
+          <p>Um terceiro (fiador) garante o pagamento. Responsabilidade <strong>subsidiária</strong>. Requer outorga uxória se o fiador for casado. Fiança sem autorização do cônjuge é nula (Súmula 332/STJ).</p>
+        </div>
+        <div class="garantia-card">
+          <div class="icon">🛡️</div>
+          <h4>Seguro de Fiança</h4>
+          <p>Seguradora cobre o não pagamento. Sinistro caracterizado em 3 situações: despejo, abandono ou entrega das chaves. Cobertura básica: alugueis, multas de mora e custas judiciais.</p>
+        </div>
+        <div class="garantia-card">
+          <div class="icon">📈</div>
+          <h4>Cessão Fiduciária</h4>
+          <p>Cotas de fundo de investimento cedidas ao locador. As cotas ficam <strong>indisponíveis, inalienáveis e impenhoráveis</strong> durante a locação. Em mora, prazo de 10 dias para pagamento.</p>
+        </div>
+      </div>
+
+      <h3>Garantia Real vs Fidejussória</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Garantia Real</h4>
+          <p>Garante pelo <strong>bem</strong> (imóvel, dinheiro, cotas). Ex.: Caução, Seguro de Fiança, Cessão Fiduciária.</p>
+        </div>
+        <div class="card">
+          <h4>Garantia Fidejussória</h4>
+          <p>Garante pela <strong>pessoa</strong>. Ex.: Fiança. A responsabilidade é do fiador, não de um bem específico.</p>
+        </div>
+      </div>
+
+      <div class="juris">
+        <div class="juris-titulo">Súmula 214 – STJ</div>
+        O fiador na locação não responde por obrigações resultantes de aditamento ao qual não anuiu.
+      </div>
+      <div class="juris">
+        <div class="juris-titulo">Súmula 332 – STJ</div>
+        A fiança prestada sem autorização de um dos cônjuges implica a ineficácia total da garantia.
+      </div>
+    </section>
+
+    <!-- SEM GARANTIA -->
+    <section class="section" id="semgarantia">
+      <div class="section-label">Módulo 09</div>
+      <h2>Locação Sem Garantia</h2>
+
+      <div class="lei-box">
+        <strong>Art. 42 da Lei do Inquilinato</strong>
+        Não estando a locação garantida por qualquer modalidade, o locador poderá exigir do locatário o pagamento do aluguel e encargos até o <strong>6º dia útil do mês vincendo</strong> (cobrança antecipada permitida).
+      </div>
+
+      <p>Esta é uma das únicas situações em que o aluguel pode ser cobrado antecipadamente — a outra é na <strong>locação para temporada</strong>. Em todos os demais casos, cobrar aluguel antecipadamente é contravenção penal.</p>
+    </section>
+
+    <!-- INADIMPLÊNCIA -->
+    <section class="section" id="inadimplencia">
+      <div class="section-label">Módulo 10</div>
+      <h2>Inadimplência do Locatário e Ações de Despejo</h2>
+
+      <div class="important-box">
+        <strong>⚠️ Atenção:</strong> Locatários inadimplentes têm direitos garantidos pela Constituição Federal. A casa é <strong>asilo inviolável</strong> (Art. 5º, XI). O locador só pode reaver o imóvel por determinação judicial.
+      </div>
+
+      <h3>Medidas disponíveis ao locador</h3>
+      <ul class="lista-num">
+        <li><strong>Cobrança com multa e juros:</strong> multa de 10% + juros de 1% ao mês + correção monetária diária.</li>
+        <li><strong>Protesto em cartório:</strong> Prova formal da inadimplência. O locatário recebe notificação para quitar a dívida.</li>
+        <li><strong>Ação judicial de cobrança:</strong> Penhora de bens após citação do locatário.</li>
+        <li><strong>Ação de despejo por falta de pagamento:</strong> Locatário citado tem 15 dias para purgar a mora (quitar a dívida); se não quitar, o contrato é rescindido e o despejo é executado.</li>
+      </ul>
+
+      <h3>Executando as garantias</h3>
+      <table class="tabela">
+        <thead><tr><th>Garantia</th><th>Procedimento</th></tr></thead>
+        <tbody>
+          <tr><td>Caução</td><td>Exige <strong>sentença judicial transitada em julgado</strong>; após, dirige-se ao banco/cartório/Detran para transferir o bem.</td></tr>
+          <tr><td>Fiança</td><td>Depende do benefício de ordem (ou renúncia a ele). Pode cobrar fiador antes do locatário se: renúncia expressa, fiador como principal pagador ou devedor solidário.</td></tr>
+          <tr><td>Seguro de Fiança</td><td>Avisar a seguradora após 2º aluguel não pago. Adiantamentos durante expectativa de sinistro. Indenização completa após 30 dias da desocupação.</td></tr>
+          <tr><td>Cessão Fiduciária</td><td>Notificação extrajudicial com prazo de 10 dias; se não pago, solicitar transferência das cotas à administradora do fundo.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ANÁLISE DO LOCATÁRIO -->
+    <section class="section" id="analise">
+      <div class="section-label">Módulo 11</div>
+      <h2>Análise do Locatário</h2>
+
+      <div class="destaque-box">
+        O potencial de sucesso de uma boa locação é fundamentalmente determinado pela <strong>adequada análise do locatário</strong>. A imobiliária responde pelos danos causados por negligência na análise cadastral (REsp 1.103.658-RN/STJ).
+      </div>
+
+      <h3>Documentos — Pessoa Física</h3>
+      <div class="doc-lista">
+        <div class="doc-item"><span class="dot"></span>RG (foto atual) ou CNH</div>
+        <div class="doc-item"><span class="dot"></span>Certidão de nascimento ou casamento (validade: 90 dias)</div>
+        <div class="doc-item"><span class="dot"></span>CPF — consultar Receita Federal, SERASA e SPC</div>
+        <div class="doc-item"><span class="dot"></span>Comprovante de residência (água, luz ou telefone)</div>
+        <div class="doc-item"><span class="dot"></span>Informações bancárias (banco, agência, conta)</div>
+        <div class="doc-item"><span class="dot"></span>Comprovante de renda (holerite, DECORE ou extrato bancário)</div>
+        <div class="doc-item"><span class="dot"></span>Certidão Negativa de Débitos da Receita Federal</div>
+        <div class="doc-item"><span class="dot"></span>Certidões Negativas Cível e Criminal (Justiça Estadual e Federal)</div>
+      </div>
+
+      <h3>Documentos — Pessoa Jurídica</h3>
+      <div class="doc-lista">
+        <div class="doc-item"><span class="dot"></span>CNPJ (consultar Receita Federal)</div>
+        <div class="doc-item"><span class="dot"></span>Certidão de Débitos Tributários Federais e Dívida Ativa da União</div>
+        <div class="doc-item"><span class="dot"></span>Certificado de regularidade do FGTS (Caixa Econômica Federal)</div>
+        <div class="doc-item"><span class="dot"></span>Certidão Negativa de Débito Estadual</div>
+        <div class="doc-item"><span class="dot"></span>Certidão Negativa de Débitos Trabalhistas</div>
+        <div class="doc-item"><span class="dot"></span>Certidão Negativa de Tributos Mobiliários e Imobiliários (Prefeitura)</div>
+        <div class="doc-item"><span class="dot"></span>Declaração de Imposto de Renda (últimos 3 anos)</div>
+        <div class="doc-item"><span class="dot"></span>Contrato Social ou outro documento constitutivo</div>
+      </div>
+
+      <div class="important-box">
+        <strong>Renda mínima recomendada:</strong> pelo menos <strong>3 vezes</strong> o valor do aluguel (renda líquida). Se o locatário for casado, analisar também a situação financeira do cônjuge.
+      </div>
+    </section>
+
+    <!-- VISTORIA -->
+    <section class="section" id="vistoria">
+      <div class="section-label">Módulo 12</div>
+      <h2>Vistoria — Antes, Durante e Depois</h2>
+
+      <p>A vistoria é uma atividade <strong>fundamental e obrigatória</strong>. Descreve detalhadamente o imóvel, suas condições, estrutura, móveis, equipamentos e acabamentos. Protege tanto o locador quanto o locatário.</p>
+
+      <h3>Principais elementos a vistoriar</h3>
+      <ul class="lista">
+        <li><strong>Terreno:</strong> tipo de implantação, área, topografia, posição e superfície</li>
+        <li><strong>Edificação:</strong> posição, uso, tipo, pavimentos e estado de conservação</li>
+        <li><strong>Cômodos:</strong> quantidade e tipificação (sala, cozinha, quartos, banheiros, garagem)</li>
+        <li><strong>Acabamentos:</strong> pisos, paredes, teto de cada ambiente</li>
+        <li><strong>Esquadrias:</strong> moldura de cada porta e janela</li>
+        <li><strong>Instalações:</strong> hidráulica, elétrica, gás, esgoto e água</li>
+        <li><strong>Infraestrutura:</strong> piscina, interfone, portão eletrônico, churrasqueira, CFTV etc.</li>
+      </ul>
+
+      <div class="important-box">
+        <strong>Registro fotográfico:</strong> Não é obrigatório por lei, mas amplia a percepção e contextualização da vistoria. A descrição em texto deve ser suficiente por si mesma.
+      </div>
+
+      <h3>Direito de Preferência na Venda (Art. 27)</h3>
+      <p>O locatário tem <strong>preferência para adquirir o imóvel locado</strong> em igualdade de condições com terceiros. O locador deve notificá-lo sobre a oferta; o locatário tem <strong>30 dias</strong> para exercer esse direito.</p>
+    </section>
+
+    <!-- NÃO RESIDENCIAL -->
+    <section class="section" id="nao-residencial">
+      <div class="section-label">Módulo 13</div>
+      <h2>Locação Não Residencial</h2>
+
+      <div class="lei-box">
+        <strong>Art. 55 da Lei do Inquilinato</strong>
+        Considera-se locação não residencial quando o locatário for <strong>pessoa jurídica</strong> e o imóvel se destinar ao uso de seus titulares, diretores, sócios, gerentes, executivos ou empregados.
+      </div>
+
+      <h3>Renovação Compulsória — Art. 51</h3>
+      <p>O locatário comercial tem direito à renovação do contrato, por igual prazo, desde que <strong>cumulativamente</strong>:</p>
+      <ul class="lista-num">
+        <li>O contrato tenha sido celebrado <strong>por escrito</strong> e com <strong>prazo determinado</strong></li>
+        <li>O prazo mínimo do contrato (ou soma de contratos ininterruptos) seja de <strong>5 anos</strong></li>
+        <li>O locatário esteja explorando o mesmo ramo comercial por, no mínimo, <strong>3 anos</strong></li>
+      </ul>
+
+      <div class="important-box">
+        <strong>Prazo para propor renovação:</strong> entre <strong>6 e 12 meses</strong> antes do término do contrato. Fora deste prazo, perde o direito à renovação compulsória.
+      </div>
+
+      <h3>Exceções à renovação (Art. 52)</h3>
+      <ul class="lista">
+        <li>Obras determinadas pelo Poder Público que exijam radical transformação do imóvel</li>
+        <li>Uso próprio pelo locador (ou cônjuge/ascendente/descendente) para transferência de fundo de comércio existente há mais de 1 ano — vedado mesmo ramo do locatário</li>
+        <li>Proposta de terceiro em condições melhores</li>
+      </ul>
+
+      <h3>Shopping Center — Art. 54</h3>
+      <p>Prevalecem as condições livremente pactuadas. O empreendedor <strong>não pode cobrar</strong> do lojista obras estruturais, pintura de fachadas, indenizações trabalhistas anteriores à locação, e obras de paisagismo em áreas comuns.</p>
+    </section>
+
+    <!-- BUILT TO SUIT -->
+    <section class="section" id="built">
+      <div class="section-label">Módulo 14</div>
+      <h2>Contrato "Built to Suit" — Locação com Construção Ajustada</h2>
+
+      <div class="lei-box">
+        <strong>Art. 54-A da Lei do Inquilinato (incluído pela Lei nº 12.744/2012)</strong>
+        Locação não residencial em que o locador constrói ou reforma substancialmente o imóvel especificado pelo pretendente, para ser locado por prazo determinado. Prevalecem as condições livremente pactuadas.
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>🏗️ Built to Suit significa</h4>
+          <p>"Construído para se adequar" — o imóvel é edificado ou substancialmente reformado sob medida para as necessidades do futuro locatário.</p>
+        </div>
+        <div class="card">
+          <h4>💸 Multa por devolução</h4>
+          <p>Pode chegar à <strong>soma de todos os alugueis restantes</strong> até o fim do contrato. Ex.: contrato de 120 meses, rescisão no 12º → multa equivalente a 108 alugueis.</p>
+        </div>
+      </div>
+
+      <h3>Critérios para caracterização</h3>
+      <ul class="lista">
+        <li>Construção ou reforma substancial do imóvel</li>
+        <li>Locação por prazo <strong>determinado</strong></li>
+        <li>Condições livremente pactuadas respeitando disposições procedimentais da Lei do Inquilinato</li>
+      </ul>
+    </section>
+
+    <!-- AÇÃO RENOVATÓRIA -->
+    <section class="section" id="renovatoria">
+      <div class="section-label">Módulo 15</div>
+      <h2>Ação Renovatória</h2>
+
+      <p>Instrumento judicial pelo qual o <strong>locatário comercial</strong> exerce o direito à renovação compulsória do contrato de locação (Art. 51 c/c Art. 71 da Lei do Inquilinato).</p>
+
+      <h3>Documentos obrigatórios na petição inicial (Art. 71)</h3>
+      <ul class="lista">
+        <li>Prova do preenchimento dos requisitos do Art. 51 (contrato escrito, 5 anos, mesmo ramo há 3 anos)</li>
+        <li>Prova do exato cumprimento do contrato em curso</li>
+        <li>Prova de quitação dos impostos e taxas sobre o imóvel</li>
+        <li>Indicação clara das condições oferecidas para a renovação</li>
+        <li>Indicação do fiador e comprovação de sua idoneidade financeira</li>
+        <li>Prova de que o fiador aceita os encargos da fiança e que o cônjuge autorizou</li>
+      </ul>
+
+      <h3>Indenização ao locatário (Art. 52, §3º)</h3>
+      <p>O locatário tem direito a indenização se: o locador não renovar sem proposta melhor de terceiro; não der o destino alegado ao imóvel; ou não iniciar as obras declaradas — dentro de <strong>3 meses</strong> da entrega do imóvel.</p>
+    </section>
+
+    <!-- TEMPORADA -->
+    <section class="section" id="temporada">
+      <div class="section-label">Módulo 16</div>
+      <h2>Locação para Temporada</h2>
+
+      <div class="lei-box">
+        <strong>Art. 48 da Lei do Inquilinato</strong>
+        Locação para temporada: destinada à residência temporária (lazer, cursos, tratamento de saúde, obras no próprio imóvel etc.), com prazo <strong>não superior a 90 dias</strong>.
+      </div>
+
+      <div class="garantia-grid">
+        <div class="garantia-card">
+          <div class="icon">📅</div>
+          <h4>Prazo máximo</h4>
+          <p>90 dias (3 meses)</p>
+        </div>
+        <div class="garantia-card">
+          <div class="icon">💳</div>
+          <h4>Pagamento</h4>
+          <p>Locador pode exigir pagamento <strong>de uma só vez e antecipado</strong></p>
+        </div>
+        <div class="garantia-card">
+          <div class="icon">🔒</div>
+          <h4>Garantia</h4>
+          <p>Locador pode exigir qualquer das 4 modalidades de garantia locatícia</p>
+        </div>
+      </div>
+
+      <div class="important-box">
+        <strong>Prorrogação automática:</strong> Se o locatário permanecer por mais de 30 dias sem oposição do locador, a locação passa a ser residencial com prazo <strong>indeterminado</strong> — proibida cobrança antecipada, e o locador só pode reaver o imóvel após 30 meses.
+      </div>
+
+      <h3>Locação para Temporada vs Hospedagem</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>🏠 Locação p/ Temporada</h4>
+          <p>Há <strong>transferência de posse</strong>. Regida pela Lei do Inquilinato. Figura do locatário. Não se aplica CDC.</p>
+        </div>
+        <div class="card">
+          <h4>🏨 Hospedagem</h4>
+          <p><strong>Prestação de serviço</strong>. Regida pela Lei do Turismo (Lei nº 11.771/2008). Figura do cliente/hóspede. Aplica-se o CDC.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AÇÃO REVISIONAL -->
+    <section class="section" id="revisional">
+      <div class="section-label">Módulo 17</div>
+      <h2>Ação Revisional de Aluguel</h2>
+
+      <div class="lei-box">
+        <strong>Art. 19 da Lei do Inquilinato</strong>
+        Não havendo acordo, o locador <em>ou</em> o locatário, após <strong>3 anos de vigência</strong> do contrato ou do último acordo, poderá pedir revisão judicial do aluguel para ajustá-lo ao preço de mercado.
+      </div>
+
+      <p>Diferente da ação renovatória (só para locações comerciais), a ação revisional se aplica a <strong>locações residenciais e não residenciais</strong>.</p>
+
+      <h3>Aluguel provisório (Art. 68, II)</h3>
+      <ul class="lista">
+        <li>Em ação proposta pelo <strong>locador</strong>: provisório não pode exceder <strong>80% do pedido</strong></li>
+        <li>Em ação proposta pelo <strong>locatário</strong>: provisório não pode ser inferior a <strong>80% do aluguel vigente</strong></li>
+      </ul>
+
+      <div class="important-box">
+        <strong>Vedação:</strong> Não cabe ação revisional enquanto estiver correndo o prazo para desocupação do imóvel, seja por acordo ou decisão judicial (Art. 68, §1º).
+      </div>
+    </section>
+
+    <!-- AÇÃO DE DESPEJO -->
+    <section class="section" id="despejo">
+      <div class="section-label">Módulo 18</div>
+      <h2>Ação de Despejo</h2>
+
+      <p>A ação de despejo é a demanda ao Judiciário pela qual o proprietário pleiteia a <strong>desocupação do imóvel pelo inquilino</strong>.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>⚡ Denúncia Cheia</h4>
+          <p>Retomada <strong>com justificativa</strong>: mútuo acordo, infração legal/contratual, falta de pagamento, obras urgentes, uso próprio etc.</p>
+        </div>
+        <div class="card">
+          <h4>📝 Denúncia Vazia</h4>
+          <p>Retomada <strong>sem justificativa</strong>. Aplica-se a contratos por escrito com prazo ≥ 30 meses, após encerrado esse prazo.</p>
+        </div>
+      </div>
+
+      <h3>Liminar em 15 dias — Art. 59, §1º</h3>
+      <ul class="lista">
+        <li>Descumprimento de mútuo acordo de desocupação assinado com 2 testemunhas</li>
+        <li>Extinção do contrato de trabalho do locatário (com prova escrita)</li>
+        <li>Término do prazo da locação para temporada (ação proposta em até 30 dias)</li>
+        <li>Morte do locatário sem sucessor legítimo</li>
+        <li>Permanência do sublocatário após extinta a locação principal</li>
+        <li>Reparações urgentes determinadas pelo Poder Público</li>
+        <li>Falta de pagamento em locação sem garantia locatícia</li>
+      </ul>
+
+      <h3>Prazos de desocupação na sentença</h3>
+      <table class="tabela">
+        <thead><tr><th>Situação</th><th>Prazo</th></tr></thead>
+        <tbody>
+          <tr><td>Regra geral</td><td><strong>30 dias</strong></td></tr>
+          <tr><td>Ação com fundamento no Art. 9º ou prorrogação de contrato ≥ 30 meses</td><td><strong>15 dias</strong></td></tr>
+          <tr><td>Instituição de ensino autorizada pelo Poder Público</td><td><strong>6 a 12 meses</strong> (coincide com férias escolares)</td></tr>
+          <tr><td>Hospitais, asilos, entidades religiosas (obras/demolição)</td><td><strong>1 ano</strong> (ou 6 meses se citação + sentença &gt; 1 ano)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Venda do imóvel durante a locação — Art. 8º</h3>
+      <p>O novo proprietário pode denunciar o contrato com <strong>90 dias para desocupação</strong>, <em>exceto</em> se o contrato: (1) for por prazo determinado ainda em curso, (2) contiver cláusula de vigência em caso de alienação e (3) estiver <strong>averbado junto à matrícula do imóvel</strong>.</p>
+
+      <div class="important-box">
+        <strong>Atenção corretores:</strong> Ao intermediar a compra de um imóvel, sempre verifique se existe averbação na matrícula referente a locação vigente com cláusula de vigência. Um comprador que pretenda habitar o imóvel pode ter sua ação de despejo frustrada.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <strong>Locação e Administração de Imóveis — CRECI-SP</strong><br>
+  Baseado na Lei nº 8.245/1991 (Lei do Inquilinato) e legislação complementar.<br>
+  Material de uso didático. Consulte sempre um advogado para casos concretos.
+</footer>
+
+</body>
+</html>
