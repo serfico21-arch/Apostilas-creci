@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avaliação Imobiliária – PROECCI / CRECI-SP</title>
+<style>
+  :root {
+    --laranja: #E07020;
+    --laranja-escuro: #C05A10;
+    --cinza-escuro: #2d2d2d;
+    --cinza-medio: #555;
+    --cinza-claro: #f5f5f5;
+    --dourado: #b8a020;
+    --azul: #1a3a5c;
+    --branco: #fff;
+    --borda: #ddd;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f0f0;
+    color: var(--cinza-escuro);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* CAPA */
+  .capa {
+    background: linear-gradient(135deg, var(--cinza-escuro) 55%, var(--laranja) 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .capa::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .capa::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: rgba(224,112,32,0.15);
+  }
+  .capa-badge {
+    background: var(--laranja);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 24px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+  }
+  .capa h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .capa h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-bottom: 40px;
+  }
+  .capa-creci {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--laranja);
+    margin-bottom: 8px;
+  }
+  .capa-creci span { color: white; }
+  .capa-sub {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* CONTAINER */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* SEÇÕES */
+  .secao {
+    background: white;
+    margin: 30px auto;
+    max-width: 900px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .secao-header {
+    background: var(--cinza-escuro);
+    color: white;
+    padding: 18px 30px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-left: 5px solid var(--laranja);
+  }
+  .secao-header.laranja {
+    background: var(--laranja);
+    border-left-color: var(--cinza-escuro);
+  }
+  .secao-header.dourado {
+    background: var(--dourado);
+    border-left-color: var(--cinza-escuro);
+  }
+  .secao-header.azul {
+    background: var(--azul);
+    border-left-color: var(--laranja);
+  }
+
+  .secao-body { padding: 28px 30px; }
+
+  /* DESTAQUE */
+  .destaque {
+    background: var(--cinza-claro);
+    border-left: 4px solid var(--laranja);
+    padding: 16px 20px;
+    margin: 18px 0;
+    border-radius: 0 4px 4px 0;
+    font-weight: 600;
+  }
+  .destaque.importante {
+    background: #fff3e0;
+    border-left-color: var(--laranja-escuro);
+    font-size: 1.05rem;
+    text-align: center;
+  }
+  .destaque.legal {
+    background: #e8f0fe;
+    border-left-color: var(--azul);
+    font-family: monospace;
+    font-size: 0.92rem;
+  }
+
+  /* LISTAS */
+  .lista-bullets { list-style: none; padding: 0; }
+  .lista-bullets li {
+    padding: 7px 0 7px 28px;
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .lista-bullets li:last-child { border-bottom: none; }
+  .lista-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 15px;
+    width: 14px; height: 14px;
+    background: var(--laranja);
+    border-radius: 2px;
+  }
+  .lista-bullets.dourado li::before { background: var(--dourado); }
+  .lista-bullets.azul li::before { background: var(--azul); }
+
+  /* GRID 2 COLUNAS */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 18px 0;
+  }
+  @media(max-width:600px){ .grid-2{ grid-template-columns:1fr; } }
+
+  .card {
+    background: var(--cinza-claro);
+    border-radius: 4px;
+    padding: 18px;
+    border-top: 3px solid var(--laranja);
+  }
+  .card h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--laranja);
+    margin-bottom: 8px;
+  }
+
+  /* TABELAS */
+  .tabela-wrap { overflow-x: auto; margin: 18px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  th {
+    background: var(--cinza-escuro);
+    color: white;
+    padding: 10px 12px;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  th.laranja { background: var(--laranja); }
+  th.azul { background: var(--azul); }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+  tr:hover td { background: #fff3e0; }
+  td.label { text-align: left; font-weight: 600; }
+
+  /* FÓRMULA */
+  .formula {
+    background: #1a1a2e;
+    color: #e0e0e0;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 2;
+    border-left: 4px solid var(--laranja);
+  }
+  .formula .var { color: #ffa040; font-style: italic; }
+  .formula .result { color: #40ff80; font-weight: bold; }
+
+  /* EXEMPLO */
+  .exemplo-box {
+    border: 2px solid var(--laranja);
+    border-radius: 6px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .exemplo-box-header {
+    background: var(--laranja);
+    color: white;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .exemplo-box-body { padding: 16px; }
+
+  /* AVISO */
+  .aviso {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-weight: 600;
+  }
+  .aviso::before { content: '⚠ '; }
+
+  /* SUBTÍTULOS */
+  h3.sub {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--laranja);
+    margin: 22px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--borda);
+  }
+  h3.sub.azul { color: var(--azul); }
+  h3.sub.dourado { color: var(--dourado); }
+
+  p { margin: 10px 0; }
+
+  /* INDICE */
+  .indice { padding: 28px 30px; }
+  .indice ol {
+    counter-reset: item;
+    list-style: none;
+    padding: 0;
+  }
+  .indice ol li {
+    counter-increment: item;
+    padding: 8px 0 8px 44px;
+    position: relative;
+    border-bottom: 1px dashed #ddd;
+    font-weight: 500;
+  }
+  .indice ol li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--laranja);
+    background: #fff3e0;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  /* RODAPÉ */
+  footer {
+    background: var(--cinza-escuro);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.82rem;
+    margin-top: 40px;
+    letter-spacing: 0.5px;
+  }
+  footer strong { color: var(--laranja); }
+
+  /* TERMO */
+  .termo-box {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 24px;
+    margin: 18px 0;
+    font-size: 0.9rem;
+  }
+  .campo {
+    display: inline-block;
+    border-bottom: 1px solid #999;
+    min-width: 200px;
+    margin: 0 4px;
+  }
+
+  /* ESTADO CONSERVAÇÃO */
+  .estado-item {
+    margin: 14px 0;
+    padding: 14px;
+    border-radius: 4px;
+    border-left: 4px solid var(--borda);
+  }
+  .estado-item h4 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .estado-A { border-left-color: #2196F3; }
+  .estado-A h4 { color: #2196F3; }
+  .estado-B { border-left-color: #4CAF50; }
+  .estado-B h4 { color: #4CAF50; }
+  .estado-C { border-left-color: #8BC34A; }
+  .estado-C h4 { color: #8BC34A; }
+  .estado-D { border-left-color: #FFC107; }
+  .estado-D h4 { color: #FFC107; }
+  .estado-E { border-left-color: #FF9800; }
+  .estado-E h4 { color: #FF9800; }
+  .estado-F { border-left-color: #FF5722; }
+  .estado-F h4 { color: #FF5722; }
+  .estado-G { border-left-color: #F44336; }
+  .estado-G h4 { color: #F44336; }
+  .estado-H { border-left-color: #9C27B0; }
+  .estado-H h4 { color: #9C27B0; }
+  .estado-I { border-left-color: #212121; }
+  .estado-I h4 { color: #212121; }
+</style>
+</head>
+<body>
+
+<!-- ======================== CAPA ======================== -->
+<div class="capa">
+  <div class="capa-badge">EAD · PROECCI</div>
+  <div class="capa-creci">CRECI<span>SP</span></div>
+  <p style="font-size:0.75rem;opacity:0.5;letter-spacing:3px;margin-bottom:30px;">WWW.CRECISP.GOV.BR</p>
+  <h2>Programa de Educação Continuada ao Corretor de Imóveis</h2>
+  <h1>Avaliação<br>Imobiliária</h1>
+  <p style="opacity:0.5;margin-top:30px;font-size:0.8rem;">Todos os direitos reservados. É proibida a reprodução parcial ou total deste material.</p>
+</div>
+
+<!-- ======================== ÍNDICE ======================== -->
+<div class="secao">
+  <div class="secao-header">Sumário</div>
+  <div class="indice">
+    <ol>
+      <li>Conceito de Avaliação de Imóveis</li>
+      <li>História da Avaliação de Imóveis</li>
+      <li>Resolução COFECI nº 1.066/2007 – Itens do PTAM</li>
+      <li>Perícia Judicial</li>
+      <li>Da Competência – Textos Modelo</li>
+      <li>Vistoria de Casa, Condomínio, Terreno e Imóvel Industrial</li>
+      <li>Contexto Urbano e Rural – Checklist</li>
+      <li>Método Comparativo Direto de Dados de Mercado</li>
+      <li>Pesquisa de Mercado – Imóveis Referenciais</li>
+      <li>Estado de Conservação – Critérios</li>
+      <li>Depreciação e Tabela Ross-Heidecke</li>
+      <li>Tabela da Vida Útil dos Imóveis</li>
+      <li>Fórmulas de Depreciação e Valorização</li>
+      <li>Adequação de Preços do Tipo Oferta</li>
+      <li>PINI / TCPO / CUB / CUPE</li>
+      <li>Exercícios de Cálculos</li>
+      <li>Tabela de Fatores Valorizantes e Desvalorizantes</li>
+      <li>Carta de Apresentação do PTAM</li>
+      <li>Termo de Visitação para Vistoria</li>
+      <li>Curriculum Vitae do Avaliador</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ======================== 1. CONCEITO ======================== -->
+<div class="secao">
+  <div class="secao-header laranja">Avaliação de Imóveis</div>
+  <div class="secao-body">
+    <p>Na captação de um imóvel, é comum que corretores de imóveis, pela experiência vivencial, atribuam um valor de forma opinativa — por ter trabalhado imóveis similares e saber por quanto foram vendidos. Mas a <strong>Avaliação Imobiliária</strong> é algo muito mais criterioso que isso.</p>
+    <div class="destaque importante">
+      <strong>Conceito:</strong> Avaliação de Imóveis é a precisão e fundamentação técnica do valor de mercado de bens imóveis, feita dentro de procedimentos técnicos e normativos, para a determinação das análises de valor.
+    </div>
+  </div>
+</div>
+
+<!-- ======================== 2. HISTÓRIA ======================== -->
+<div class="secao">
+  <div class="secao-header">História da Avaliação de Imóveis</div>
+  <div class="secao-body">
+    <p>A história da avaliação de imóveis no Brasil começa com uma disputa entre Corretores de Imóveis e profissionais da Engenharia.</p>
+
+    <h3 class="sub">Lei nº 5.194/1966</h3>
+    <div class="destaque legal">Art. 7º — Engenheiros, Arquitetos e Engenheiros-Agrônomos podem realizar estudos, análises, avaliações, vistorias, perícias e pareceres. <em>(sem exclusividade)</em></div>
+
+    <h3 class="sub">ABNT NBR 14653</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Item 3.5 – Avaliação de Bens</h4>
+        Análise técnica, realizada por engenheiro de avaliações, para identificar o valor de um bem, de seus custos, frutos e direitos, assim como determinar indicadores da viabilidade de sua utilização econômica.
+      </div>
+      <div class="card">
+        <h4>Item 3.29 – Laudo de Avaliação</h4>
+        Relatório técnico elaborado por engenheiro de avaliações em conformidade com esta parte da NBR 14653, para avaliar o bem. <strong>Atribuição exclusiva do Engenheiro.</strong>
+      </div>
+    </div>
+
+    <h3 class="sub">Lei 6.530/1978 – O papel do Corretor</h3>
+    <div class="destaque legal">Art. 3º — Compete ao Corretor de Imóveis exercer a intermediação na compra, venda, permuta e locação de imóveis, podendo, ainda, <strong>opinar quanto à comercialização imobiliária</strong>.</div>
+
+    <h3 class="sub">ABNT NBR 14653 – Item 3.34 – Parecer Técnico</h3>
+    <div class="destaque legal">3.34 Parecer técnico: Relatório circunstanciado ou esclarecimento técnico emitido por um profissional capacitado e <strong>legalmente habilitado</strong> sobre assunto de sua especialidade.</div>
+
+    <p>Isso significa que o Corretor de Imóveis, devidamente inscrito no CRECI, sendo um profissional legalmente habilitado, pode emitir um <strong>Parecer Técnico de Avaliação Mercadológica (PTAM)</strong>.</p>
+
+    <h3 class="sub">Resolução COFECI 1.066/2007 e CNAI</h3>
+    <p>Em 2007 o COFECI publicou a Resolução 1.066, definindo como o Corretor deve apresentar o PTAM, e criou o <strong>CNAI – Cadastro Nacional de Avaliadores Imobiliários</strong>.</p>
+
+    <h3 class="sub azul">Decisão Judicial Final – Novembro/2012</h3>
+    <div class="destaque" style="border-left-color:var(--azul);background:#e8f0fe;">
+      <strong>TRF 1ª Região — Acórdão 7ª Turma:</strong><br>
+      "As atividades elencadas no Art. 3º da Resolução COFECI, para elaboração do Parecer de Avaliação Mercadológica, não necessitam de formação específica na área de engenharia, arquitetura ou agronomia, porque tais atividades estão relacionadas com a respectiva área de atuação e de conhecimento do corretor de imóveis."
+      <br><br>Em novembro de 2012 ocorreu o trânsito em julgado. <strong>A decisão não tem mais como ser discutida.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== CÓDIGO CIVIL ======================== -->
+<div class="secao">
+  <div class="secao-header laranja">Atenção ao Código Civil antes de Realizar Avaliação</div>
+  <div class="secao-body">
+    <div class="destaque legal">
+      <strong>Art. 927 – CC/2002:</strong> Aquele que, por ato ilícito, causar dano a outrem, fica obrigado a repará-lo.<br><br>
+      <strong>Art. 186 – CC/2002:</strong> Aquele que, por ação ou omissão voluntária, negligência ou imprudência, violar direito e causar dano a outrem, ainda que exclusivamente moral, comete ato ilícito.
+    </div>
+    <div class="aviso">O Corretor de Imóveis assina o PTAM e passa a ser absolutamente responsável por todas as informações que ali estão. O PTAM tem sido usado por juízes para a determinação de sentenças em processos que envolvam bens imóveis.</div>
+  </div>
+</div>
+
+<!-- ======================== PERÍCIA JUDICIAL ======================== -->
+<div class="secao">
+  <div class="secao-header azul">Perícia Judicial</div>
+  <div class="secao-body">
+    <p>A Lei nº 13.105/2015 (CPC) define o perito como auxiliar da Justiça e estabelece suas responsabilidades.</p>
+    <div class="grid-2">
+      <div class="destaque legal">
+        <strong>Art. 149 – CPC:</strong> São auxiliares da Justiça: o escrivão, o oficial de justiça, o <strong>PERITO</strong>, o depositário, o administrador, o intérprete, o tradutor, o mediador, o conciliador judicial, entre outros.
+      </div>
+      <div class="destaque legal">
+        <strong>Art. 156 – CPC:</strong> O juiz será assistido por PERITO quando a prova do fato depender de conhecimento técnico ou científico. Os peritos serão nomeados entre os profissionais legalmente habilitados.
+      </div>
+    </div>
+    <div class="destaque legal">
+      <strong>Art. 158 – CPC:</strong> O PERITO que, por dolo ou culpa, prestar informações inverídicas, responderá pelos prejuízos que causar à parte e ficará inabilitado para atuar em outras perícias no prazo de <strong>2 a 5 anos</strong>.
+    </div>
+    <p>No âmbito do judiciário, o Corretor de Imóveis tem a oportunidade de ser nomeado <strong>Perito Judicial</strong> e também mais duas chances de ser <strong>assistente técnico</strong> em cada processo.</p>
+    <div class="destaque">
+      <strong>Valor de Mercado:</strong> É o mais provável preço a ser obtido razoavelmente no mercado vigente, na data de referência da avaliação, excluindo questões de estima ou emocionais, analisando mais a utilidade reconhecida pelo mercado do que a condição física.
+    </div>
+  </div>
+</div>
+
+<!-- ======================== ITENS DO PTAM ======================== -->
+<div class="secao">
+  <div class="secao-header">Resolução COFECI nº 1.066/2007 — Itens do PTAM</div>
+  <div class="secao-body">
+    <p>O PTAM estará completo desde que tenha tudo o que está descrito na Resolução COFECI 1066 e no Ato Normativo 001 de 2011.</p>
+
+    <h3 class="sub">Estrutura do PTAM</h3>
+    <div class="grid-2">
+      <div>
+        <ul class="lista-bullets dourado">
+          <li>Carta de Apresentação do PTAM</li>
+          <li>Capa (foto da fachada, endereço, dados do solicitante, identificação do Corretor, data)</li>
+          <li>Sumário (ou Índice)</li>
+          <li>Identificação do Solicitante</li>
+          <li>Finalidade do PTAM</li>
+          <li>Número do Parecer</li>
+          <li>Da Competência</li>
+          <li>Lista de Abreviaturas</li>
+          <li>Identificação e Caracterização do Imóvel Avaliando (IPTU, matrícula, áreas, dimensões)</li>
+          <li>Descrição da Vistoria (Preliminares, A Vistoria, Descrição do Imóvel, Região, Confrontações, Fotos, Mapa, Vista Aérea)</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="lista-bullets dourado">
+          <li>Metodologia Utilizada</li>
+          <li>Pesquisa de Mercado – Lista dos Imóveis Referenciais (foto, número, endereço, valor, metragens, idade, estado, atributos, fonte)</li>
+          <li>Homogeneização das Amostras (fórmulas, tabelas, evolução dos cálculos, fatores valorizantes/desvalorizantes)</li>
+          <li>Encerramento (Conclusão, Data, Assinatura, Selo Certificador)</li>
+          <li>Anexos: Termo de Visitação, Relatório Fotográfico, Plantas e Mapas, Certidão da Matrícula, Documentos Diversos, Currículo do Avaliador</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub">Exemplo de Texto – Finalidade</h3>
+    <div class="exemplo-box">
+      <div class="exemplo-box-header">Modelo</div>
+      <div class="exemplo-box-body">
+        <p>Este Parecer Técnico tem por finalidade determinar o valor de mercado para <strong>VENDA (ou LOCAÇÃO)</strong> do apartamento situado à Rua Luiz Teodoro Filho, 125 - apartamento 52, no bairro de Vila Alvorada, de propriedade de André Francisco Júnior, inscrito no CPF sob o número 44.873.551/0001-70, imóvel este descrito nos termos da matrícula nº 72789 do 5º Cartório de Registro de Imóveis de São Paulo, e devidamente cadastrado junto à Prefeitura do Município de São Paulo como contribuinte municipal nº 010.034.0456-8.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Lista de Abreviaturas (modelo)</h3>
+    <div class="tabela-wrap">
+      <table>
+        <tr><th>Sigla</th><th>Significado</th><th>Sigla</th><th>Significado</th></tr>
+        <tr><td>A.T.T</td><td class="label">Área Total do Terreno</td><td>PTAM</td><td class="label">Parecer Técnico de Avaliação Mercadológica</td></tr>
+        <tr><td>A.T.C</td><td class="label">Área Total Construída</td><td>R</td><td class="label">Referenciais</td></tr>
+        <tr><td>I.A.C</td><td class="label">Idade Aparente da Construção</td><td>R.F.D</td><td class="label">Resultado do Fator de Depreciação</td></tr>
+        <tr><td>CNAI</td><td class="label">Cadastro Nacional de Avaliadores Imobiliários</td><td>V.M</td><td class="label">Valor Médio</td></tr>
+        <tr><td>DTC</td><td class="label">Depreciação por Tempo de Construção</td><td>V.V</td><td class="label">Valor de Venda</td></tr>
+        <tr><td>IA</td><td class="label">Imóvel em Avaliação</td><td>V.L</td><td class="label">Valor da Locação</td></tr>
+        <tr><td>MG</td><td class="label">Média Geral</td><td>TG</td><td class="label">Total Geral</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== VISTORIA ======================== -->
+<div class="secao">
+  <div class="secao-header laranja">Checklists de Vistoria</div>
+  <div class="secao-body">
+
+    <h3 class="sub">Vistoria de Casa</h3>
+    <div class="grid-2">
+      <div>
+        <h4 style="margin-bottom:8px;color:var(--cinza-medio);">Sobre o Terreno</h4>
+        <ul class="lista-bullets">
+          <li>Tipo de implantação (condomínio, vila, rua)</li>
+          <li>Área Terreno/Lote (m²)</li>
+          <li>Nº de frentes e Testada (m) da frente principal</li>
+          <li>Topografia (plana, acidentada, em aclive, em declive, passível de alagamento)</li>
+          <li>Posição/situação do terreno (esquina, meio da quadra)</li>
+          <li>Superfície (seco, alagável, brejoso, arenoso)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;color:var(--cinza-medio);">Sobre a Unidade Avaliada</h4>
+        <ul class="lista-bullets">
+          <li>Posição/situação da construção (isolada, geminada)</li>
+          <li>Tipo do Imóvel e Uso (residencial, comercial, misto)</li>
+          <li>Quantidade de pavimentos, suítes, quartos, banheiros, lavabos, vagas</li>
+          <li>Padrão de acabamento (pisos, paredes, teto)</li>
+          <li>Estado de conservação e Idade aparente</li>
+          <li>Esquadrias, Cobertura, Forro, Abastecimento de água, Solução sanitária</li>
+          <li>Infraestrutura (piscina, quadra, interfone, portão eletrônico, churrasqueira, CFTV, sauna)</li>
+          <li>Elementos valorizantes e depreciativos</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub">Vistoria de Imóvel em Condomínio</h3>
+    <div class="grid-2">
+      <div>
+        <ul class="lista-bullets azul">
+          <li>Área do Condomínio (m²) e Fração Ideal</li>
+          <li>Tipo do apartamento (convencional, loft, cobertura, kitnet, duplex, tríplex)</li>
+          <li>Posição na edificação (frente, meio, fundos, lateral)</li>
+          <li>Situação da Vaga na garagem (subterrânea, coberta, demarcada, livre)</li>
+          <li>Hidrômetro individual</li>
+          <li>Quantidade de blocos, unidades por bloco, elevadores</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="lista-bullets azul">
+          <li>Revestimento da fachada principal</li>
+          <li>Proteção contra incêndio (alarme, escada de emergência, hidrantes, extintor)</li>
+          <li>Elementos de acessibilidade (rampa de entrada, corrimão, indicação para DV)</li>
+          <li>Infraestrutura completa do condomínio (piscina, quadra, salão de festas, salão de jogos, cinema, gerador, portaria 24h)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub">Vistoria de Terreno</h3>
+    <ul class="lista-bullets">
+      <li>Área Terreno/Lote (m²), Fração Ideal, Nº de frentes e Testada</li>
+      <li>Topografia, Posição/situação, Superfície</li>
+      <li>Serviços públicos (rede de água, esgoto, elétrica, gás, telefonia)</li>
+      <li>Cercamento (grade, madeira, parede, arame farpado, cerca viva)</li>
+      <li>Elementos valorizantes e depreciativos</li>
+    </ul>
+
+    <h3 class="sub">Itens Adicionais – Imóvel Industrial</h3>
+    <div class="grid-2">
+      <ul class="lista-bullets">
+        <li>Área de produção m²</li>
+        <li>Quantidade e tamanho de salas de escritório e vestiários</li>
+        <li>Sistema e equipamentos de Segurança e Emergência</li>
+        <li>Fechamentos e aberturas para ventilação</li>
+        <li>Grau de vedação das portas e janelas</li>
+      </ul>
+      <ul class="lista-bullets">
+        <li>Sistema de escoamento de água</li>
+        <li>Grau de impermeabilização do piso</li>
+        <li>Canalizações externas (ralos, caixa de retenção de resíduos)</li>
+        <li>Sistema de ar-condicionado</li>
+        <li>Quantidade e tipo de vagas no pátio (veículos de passeio, caminhão, carreta)</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">Contexto Urbano – Checklist da Região</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Infraestrutura</h4>
+        Rede elétrica · Telefonia · TV a cabo, Fibra, Internet · Iluminação pública · Rede de água potável · Rede pluvial · Rede de esgoto · Pavimentação · Gás canalizado
+      </div>
+      <div class="card">
+        <h4>Serviços Comunitários</h4>
+        Transporte coletivo · Comércio · Rede bancária · Saúde · Lazer · Segurança pública · Coleta de lixo · Escolas · Faculdades · Supermercado · Shopping · Correios · Posto de combustível
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>Melhorias Públicas</h4>
+      Praça · Parque · Ciclovia · Calçadão · Arborização · Monumentos · Elementos históricos · Acessos viários (avenida, rodovia)
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>Zoneamento</h4>
+      Zoneamento do imóvel · Zoneamento de vagas de veículo na rua · Limite de rodagem de veículo
+    </div>
+
+    <h3 class="sub">Sobre APP e UC</h3>
+    <div class="grid-2">
+      <div class="destaque legal">
+        <strong>APP – Área de Preservação Permanente</strong><br>
+        Lei nº 12.651/2012 (Código Florestal) – Art. 3º, II: área protegida, coberta ou não por vegetação nativa, com a função ambiental de preservar os recursos hídricos, a paisagem, a estabilidade geológica e a biodiversidade. <strong>Áreas INTOCÁVEIS.</strong>
+      </div>
+      <div class="destaque legal">
+        <strong>UC – Unidade de Conservação</strong><br>
+        Dividem-se em: <strong>Proteção Integral</strong> (uso indireto dos recursos naturais) e <strong>Uso Sustentável</strong> (uso sustentável de parcela dos recursos).<br><br>
+        Consulta: <em>www.mma.gov.br/areas-protegidas/cadastro-nacional-de-ucs</em><br>
+        Cadastro Rural: <em>www.cadastrorural.gov.br</em>
+      </div>
+    </div>
+
+    <h3 class="sub">CCIR – Certificado de Cadastro de Imóvel Rural</h3>
+    <p>Documento emitido pelo INCRA que constitui prova do cadastro do imóvel rural. Em qualquer transação imobiliária de imóvel rural, os Cartórios de Registro de Imóveis solicitam este documento.</p>
+  </div>
+</div>
+
+<!-- ======================== EXEMPLO COMPLETO DE VISTORIA ======================== -->
+<div class="secao">
+  <div class="secao-header azul">Exemplo Completo de Vistoria (em tabela)</div>
+  <div class="secao-body">
+    <h3 class="sub">Preliminares</h3>
+    <div class="tabela-wrap">
+      <table>
+        <tr><td class="label">Data da vistoria</td><td>15/08/2015</td></tr>
+        <tr><td class="label">Acompanhada por</td><td>Sra. Maria Aparecida Nogueira da Silva</td></tr>
+        <tr><td class="label">Qualificação do acompanhante</td><td>Residente no local</td></tr>
+        <tr><td class="label">Endereço</td><td>Rua Jorge da Silva Soares, 1090 apartamento 71</td></tr>
+        <tr><td class="label">Cidade/UF</td><td>São Paulo/SP</td></tr>
+        <tr><td class="label">CEP</td><td>01544-100</td></tr>
+        <tr><td class="label">Matrícula</td><td>99999</td></tr>
+        <tr><td class="label">Nº Contribuinte</td><td>999.999.9999-9</td></tr>
+        <tr><td class="label">Área total</td><td>236 m²</td></tr>
+        <tr><td class="label">Área privativa</td><td>92,15 m²</td></tr>
+        <tr><td class="label">Área de uso comum</td><td>143,85 m²</td></tr>
+        <tr><td class="label">Fração ideal</td><td>0,071</td></tr>
+      </table>
+    </div>
+
+    <h3 class="sub">Sobre o Terreno</h3>
+    <div class="tabela-wrap">
+      <table>
+        <tr><td class="label">Frente</td><td>25 m</td><td class="label">Orientação cardeal</td><td>Leste</td></tr>
+        <tr><td class="label">Extensão</td><td>58 m</td><td class="label">Topologia</td><td>Plano</td></tr>
+        <tr><td class="label">Posição</td><td>No meio da quadra</td><td class="label">Posição em relação à rua</td><td>Mesmo nível</td></tr>
+      </table>
+    </div>
+
+    <h3 class="sub">Sobre a Edificação</h3>
+    <div class="tabela-wrap">
+      <table>
+        <tr><td class="label">Quantidade de torres/blocos</td><td>1</td><td class="label">Quantidade de andares</td><td>7</td></tr>
+        <tr><td class="label">Quantidade de unidades</td><td>14</td><td class="label">Quantidade de subsolos</td><td>2</td></tr>
+        <tr><td class="label">Idade</td><td>42 anos</td><td class="label">Idade aparente</td><td>20 anos</td></tr>
+        <tr><td class="label">Aspecto geral</td><td>Alto padrão</td><td class="label">Revestimento da fachada</td><td>Cerâmica e mármore</td></tr>
+        <tr><td class="label">Esquadria porta</td><td>Vidro temperado</td><td class="label">Esquadria janelas</td><td>Alumínio</td></tr>
+        <tr><td class="label">Elevadores sociais</td><td>1</td><td class="label">Elevadores de serviço</td><td>1</td></tr>
+        <tr><td class="label">Portaria</td><td>1 (24h)</td><td class="label">Interfone</td><td>Sim</td></tr>
+        <tr><td class="label">Piscina</td><td>1 (4m × 10m)</td><td class="label">Salão de festas</td><td>1 (52 m²)</td></tr>
+        <tr><td class="label">Sala de jogos</td><td>1 (42 m²)</td><td class="label">Quadra</td><td>1 (poliesportiva)</td></tr>
+        <tr><td class="label">Sauna úmida</td><td>1 (para 5 pessoas)</td><td class="label">Hidrômetro individual</td><td>Sim</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== MÉTODO ======================== -->
+<div class="secao">
+  <div class="secao-header laranja">Método Comparativo Direto de Dados de Mercado</div>
+  <div class="secao-body">
+    <p>No Anexo IV do Ato Normativo 001/2011 do COFECI, que lista os requisitos mínimos para elaboração do PTAM, é pedida a aplicação do <strong>Método Comparativo Direto de Dados de Mercado</strong>.</p>
+    <div class="destaque">
+      Neste método, o valor do imóvel é identificado pela comparação no mercado com outros imóveis que tenham elementos com atributos comparáveis, usando outros imóveis como referência.
+    </div>
+
+    <h3 class="sub">Texto Modelo – Metodologia (Exemplo 3)</h3>
+    <div class="exemplo-box">
+      <div class="exemplo-box-header">Modelo</div>
+      <div class="exemplo-box-body">
+        <p>Em conformidade com a Resolução COFECI 1066/07, o anexo IV do Ato Normativo 001/2011 do COFECI e considerando o item 8.2.1 da ABNT/NBR 14653, para a elaboração deste Parecer Técnico de Avaliação Mercadológica e a realização da avaliação do imóvel objeto deste parecer, utilizou-se o "Método Comparativo Direto de Dados de Mercado".</p>
+        <p>Pelo método aplicado, foram levadas em consideração as diversas tendências e flutuações do Mercado Imobiliário, identificando-se imóveis que tenham elementos com atributos comparáveis, chamados imóveis referenciais, para compará-los com o imóvel em avaliação. À partir da ponderação dos dados obtidos, foi possível determinar o valor do bem imóvel.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Itens dos Imóveis Referenciais</h3>
+    <ul class="lista-bullets">
+      <li>Foto da fachada do imóvel</li>
+      <li>Número do imóvel referencial</li>
+      <li>Endereço do Imóvel</li>
+      <li>Valor do imóvel (venda ou locação)</li>
+      <li>Número de contribuinte (IPTU)</li>
+      <li>Metragens (área total, área construída)</li>
+      <li>Idade da edificação</li>
+      <li>Estado da amostra (estado de conservação)</li>
+      <li>Atributos relevantes para explicar a formação de valor</li>
+      <li>Fonte (de onde conseguiu as informações)</li>
+    </ul>
+
+    <div class="aviso">ABNT/NBR 14653-2 — item 8.2.1.3.4: Os dados de oferta são indicações importantes do valor de mercado. Entretanto, devem-se considerar superestimativas que em geral acompanham esses preços e, sempre que possível, quantificá-las pelo confronto com dados de transações. O melhor é utilizar dados de imóveis já negociados.</div>
+  </div>
+</div>
+
+<!-- ======================== ESTADO DE CONSERVAÇÃO ======================== -->
+<div class="secao">
+  <div class="secao-header">Estado de Conservação – Critérios</div>
+  <div class="secao-body">
+
+    <div class="estado-item estado-A">
+      <h4>(A) Novo</h4>
+      Imóvel que ainda não sofreu nenhum reparo e tampouco necessita reparos. Imóveis não usados ou com até 6 meses de uso, ou que tenham sofrido reforma geral e substancial há menos de 2 anos.
+    </div>
+    <div class="estado-item estado-B">
+      <h4>(B) Entre Novo e Regular</h4>
+      Imóvel já submetido ao uso, mas que se apresenta nas condições de novo ou muito próximo disso, sem que tenha sofrido reparos e tampouco necessite reparos. Reforma geral há menos de 2 anos.
+    </div>
+    <div class="estado-item estado-C">
+      <h4>(C) Regular</h4>
+      Imóvel que requer ou já recebeu pequenos reparos. Permanentes atividades de manutenção que mantêm eficientemente a aparência. Edificação seminova ou com reforma geral entre 2 e 5 anos.
+    </div>
+    <div class="estado-item estado-D">
+      <h4>(D) Entre Regular e Reparos Simples</h4>
+      Imóvel que requer atividades de manutenção eventual ou periódica. Apresenta desgastes naturais e requer intervenções superficiais em pontos localizados.
+    </div>
+    <div class="estado-item estado-E">
+      <h4>(E) Reparos Simples</h4>
+      Requer reparações simples e intervenções em pontos localizados. Serviços generalizados de manutenção e limpeza com mão de obra especializada, mas sem comprometer a funcionalidade.
+    </div>
+    <div class="estado-item estado-F">
+      <h4>(F) Entre Reparos Simples e Importantes</h4>
+      Requer intervenções generalizadas na maior parte ou com maior profundidade em partes específicas pelo risco de comprometer a operação e a segurança.
+    </div>
+    <div class="estado-item estado-G">
+      <h4>(G) Reparos Importantes</h4>
+      Requer reparações importantes: intervenção generalizada e com profundidade na estética, salubridade, segurança e funcionalidade. Recuperação de grande parte do sistema estrutural.
+    </div>
+    <div class="estado-item estado-H">
+      <h4>(H) Entre Reparos Importantes e Sem Valor</h4>
+      Exige restauração total de elementos e peças importantes. Degradação generalizada com alto grau de comprometimento da funcionalidade, segurança e operação.
+    </div>
+    <div class="estado-item estado-I">
+      <h4>(I) Sem Valor</h4>
+      Imóvel tem valor de demolição residual, sem condição de operação ou uso.
+    </div>
+  </div>
+</div>
+
+<!-- ======================== ROSS-HEIDECKE ======================== -->
+<div class="secao">
+  <div class="secao-header">Depreciação — Tabela Ross-Heidecke</div>
+  <div class="secao-body">
+    <p><strong>Ross</strong> desenvolveu um método combinando a linha reta com uma parábola. <strong>Heidecke</strong> desenvolveu um critério para calcular a depreciação acumulada. A combinação dos dois gerou o <strong>Método de Ross-Heidecke</strong>.</p>
+    <div class="destaque">
+      <strong>Depreciação</strong> é a perda da aptidão de servir ao fim que o imóvel se destina, provocando a decadência do valor intrínseco do bem.
+    </div>
+
+    <h3 class="sub">Tabela de Depreciação Ross-Heidecke (%)</h3>
+    <div class="tabela-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Idade em % de Vida</th>
+            <th class="laranja">A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>2</td><td>1,02</td><td>1,05</td><td>3,51</td><td>9,03</td><td>18,90</td><td>39,30</td><td>53,10</td><td>75,40</td></tr>
+          <tr><td>4</td><td>2,08</td><td>2,11</td><td>4,55</td><td>10,00</td><td>19,80</td><td>34,60</td><td>53,60</td><td>75,70</td></tr>
+          <tr><td>6</td><td>3,18</td><td>3,21</td><td>5,62</td><td>11,00</td><td>20,70</td><td>35,30</td><td>54,10</td><td>76,00</td></tr>
+          <tr><td>8</td><td>4,32</td><td>4,35</td><td>6,73</td><td>12,10</td><td>21,60</td><td>36,10</td><td>54,60</td><td>76,30</td></tr>
+          <tr><td>10</td><td>5,50</td><td>5,53</td><td>7,88</td><td>13,20</td><td>22,60</td><td>36,90</td><td>55,20</td><td>76,60</td></tr>
+          <tr><td>12</td><td>6,72</td><td>6,75</td><td>9,07</td><td>14,30</td><td>23,60</td><td>37,70</td><td>55,80</td><td>76,90</td></tr>
+          <tr><td>14</td><td>7,98</td><td>8,01</td><td>10,30</td><td>15,40</td><td>24,60</td><td>38,50</td><td>56,40</td><td>77,20</td></tr>
+          <tr><td>16</td><td>9,28</td><td>9,31</td><td>11,60</td><td>16,60</td><td>25,70</td><td>39,40</td><td>57,00</td><td>77,50</td></tr>
+          <tr><td>18</td><td>10,60</td><td>10,60</td><td>12,90</td><td>17,80</td><td>26,80</td><td>40,30</td><td>57,60</td><td>77,80</td></tr>
+          <tr><td>20</td><td>12,00</td><td>12,00</td><td>14,20</td><td>19,10</td><td>27,90</td><td>41,80</td><td>58,30</td><td>78,20</td></tr>
+          <tr><td>22</td><td>13,40</td><td>13,40</td><td>15,60</td><td>20,40</td><td>29,10</td><td>42,20</td><td>59,00</td><td>78,50</td></tr>
+          <tr><td>24</td><td>14,90</td><td>14,90</td><td>17,00</td><td>21,80</td><td>30,30</td><td>43,10</td><td>59,60</td><td>78,90</td></tr>
+          <tr><td>26</td><td>16,40</td><td>16,40</td><td>18,50</td><td>23,10</td><td>31,50</td><td>44,10</td><td>60,40</td><td>79,30</td></tr>
+          <tr><td>28</td><td>17,90</td><td>17,90</td><td>20,00</td><td>24,60</td><td>32,80</td><td>45,20</td><td>61,10</td><td>79,60</td></tr>
+          <tr><td>30</td><td>19,50</td><td>19,50</td><td>21,50</td><td>26,00</td><td>34,10</td><td>46,20</td><td>61,80</td><td>80,00</td></tr>
+          <tr><td>40</td><td>28,80</td><td>28,80</td><td>29,90</td><td>33,80</td><td>41,00</td><td>51,90</td><td>65,90</td><td>82,10</td></tr>
+          <tr><td>50</td><td>37,50</td><td>37,50</td><td>39,10</td><td>42,60</td><td>48,80</td><td>58,20</td><td>70,40</td><td>84,50</td></tr>
+          <tr><td>60</td><td>48,80</td><td>48,80</td><td>49,30</td><td>52,20</td><td>57,40</td><td>65,30</td><td>75,30</td><td>87,10</td></tr>
+          <tr><td>70</td><td>59,50</td><td>59,50</td><td>60,50</td><td>62,80</td><td>66,80</td><td>72,90</td><td>80,80</td><td>90,40</td></tr>
+          <tr><td>80</td><td>72,00</td><td>72,00</td><td>72,70</td><td>74,30</td><td>77,10</td><td>81,30</td><td>86,70</td><td>93,10</td></tr>
+          <tr><td>90</td><td>85,50</td><td>85,50</td><td>85,90</td><td>86,70</td><td>88,10</td><td>90,30</td><td>93,10</td><td>96,40</td></tr>
+          <tr><td>100</td><td>100,0</td><td>100,0</td><td>100,0</td><td>100,0</td><td>100,0</td><td>100,0</td><td>100,0</td><td>100,0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== VIDA ÚTIL ======================== -->
+<div class="secao">
+  <div class="secao-header azul">Tabela da Vida Útil dos Imóveis (Bureau of Internal Revenue)</div>
+  <div class="secao-body">
+    <div class="tabela-wrap">
+      <table>
+        <thead>
+          <tr><th>Imóvel</th><th>Tipo</th><th>Padrão</th><th>Vida Útil (anos)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="7" class="label">Residencial</td><td rowspan="2">Barraco</td><td>Rústico</td><td>5</td></tr>
+          <tr><td>Simples</td><td>10</td></tr>
+          <tr><td rowspan="3">Casa</td><td>De Madeira</td><td>45</td></tr>
+          <tr><td>Rústico</td><td>60</td></tr>
+          <tr><td>Econômico, Simples ou Médio</td><td>70</td></tr>
+          <tr><td rowspan="2">Apartamento</td><td>Econômico, Simples ou Médio</td><td>60</td></tr>
+          <tr><td>Fino ou Luxo</td><td>50</td></tr>
+          <tr><td rowspan="4">Comercial</td><td rowspan="3">Escritório</td><td>Econômico ou Simples</td><td>70</td></tr>
+          <tr><td>Médio</td><td>60</td></tr>
+          <tr><td>Fino ou Luxo</td><td>50</td></tr>
+          <tr><td>Loja</td><td>—</td><td>70</td></tr>
+          <tr><td rowspan="5">Industrial</td><td>Armazém</td><td>—</td><td>75</td></tr>
+          <tr><td rowspan="2">Galpão</td><td>Rústico ou Simples</td><td>60</td></tr>
+          <tr><td>Médio / Superior</td><td>80</td></tr>
+          <tr><td rowspan="2">Cobertura</td><td>Rústico ou Simples</td><td>20</td></tr>
+          <tr><td>Superior</td><td>30</td></tr>
+          <tr><td rowspan="2">Rural</td><td>Fábrica</td><td>—</td><td>50</td></tr>
+          <tr><td>Silo / Demais Construções Rurais</td><td>—</td><td>75 / 60</td></tr>
+          <tr><td colspan="2">Banco</td><td>—</td><td>70</td></tr>
+          <tr><td colspan="2">Hotel / Teatro</td><td>—</td><td>50</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== FÓRMULAS ======================== -->
+<div class="secao">
+  <div class="secao-header laranja">Fórmulas de Depreciação e Valorização</div>
+  <div class="secao-body">
+
+    <h3 class="sub">Fórmula de Depreciação</h3>
+    <div class="formula">
+      <span class="var">Valor Depreciado</span> = <span class="var">Valor do Imóvel</span> − ( <span class="var">Valor do Imóvel</span> × <span class="var">Fator Ross-Heidecke</span> / 100 )
+    </div>
+
+    <div class="exemplo-box">
+      <div class="exemplo-box-header">Exemplo – Depreciação total</div>
+      <div class="exemplo-box-body">
+        <p>Imóvel de R$ 350.000,00 · Estado B (Entre novo e regular) · 6 anos · Vida útil 60 anos → Idade % = 10%</p>
+        <div class="formula">
+          Fator Ross-Heidecke (linha 10, coluna B) = 5,53<br>
+          Valor Depreciado = 350.000,00 − (350.000,00 × 5,53 / 100)<br>
+          Valor Depreciado = 350.000,00 − 19.355,00<br>
+          <span class="result">Valor Depreciado = R$ 330.645,00</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Fórmula de Valorização</h3>
+    <div class="formula">
+      <span class="var">Valor Valorizado</span> = <span class="var">Valor do Imóvel</span> / ( (100 − <span class="var">Fator Ross-Heidecke</span>) / 100 )
+    </div>
+
+    <div class="exemplo-box">
+      <div class="exemplo-box-header">Exemplo – Valorização</div>
+      <div class="exemplo-box-body">
+        <p>Imóvel de R$ 350.000,00 · Estado B · valorizar 6 anos (10% da vida útil)</p>
+        <div class="formula">
+          Valor Valorizado = 350.000 / ((100 − 5,53) / 100)<br>
+          Valor Valorizado = 350.000 / 0,9447<br>
+          <span class="result">Valor Valorizado = R$ 370.487,98</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Adequação de Preços do Tipo Oferta (-5%)</h3>
+    <div class="formula">
+      valor de mercado = valor anunciado − (valor anunciado × 5 / 100)
+    </div>
+    <p>Imóveis referenciais obtidos de anúncios têm valores normalmente superiores ao valor real de mercado. Aplica-se redução de <strong>5%</strong> nesses casos.</p>
+  </div>
+</div>
+
+<!-- ======================== EXERCÍCIOS ======================== -->
+<div class="secao">
+  <div class="secao-header">Exercícios de Cálculos</div>
+  <div class="secao-body">
+    <h3 class="sub">Imóveis a Avaliar</h3>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Tipo</th><th>Área Construída</th><th>Terreno</th><th>Idade</th><th>Estado de Conservação</th></tr></thead>
+        <tbody>
+          <tr><td><strong>IA1</strong></td><td>Casa térrea</td><td>150 m²</td><td>—</td><td>10 anos</td><td>Entre novo e regular</td></tr>
+          <tr><td><strong>IA2</strong></td><td>Sobrado</td><td>500 m²</td><td>600 m²</td><td>15 anos</td><td>Regular</td></tr>
+          <tr><td><strong>IA3</strong></td><td>Terreno</td><td>—</td><td>150 m²</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">Lista de Imóveis Referenciais</h3>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr><th>Ref</th><th>Área Construída</th><th>Terreno</th><th>Idade</th><th>Estado</th><th>Valor</th><th>Fonte</th></tr></thead>
+        <tbody>
+          <tr><td>R1</td><td>180 m²</td><td>180 m²</td><td>5</td><td>Entre novo e regular</td><td>R$ 500.000</td><td>Anúncio</td></tr>
+          <tr><td>R2</td><td>130 m²</td><td>150 m²</td><td>4</td><td>Entre novo e regular</td><td>R$ 420.000</td><td>Venda realizada</td></tr>
+          <tr><td>R3</td><td>160 m²</td><td>170 m²</td><td>6</td><td>Entre novo e regular</td><td>R$ 490.000</td><td>Anúncio</td></tr>
+          <tr><td>R4</td><td>—</td><td>500 m²</td><td>—</td><td>—</td><td>R$ 280.000</td><td>Venda realizada</td></tr>
+          <tr><td>R5</td><td>—</td><td>700 m²</td><td>—</td><td>—</td><td>R$ 395.000</td><td>Venda realizada</td></tr>
+          <tr><td>R6</td><td>—</td><td>650 m²</td><td>—</td><td>—</td><td>R$ 380.000</td><td>Anúncio</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">Solução IA1 — Casa térrea 150 m², 10 anos, entre novo e regular</h3>
+    <div class="formula">
+      1. Ajuste oferta: R$ 500.000 − 5% = R$ 475.000 | R$ 490.000 − 5% = R$ 465.500<br>
+      2. Valor/m²: R1 = 475.000/180 = R$2.638,89 | R2 = 420.000/130 = R$3.230,77 | R3 = 465.500/160 = R$2.909,38<br>
+      3. Depreciar para 10 anos (VU = 70 anos, coluna B):<br>
+         R1: 5 anos → 8% vida útil → fator 4,35% → R$2.524,10/m²<br>
+         R2: 6 anos → 10% vida útil → fator 5,53% → R$3.052,11/m²<br>
+         R3: 4 anos → 6% vida útil → fator 3,21% → R$2.815,99/m²<br>
+      4. Média = (2.524,10 + 3.052,11 + 2.815,99) / 3 = R$2.797,40/m²<br>
+      <span class="result">Valor IA1 = R$2.797,40 × 150 = R$ 419.610,00</span>
+    </div>
+
+    <h3 class="sub">Solução IA2 — Sobrado 500 m² construído, terreno 600 m², 15 anos, regular</h3>
+    <div class="formula">
+      Terreno (R4, R5, R6): ajuste R6 = 380.000 − 5% = R$ 361.000<br>
+      Valor/m²: R4=560,00 | R5=564,28 | R6=555,38 → Média=R$559,89/m²<br>
+      Valor do terreno = 600 × 559,89 = R$ 335.934,00<br><br>
+      Edificação (CUB São Paulo mar/2016): R$1.972,25/m²<br>
+      Valor bruto da edificação = 500 × 1.972,25 = R$ 986.125,00<br>
+      Depreciar: 15 anos / 70 anos = 21,42% → linha 22 / coluna C → fator 15,60%<br>
+      Valor depreciado da edificação = 986.125 − 153.835,50 = R$ 832.289,50<br><br>
+      <span class="result">Valor IA2 = 335.934,00 + 832.289,50 = R$ 1.168.223,50</span>
+    </div>
+
+    <h3 class="sub">Solução IA3 — Terreno 150 m²</h3>
+    <div class="formula">
+      Usar referenciais edificados R1, R2, R3 (mesmas metragens).<br>
+      CUB residencial médio SP mar/2016: R$1.476,50/m²<br>
+      Custo edificação: R1=265.770 | R2=191.945 | R3=236.240<br>
+      Depreciar (coluna B): R1 8%→4,35% | R2 6%→3,21% | R3 10%→5,53%<br>
+      Valor depreciado edif: R1=254.209 | R2=185.784 | R3=223.176<br>
+      Valor do terreno = Valor total − Edif depreciada:<br>
+      R1=475.000−254.209=220.791 | R2=420.000−185.784=234.216 | R3=465.500−223.176=242.324<br>
+      Valor m² terreno: R1=220.791/180=1.226,62 | R2=234.216/150=1.561,44 | R3=242.324/170=1.425,44<br>
+      Média = (1.226,62+1.561,44+1.425,44)/3 = R$1.404,50/m²<br>
+      <span class="result">Valor IA3 = 1.404,50 × 150 = R$ 210.675,00</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== PINI / CUB ======================== -->
+<div class="secao">
+  <div class="secao-header azul">PINI / TCPO / CUB / CUPE</div>
+  <div class="secao-body">
+    <div class="grid-2">
+      <div class="card">
+        <h4>PINI</h4>Editora especializada em construção civil.<br><br>
+        <strong>TCPO</strong> – Tabela de Composições e Preços para Orçamentos.<br><br>
+        <strong>CUPE</strong> – Custos Unitários PINI de Edificações.
+      </div>
+      <div class="card">
+        <h4>CUB – Custo Unitário Básico</h4>
+        Fornecido pelos Sindicatos Estaduais da Indústria da Construção Civil (SINDUSCON) — Art. 54 da Lei nº 4.591/1964.<br><br>
+        Acesse: <strong>www.cub.org.br/cub-m2-estadual</strong><br>
+        Em SP: <strong>sindusconsp.com.br/cub</strong>
+      </div>
+    </div>
+    <div class="aviso">A editora PINI não está mais disponibilizando gratuitamente as informações sobre Custo de Construção. Utilize o CUB fornecido pelo SINDUSCON do seu Estado.</div>
+  </div>
+</div>
+
+<!-- ======================== FATORES CORRETIVOS ======================== -->
+<div class="secao">
+  <div class="secao-header laranja">Tabelas de Fatores Corretivos</div>
+  <div class="secao-body">
+    <h3 class="sub">Fatores Corretivos do Terreno (Topografia)</h3>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr><th>Terreno</th><th>Fator</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Terreno plano</td><td>1,00</td></tr>
+          <tr><td class="label">Caído para os fundos até 5%</td><td>0,95</td></tr>
+          <tr><td class="label">Caído para os fundos de 5% a 10%</td><td>0,90</td></tr>
+          <tr><td class="label">Caído para os fundos de 10% a 20%</td><td>0,80</td></tr>
+          <tr><td class="label">Caído para os fundos mais de 20%</td><td>0,70</td></tr>
+          <tr><td class="label">Em aclive até 10%</td><td>0,95</td></tr>
+          <tr><td class="label">Em aclive até 20%</td><td>0,90</td></tr>
+          <tr><td class="label">Em aclive acima de 20%</td><td>0,85</td></tr>
+          <tr><td class="label">Abaixo do nível da rua até 1,00m</td><td>1,00</td></tr>
+          <tr><td class="label">Abaixo do nível da rua de 1,00m a 2,50m</td><td>0,90</td></tr>
+          <tr><td class="label">Abaixo do nível da rua de 2,50m a 4,00m</td><td>0,80</td></tr>
+          <tr><td class="label">Acima do nível da rua até 2,00m</td><td>1,00</td></tr>
+          <tr><td class="label">Acima do nível da rua de 2,00m a 4,00m</td><td>0,90</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">Fatores Corretivos – Consistência do Terreno</h3>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr><th>Consistência do Terreno</th><th>Fator</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Terreno seco</td><td>1,00</td></tr>
+          <tr><td class="label">Terreno em região inundável</td><td>0,90</td></tr>
+          <tr><td class="label">Terreno contíguo a córrego</td><td>0,80</td></tr>
+          <tr><td class="label">Terreno inundável</td><td>0,70</td></tr>
+          <tr><td class="label">Terreno permanentemente alagado</td><td>0,60</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">Fatores Valorizantes – Frentes Múltiplas</h3>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr><th>Edificação</th><th>Fator</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Padrão Popular</td><td>1,10</td></tr>
+          <tr><td class="label">Padrão Médio</td><td>1,10</td></tr>
+          <tr><td class="label">Padrão Alto</td><td>1,05</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== CONCLUSÃO ======================== -->
+<div class="secao">
+  <div class="secao-header">Texto de Conclusão</div>
+  <div class="secao-body">
+    <div class="exemplo-box">
+      <div class="exemplo-box-header">Modelo</div>
+      <div class="exemplo-box-body">
+        <p>Com base em pesquisa de imóveis com elementos e características comparáveis e por meio do tratamento técnico e ponderações dos seus atributos, utilizando o Método Comparativo Direto de Dados de Mercado e aplicadas as devidas técnicas de homogeneização que permitem a determinação do valor levando em consideração as diversas tendências e flutuações específicas do Mercado Imobiliário, a despeito de outros ramos da economia, conclui-se que o Valor de Mercado do imóvel objeto deste Parecer Técnico de Avaliação Mercadológica é de <strong>R$ _____ (valor por extenso)</strong>.</p>
+        <p>Admite-se uma variação de até 5% (cinco por cento) do valor acima apresentado, para mais ou para menos, sendo, portanto, entre o mínimo de R$ _____ e o máximo de R$ _____, devido à margem do intervalo de confiança da pesquisa realizada.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== CARTA DE APRESENTAÇÃO ======================== -->
+<div class="secao">
+  <div class="secao-header azul">Carta de Apresentação do PTAM</div>
+  <div class="secao-body">
+    <div class="termo-box">
+      <p>São Paulo, <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;</span> de <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> de <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+      <p>Ao Sr. <span class="campo" style="min-width:250px">&nbsp;</span>,</p>
+      <p><strong>Ref.: Apresentação de Parecer Técnico de Avaliação Mercadológica</strong></p>
+      <br>
+      <p>Prezado Senhor,</p>
+      <p>Sirvo-me da presente, com base na Resolução COFECI nº 1066/07 e do Ato Normativo COFECI nº 001/11, apresentar o resultado da Avaliação Imobiliária do imóvel sito à <span class="campo" style="min-width:300px">&nbsp;</span>, na cidade de <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>, UF <span class="campo" style="min-width:30px">&nbsp;</span>, CEP <span class="campo" style="min-width:80px">&nbsp;</span>, circunstanciado no Parecer Técnico de Avaliação Mercadológica, nº <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>, contendo <span class="campo" style="min-width:30px">&nbsp;</span> páginas, declarado ao CRECISP conforme Selo Certificador nº <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+      <br>
+      <p>Agradecendo a confiança despendida, coloco-me à disposição para eventuais esclarecimentos.</p>
+      <br>
+      <p>Atenciosamente,</p>
+      <br>
+      <div class="grid-2">
+        <div>
+          <p><span class="campo" style="min-width:220px">&nbsp;</span></p>
+          <p>Nome do Corretor de Imóveis</p>
+          <p>CRECI nº <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+          <p>CNAI nº <span class="campo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        </div>
+        <div>
+          <p><strong>Recebido por quem dá ciência:</strong></p>
+          <p>Nome: <span class="campo" style="min-width:180px">&nbsp;</span></p>
+          <p>RG: <span class="campo" style="min-width:150px">&nbsp;</span></p>
+          <p>Data: <span class="campo" style="min-width:100px">&nbsp;</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== TERMO DE VISITAÇÃO ======================== -->
+<div class="secao">
+  <div class="secao-header laranja">Termo de Visitação para Vistoria</div>
+  <div class="secao-body">
+    <div class="termo-box">
+      <p><strong>Qualificação do acompanhante:</strong></p>
+      <p>Nome: <span class="campo" style="min-width:280px">&nbsp;</span> CPF: <span class="campo" style="min-width:140px">&nbsp;</span></p>
+      <br>
+      <p><strong>Qualificação do Imóvel:</strong></p>
+      <p>Endereço completo: <span class="campo" style="min-width:350px">&nbsp;</span> nº <span class="campo" style="min-width:60px">&nbsp;</span></p>
+      <p>Bairro: <span class="campo" style="min-width:180px">&nbsp;</span> Cidade: <span class="campo" style="min-width:150px">&nbsp;</span> UF: <span class="campo" style="min-width:30px">&nbsp;</span> CEP: <span class="campo" style="min-width:80px">&nbsp;</span></p>
+      <br>
+      <p>Pelo presente instrumento, o(a) acompanhante acima indicado declara que nesta data o imóvel acima indicado foi visitado pelo Corretor de Imóveis <span class="campo" style="min-width:250px">&nbsp;</span>, CRECI nº <span class="campo" style="min-width:80px">&nbsp;</span> para realizar vistoria com a finalidade de dar seguimento à atividade de Avaliação Imobiliária, tendo, depois de observadas as condições, sido deixado o imóvel tal qual encontrado.</p>
+      <p>Em declaração de verdade, o(a) acompanhante e o(a) Corretor(a) de Imóveis firmam o presente em 2 (duas) vias de igual teor e forma.</p>
+      <br>
+      <p>São Paulo, <span class="campo" style="min-width:30px">&nbsp;</span> de <span class="campo" style="min-width:120px">&nbsp;</span> de <span class="campo" style="min-width:60px">&nbsp;</span>.</p>
+      <br>
+      <div class="grid-2" style="text-align:center;margin-top:30px">
+        <div>
+          <div style="border-top:1px solid #999;padding-top:8px;">Acompanhante</div>
+        </div>
+        <div>
+          <div style="border-top:1px solid #999;padding-top:8px;">Corretor(a) de Imóveis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== CURRICULUM VITAE ======================== -->
+<div class="secao">
+  <div class="secao-header">Curriculum Vitae do Avaliador</div>
+  <div class="secao-body">
+    <div class="grid-2">
+      <div>
+        <h3 class="sub">Dados Pessoais</h3>
+        <ul class="lista-bullets">
+          <li>Foto</li>
+          <li>Nome, nacionalidade e naturalidade</li>
+          <li>Data de nascimento e idade</li>
+          <li>Endereço (residencial, domiciliar ou comercial)</li>
+          <li>Documentos (RG, CPF, número do CRECI e número do CNAI)</li>
+        </ul>
+
+        <h3 class="sub">Formação Acadêmica</h3>
+        <ul class="lista-bullets">
+          <li>Graduação / Bacharelado</li>
+          <li>Pós-Graduação</li>
+          <li>Mestrado</li>
+          <li>Doutorado</li>
+          <li>Especialização</li>
+          <li>Aperfeiçoamento</li>
+          <li>Extensão Universitária</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub">Experiência e Publicações</h3>
+        <ul class="lista-bullets">
+          <li>Experiência Profissional (local, função e atividade desenvolvida)</li>
+          <li>Atividades Científicas (pesquisas e trabalhos)</li>
+          <li>Dissertação de Mestrado</li>
+          <li>Teses Universitárias</li>
+          <li>Livros</li>
+          <li>Artigos em periódicos</li>
+          <li>Prêmios e Distinções</li>
+          <li>Participação em associações</li>
+          <li>Projetos sociais</li>
+          <li>Conhecimento de Idiomas</li>
+          <li>Assinatura</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== RODAPÉ ======================== -->
+<footer>
+  <p><strong>PROECCI</strong> — Programa de Educação Continuada ao Corretor de Imóveis</p>
+  <p style="margin-top:8px;"><strong>CRECI-SP</strong> · www.crecisp.gov.br</p>
+  <p style="margin-top:12px;">Todos os direitos reservados. É proibida a reprodução parcial ou total deste material.</p>
+</footer>
+
+</body>
+</html>
