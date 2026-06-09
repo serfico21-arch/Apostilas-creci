@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal EAD CRECI | Apostilas de Capacitação Imobiliária</title>
+    <meta name="description" content="Portal oficial de apostilas e treinamentos EAD do CRECI. Capacitação profissional para corretores de imóveis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue-900: #001f4d;
+            --blue-700: #0047ab;
+            --blue-500: #1a6fd4;
+            --blue-100: #ddeeff;
+            --gold:     #e8a800;
+            --gold-lt:  #fff3cc;
+            --gray-50:  #f5f7fa;
+            --gray-100: #eaecf0;
+            --gray-400: #9aa3b0;
+            --gray-700: #3d4452;
+            --white:    #ffffff;
+            --radius:   14px;
+            --shadow-sm: 0 1px 4px rgba(0,0,0,.08);
+            --shadow-md: 0 6px 24px rgba(0,0,0,.10);
+            --shadow-lg: 0 16px 40px rgba(0,0,0,.13);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-700);
+            min-height: 100vh;
+        }
+
+        /* ── NAV ─────────────────────────────────── */
+        nav {
+            background: var(--blue-900);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,.2);
+        }
+
+        .nav-brand {
+            font-family: 'Sora', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: .02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-brand span {
+            background: var(--gold);
+            color: var(--blue-900);
+            font-size: .7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: .05em;
+        }
+
+        .nav-count {
+            color: var(--gray-400);
+            font-size: .82rem;
+        }
+
+        /* ── HERO ────────────────────────────────── */
+        .hero {
+            background: linear-gradient(150deg, var(--blue-900) 0%, var(--blue-700) 60%, #0a3d7a 100%);
+            padding: 72px 24px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.15);
+            color: var(--gold);
+            font-size: .78rem;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 20px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .hero p {
+            color: rgba(255,255,255,.75);
+            font-size: 1.05rem;
+            max-width: 540px;
+            margin: 0 auto 36px;
+            line-height: 1.6;
+        }
+
+        /* ── SEARCH BAR ──────────────────────────── */
+        .search-wrap {
+            max-width: 540px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: .95rem;
+            pointer-events: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 14px 18px 14px 46px;
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,.25);
+            color: var(--gray-700);
+            background: var(--white);
+        }
+
+        #searchInput::placeholder { color: var(--gray-400); }
+
+        #searchInput:focus {
+            box-shadow: 0 4px 20px rgba(0,0,0,.25), 0 0 0 3px rgba(232,168,0,.4);
+        }
+
+        /* ── FILTER PILLS ────────────────────────── */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            padding: 28px 24px 0;
+        }
+
+        .pill {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: .8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--gray-100);
+            background: var(--white);
+            color: var(--gray-700);
+            transition: all .2s;
+            user-select: none;
+        }
+
+        .pill:hover, .pill.active {
+            background: var(--blue-700);
+            border-color: var(--blue-700);
+            color: var(--white);
+        }
+
+        /* ── GRID ────────────────────────────────── */
+        .section-header {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-400);
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        #resultCount {
+            font-size: .85rem;
+            color: var(--gray-400);
+        }
+
+        .grid {
+            max-width: 1200px;
+            margin: 20px auto 80px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        /* ── CARD ────────────────────────────────── */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1.5px solid var(--gray-100);
+            padding: 28px 22px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--shadow-sm);
+            transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--card-color, var(--blue-700)), transparent);
+            opacity: 0;
+            transition: opacity .22s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--card-color, var(--blue-700));
+        }
+
+        .card:hover::after { opacity: 1; }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--icon-bg, var(--blue-100));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--card-color, var(--blue-700));
+            flex-shrink: 0;
+        }
+
+        .card-category {
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--card-color, var(--blue-700));
+        }
+
+        .card h3 {
+            font-size: .97rem;
+            font-weight: 600;
+            color: var(--blue-900);
+            line-height: 1.35;
+            flex: 1;
+        }
+
+        .card p {
+            font-size: .82rem;
+            color: var(--gray-400);
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
+        }
+
+        .btn-access {
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--card-color, var(--blue-700));
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap .2s;
+        }
+
+        .card:hover .btn-access { gap: 9px; }
+
+        .badge {
+            font-size: .68rem;
+            font-weight: 600;
+            background: var(--icon-bg, var(--blue-100));
+            color: var(--card-color, var(--blue-700));
+            padding: 3px 9px;
+            border-radius: 20px;
+        }
+
+        /* ── EMPTY STATE ─────────────────────────── */
+        .empty {
+            display: none;
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-400);
+        }
+
+        .empty i { font-size: 3rem; margin-bottom: 16px; display: block; opacity: .4; }
+        .empty p { font-size: 1rem; }
+
+        /* ── FOOTER ──────────────────────────────── */
+        footer {
+            background: var(--blue-900);
+            color: rgba(255,255,255,.5);
+            text-align: center;
+            padding: 32px 24px;
+            font-size: .82rem;
+            border-top: 3px solid var(--gold);
+        }
+
+        footer strong { color: var(--gold); }
+
+        /* ── HIDDEN ──────────────────────────────── */
+        .card[hidden] { display: none !important; }
+
+        /* ── RESPONSIVE ──────────────────────────── */
+        @media (max-width: 600px) {
+            nav { padding: 0 16px; }
+            .hero { padding: 56px 16px 80px; }
+            .grid { padding: 0 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .card, .btn-access { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-brand">
+        <i class="fas fa-building"></i>
+        Portal EAD CRECI
+        <span>OFICIAL</span>
+    </div>
+    <span class="nav-count" id="navCount">14 apostilas</span>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-eyebrow">
+        <i class="fas fa-graduation-cap"></i>
+        Capacitação Imobiliária
+    </div>
+    <h1>Apostilas <em>EAD CRECI</em><br>para Corretores</h1>
+    <p>Material oficial de treinamento para profissionais do mercado imobiliário. Acesse, estude e evolua.</p>
+    <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input type="search" id="searchInput" placeholder="Buscar apostila…" autocomplete="off" aria-label="Buscar apostila">
+    </div>
+</header>
+
+<!-- FILTER PILLS -->
+<div class="filters" id="filters">
+    <button class="pill active" data-filter="all">Todas</button>
+    <button class="pill" data-filter="financeiro">Financeiro</button>
+    <button class="pill" data-filter="juridico">Jurídico</button>
+    <button class="pill" data-filter="tecnico">Técnico</button>
+    <button class="pill" data-filter="gestao">Gestão</button>
+    <button class="pill" data-filter="tecnologia">Tecnologia</button>
+</div>
+
+<!-- SECTION HEADER -->
+<div class="section-header">
+    <h2>Material disponível</h2>
+    <span id="resultCount">14 apostilas</span>
+</div>
+
+<!-- GRID -->
+<main class="grid" id="grid" aria-label="Apostilas disponíveis">
+
+    <a href="12c.html" class="card" data-tags="financeiro hp12c matematica calculadora"
+       style="--card-color:#1a6fd4;--icon-bg:#ddeeff">
+        <div class="card-icon"><i class="fas fa-calculator"></i></div>
+        <span class="card-category">Financeiro</span>
+        <h3>HP12C e Matemática Financeira</h3>
+        <p>Cálculos de amortização, juros compostos e fluxo de caixa aplicados ao mercado imobiliário.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Financeiro</span>
+        </div>
+    </a>
+
+    <a href="apostila-ia-creci.html" class="card" data-tags="tecnologia inteligencia artificial ia creci"
+       style="--card-color:#9333ea;--icon-bg:#f3e8ff">
+        <div class="card-icon"><i class="fas fa-robot"></i></div>
+        <span class="card-category">Tecnologia</span>
+        <h3>Inteligência Artificial no CRECI</h3>
+        <p>Uso de IA para otimizar processos, atendimento e captação de imóveis no dia a dia do corretor.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Tecnologia</span>
+        </div>
+    </a>
+
+    <a href="fotografia-imobiliaria.html" class="card" data-tags="tecnico fotografia imobiliaria camera foto"
+       style="--card-color:#059669;--icon-bg:#d1fae5">
+        <div class="card-icon"><i class="fas fa-camera-retro"></i></div>
+        <span class="card-category">Técnico</span>
+        <h3>Fotografia Imobiliária</h3>
+        <p>Técnicas para fotografar imóveis de forma profissional, valorizando os espaços e atraindo compradores.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Técnico</span>
+        </div>
+    </a>
+
+    <a href="apostila-avaliacao-imobiliaria.html" class="card" data-tags="tecnico avaliacao imobiliaria laudo"
+       style="--card-color:#1a6fd4;--icon-bg:#ddeeff">
+        <div class="card-icon"><i class="fas fa-home"></i></div>
+        <span class="card-category">Técnico</span>
+        <h3>Avaliação Imobiliária</h3>
+        <p>Metodologia para elaboração de laudos e pareceres técnicos de avaliação de bens imóveis.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Técnico</span>
+        </div>
+    </a>
+
+    <a href="apostila-perito-judicial.html" class="card" data-tags="juridico perito judicial laudo pericia"
+       style="--card-color:#dc2626;--icon-bg:#fee2e2">
+        <div class="card-icon"><i class="fas fa-gavel"></i></div>
+        <span class="card-category">Jurídico</span>
+        <h3>Perito Judicial</h3>
+        <p>Formação para atuação como perito judicial em ações que envolvam bens imóveis e avaliações.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Jurídico</span>
+        </div>
+    </a>
+
+    <a href="locacao-administracao-imoveis.html" class="card" data-tags="gestao locacao administracao aluguel"
+       style="--card-color:#d97706;--icon-bg:#fef3c7">
+        <div class="card-icon"><i class="fas fa-key"></i></div>
+        <span class="card-category">Gestão</span>
+        <h3>Locação e Administração</h3>
+        <p>Gestão de contratos de locação, inadimplência, vistoria e administração de carteira de imóveis.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Gestão</span>
+        </div>
+    </a>
+
+    <a href="creci-documentacao.html" class="card" data-tags="juridico documentacao escritura contrato registro"
+       style="--card-color:#1a6fd4;--icon-bg:#ddeeff">
+        <div class="card-icon"><i class="fas fa-file-contract"></i></div>
+        <span class="card-category">Jurídico</span>
+        <h3>Documentação Imobiliária</h3>
+        <p>Guia completo de documentos exigidos em compra, venda, locação e financiamento de imóveis.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Jurídico</span>
+        </div>
+    </a>
+
+    <a href="apostila-sistema-registral-notarial-1.html" class="card" data-tags="juridico registral notarial cartorio registro"
+       style="--card-color:#059669;--icon-bg:#d1fae5">
+        <div class="card-icon"><i class="fas fa-stamp"></i></div>
+        <span class="card-category">Jurídico</span>
+        <h3>Sistema Registral e Notarial</h3>
+        <p>Funcionamento dos cartórios, RGI, lavratura de escrituras e registros de imóveis no Brasil.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Jurídico</span>
+        </div>
+    </a>
+
+    <a href="apostila-lucro-imobiliario.html" class="card" data-tags="financeiro lucro imobiliario imposto ganho capital"
+       style="--card-color:#dc2626;--icon-bg:#fee2e2">
+        <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+        <span class="card-category">Financeiro</span>
+        <h3>Lucro Imobiliário</h3>
+        <p>Cálculo e apuração do ganho de capital na venda de imóveis, com foco em isenções e alíquotas.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Financeiro</span>
+        </div>
+    </a>
+
+    <a href="apostila-negociacao.html" class="card" data-tags="gestao negociacao tecnicas venda imobiliaria"
+       style="--card-color:#1a6fd4;--icon-bg:#ddeeff">
+        <div class="card-icon"><i class="fas fa-handshake"></i></div>
+        <span class="card-category">Gestão</span>
+        <h3>Negociação Imobiliária</h3>
+        <p>Técnicas de persuasão, condução de propostas e fechamento de negócios no mercado imobiliário.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Gestão</span>
+        </div>
+    </a>
+
+    <a href="apostila-correspondente-credito.html" class="card" data-tags="financeiro credito banco financiamento correspondente"
+       style="--card-color:#d97706;--icon-bg:#fef3c7">
+        <div class="card-icon"><i class="fas fa-piggy-bank"></i></div>
+        <span class="card-category">Financeiro</span>
+        <h3>Correspondente de Crédito</h3>
+        <p>Como atuar como correspondente bancário, auxiliando clientes no acesso a crédito imobiliário.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Financeiro</span>
+        </div>
+    </a>
+
+    <a href="gestao-de-tempo-creci.html" class="card" data-tags="gestao tempo produtividade rotina"
+       style="--card-color:#059669;--icon-bg:#d1fae5">
+        <div class="card-icon"><i class="fas fa-clock"></i></div>
+        <span class="card-category">Gestão</span>
+        <h3>Gestão de Tempo</h3>
+        <p>Organização de agenda, priorização de tarefas e estratégias de produtividade para corretores.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Gestão</span>
+        </div>
+    </a>
+
+    <a href="apostila-inferencia-estatistica.html" class="card" data-tags="tecnico estatistica inferencia dados analise"
+       style="--card-color:#dc2626;--icon-bg:#fee2e2">
+        <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+        <span class="card-category">Técnico</span>
+        <h3>Inferência Estatística</h3>
+        <p>Análise de dados para avaliação de imóveis: amostragem, regressão e interpretação de resultados.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Técnico</span>
+        </div>
+    </a>
+
+    <a href="resolucao-cofeci-1336-2014.html" class="card" data-tags="juridico resolucao cofeci legislacao norma"
+       style="--card-color:#1a6fd4;--icon-bg:#ddeeff">
+        <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+        <span class="card-category">Jurídico</span>
+        <h3>Resolução COFECI 1336/2014</h3>
+        <p>Texto e comentários sobre a resolução que regulamenta a atividade de avaliação imobiliária.</p>
+        <div class="card-footer">
+            <span class="btn-access">Acessar <i class="fas fa-arrow-right"></i></span>
+            <span class="badge">Jurídico</span>
+        </div>
+    </a>
+
+    <!-- Empty state -->
+    <div class="empty" id="emptyState" aria-live="polite">
+        <i class="fas fa-search"></i>
+        <p>Nenhuma apostila encontrada para "<strong id="emptyTerm"></strong>".<br>Tente outro termo ou remova o filtro.</p>
+    </div>
+
+</main>
+
+<footer>
+    <p>Portal <strong>serfico21-arch</strong> · Apostilas Oficiais EAD CRECI · Todos os direitos reservados</p>
+</footer>
+
+<script>
+    const cards      = Array.from(document.querySelectorAll('.card:not(.empty)'));
+    const searchInput = document.getElementById('searchInput');
+    const pills      = document.querySelectorAll('.pill');
+    const emptyState = document.getElementById('emptyState');
+    const emptyTerm  = document.getElementById('emptyTerm');
+    const resultCount = document.getElementById('resultCount');
+    const navCount   = document.getElementById('navCount');
+
+    let activeFilter = 'all';
+    let searchQuery  = '';
+
+    function normalize(str) {
+        return str.toLowerCase()
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function applyFilters() {
+        let visible = 0;
+
+        cards.forEach(card => {
+            const tags      = normalize(card.dataset.tags || '');
+            const title     = normalize(card.querySelector('h3').textContent);
+            const category  = normalize(card.querySelector('.card-category').textContent);
+            const combined  = tags + ' ' + title + ' ' + category;
+
+            const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+            const matchesSearch = !searchQuery || combined.includes(normalize(searchQuery));
+
+            const show = matchesFilter && matchesSearch;
+            card.hidden = !show;
+            if (show) visible++;
+        });
+
+        const label = visible === 1 ? '1 apostila' : `${visible} apostilas`;
+        resultCount.textContent = label;
+        navCount.textContent    = label;
+
+        const noResults = visible === 0;
+        emptyState.style.display = noResults ? 'block' : 'none';
+        emptyTerm.textContent    = searchQuery || activeFilter;
+    }
+
+    // Search
+    searchInput.addEventListener('input', e => {
+        searchQuery = e.target.value.trim();
+        applyFilters();
+    });
+
+    // Pills
+    pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            pills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            activeFilter = pill.dataset.filter;
+            applyFilters();
+        });
+    });
+
+    // Keyboard accessibility on cards
+    document.querySelectorAll('.card').forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter') card.click();
+        });
+    });
+
+    applyFilters();
+</script>
+</body>
+</html>
