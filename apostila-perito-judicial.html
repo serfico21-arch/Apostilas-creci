@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso de Perito Judicial para Corretores de Imóveis</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --azul-judiciario: #1a3a5c;
+    --azul-medio: #2c5f8a;
+    --azul-claro: #4a90c4;
+    --dourado: #b8860b;
+    --dourado-claro: #d4a017;
+    --cinza-texto: #2d2d2d;
+    --cinza-medio: #555;
+    --cinza-claro: #f5f6f8;
+    --cinza-borda: #dde3ea;
+    --branco: #ffffff;
+    --vermelho-alerta: #c0392b;
+    --verde-destaque: #1a6b3c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--cinza-texto);
+    background: var(--branco);
+  }
+
+  /* ── CAPA ── */
+  .capa {
+    background: linear-gradient(160deg, var(--azul-judiciario) 0%, var(--azul-medio) 60%, var(--azul-claro) 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .capa::before {
+    content: '§';
+    position: absolute;
+    font-size: 600px;
+    color: rgba(255,255,255,0.04);
+    top: -100px;
+    right: -80px;
+    font-family: 'Merriweather', serif;
+    pointer-events: none;
+  }
+  .capa-badge {
+    background: var(--dourado);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+  }
+  .capa h1 {
+    font-family: 'Merriweather', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .capa h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    letter-spacing: 2px;
+    opacity: 0.85;
+    margin-bottom: 60px;
+  }
+  .capa-divider {
+    width: 80px;
+    height: 3px;
+    background: var(--dourado);
+    border-radius: 2px;
+    margin: 0 auto 60px;
+  }
+  .capa-info {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0.75;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .capa-info span { display: flex; align-items: center; gap: 8px; }
+
+  /* ── SUMÁRIO ── */
+  .sumario-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .sumario-wrapper h2.titulo-secao {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+    color: var(--azul-judiciario);
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--dourado);
+  }
+  .sumario-lista { list-style: none; }
+  .sumario-lista > li {
+    border-bottom: 1px solid var(--cinza-borda);
+  }
+  .sumario-lista > li > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 8px;
+    color: var(--azul-judiciario);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.15s;
+  }
+  .sumario-lista > li > a:hover { background: var(--cinza-claro); padding-left: 16px; }
+  .sumario-lista .sub { padding-left: 24px; }
+  .sumario-lista .sub a {
+    color: var(--cinza-medio);
+    font-weight: 400;
+    font-size: 0.88rem;
+  }
+  .sumario-lista .sub a:hover { color: var(--azul-judiciario); }
+  .pg { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; opacity: 0.55; }
+
+  /* ── LAYOUT GERAL ── */
+  .conteudo {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  /* ── CABEÇALHO DE CAPÍTULO ── */
+  .capitulo {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 4px solid var(--azul-judiciario);
+  }
+  .capitulo-numero {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: var(--dourado);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .capitulo h2 {
+    font-family: 'Merriweather', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: var(--azul-judiciario);
+    line-height: 1.3;
+    margin-bottom: 32px;
+  }
+
+  /* ── SEÇÃO ── */
+  .secao {
+    margin-top: 48px;
+    scroll-margin-top: 80px;
+  }
+  .secao h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--azul-medio);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    padding-left: 14px;
+    border-left: 4px solid var(--dourado);
+  }
+  .secao h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--azul-judiciario);
+    margin: 20px 0 10px;
+  }
+  p { margin-bottom: 14px; }
+
+  /* ── LISTAS ── */
+  ul.conteudo-lista, ol.conteudo-lista {
+    padding-left: 0;
+    margin: 16px 0 24px;
+    list-style: none;
+  }
+  ul.conteudo-lista li, ol.conteudo-lista li {
+    padding: 8px 8px 8px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--cinza-borda);
+    font-size: 0.95rem;
+  }
+  ul.conteudo-lista li::before {
+    content: '▸';
+    position: absolute;
+    left: 8px;
+    color: var(--dourado);
+    font-size: 0.7rem;
+    top: 12px;
+  }
+  ol.conteudo-lista { counter-reset: item; }
+  ol.conteudo-lista li::before {
+    counter-increment: item;
+    content: counter(item) '.';
+    position: absolute;
+    left: 4px;
+    color: var(--azul-claro);
+    font-weight: 700;
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    top: 9px;
+  }
+
+  /* ── DESTAQUE / DEFINIÇÃO ── */
+  .destaque-box {
+    background: linear-gradient(135deg, var(--azul-judiciario), var(--azul-medio));
+    color: white;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 28px 0;
+  }
+  .destaque-box .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dourado-claro);
+    margin-bottom: 10px;
+  }
+  .destaque-box p { margin: 0; line-height: 1.7; }
+
+  .definicao-box {
+    background: var(--cinza-claro);
+    border-left: 5px solid var(--azul-claro);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-style: italic;
+  }
+  .definicao-box .fonte {
+    font-size: 0.8rem;
+    color: var(--cinza-medio);
+    margin-top: 8px;
+    font-style: normal;
+  }
+
+  /* ── ALERTA / ATENÇÃO ── */
+  .alerta {
+    background: #fff8f0;
+    border: 1px solid #f0a500;
+    border-left: 5px solid #f0a500;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 0.93rem;
+  }
+  .alerta strong { color: #b87000; }
+
+  .alerta-vermelho {
+    background: #fff5f5;
+    border-left: 5px solid var(--vermelho-alerta);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .alerta-vermelho strong { color: var(--vermelho-alerta); }
+
+  /* ── ARTIGO DO CPC ── */
+  .artigo-cpc {
+    background: #f8fafd;
+    border: 1px solid var(--cinza-borda);
+    border-left: 4px solid var(--azul-claro);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+  .artigo-cpc .art-num {
+    font-weight: 700;
+    color: var(--azul-judiciario);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+  .artigo-cpc p { margin-bottom: 8px; }
+  .artigo-cpc p:last-child { margin-bottom: 0; }
+
+  /* ── MODELO DE PETIÇÃO ── */
+  .peticao-modelo {
+    background: #fafbfc;
+    border: 1px solid var(--cinza-borda);
+    border-top: 3px solid var(--azul-judiciario);
+    border-radius: 0 0 8px 8px;
+    padding: 28px 32px;
+    margin: 24px 0;
+    font-family: 'Merriweather', serif;
+    font-size: 0.88rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    position: relative;
+  }
+  .peticao-modelo::before {
+    content: 'MODELO DE PETIÇÃO';
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--azul-judiciario);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 3px 12px;
+    border-radius: 10px;
+  }
+
+  /* ── TABELA DE PRAZOS ── */
+  .tabela-wrapper { overflow-x: auto; margin: 24px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  thead tr { background: var(--azul-judiciario); color: white; }
+  thead th { padding: 12px 16px; text-align: left; font-weight: 600; }
+  tbody tr:nth-child(even) { background: var(--cinza-claro); }
+  tbody tr:hover { background: #e8eef5; }
+  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--cinza-borda); vertical-align: top; }
+  td.prazo { font-weight: 700; color: var(--azul-medio); white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+  td.artigo { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--cinza-medio); }
+
+  /* ── FLUXO PERÍCIA ── */
+  .fluxo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 28px 0;
+    justify-content: center;
+  }
+  .fluxo-item {
+    background: var(--azul-judiciario);
+    color: white;
+    border-radius: 10px;
+    padding: 16px 20px;
+    flex: 1 1 200px;
+    max-width: 240px;
+    text-align: center;
+    position: relative;
+  }
+  .fluxo-item .num {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: var(--dourado);
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 28px;
+    margin-bottom: 8px;
+  }
+  .fluxo-item .txt { font-size: 0.85rem; line-height: 1.4; }
+
+  /* ── HABILIDADES GRID ── */
+  .habilidades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .habilidade-card {
+    background: var(--cinza-claro);
+    border: 1px solid var(--cinza-borda);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .habilidade-card strong {
+    display: block;
+    color: var(--azul-judiciario);
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+  }
+  .habilidade-card p { font-size: 0.85rem; color: var(--cinza-medio); margin: 0; line-height: 1.55; }
+
+  /* ── PASSOS PERITO ── */
+  .passos { margin: 28px 0; }
+  .passo {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    align-items: flex-start;
+  }
+  .passo-num {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: var(--azul-judiciario);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .passo-conteudo h4 { color: var(--azul-judiciario); margin-bottom: 8px; }
+
+  /* ── DICA BOX ── */
+  .dica-box {
+    background: #f0f7f0;
+    border: 1px solid #a8d5a8;
+    border-left: 4px solid var(--verde-destaque);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+  .dica-box strong { color: var(--verde-destaque); }
+
+  /* ── SCROLL TOP ── */
+  .btn-topo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--azul-judiciario);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 999;
+    transition: background 0.2s;
+  }
+  .btn-topo:hover { background: var(--azul-claro); }
+
+  /* ── NAVEGAÇÃO FIXA ── */
+  .nav-topo {
+    position: sticky;
+    top: 0;
+    background: rgba(26,58,92,0.97);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--dourado);
+  }
+  .nav-topo .nav-title { color: white; font-size: 0.85rem; font-weight: 600; opacity: 0.85; }
+  .nav-topo a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.8rem; margin-left: 20px; transition: color 0.15s; }
+  .nav-topo a:hover { color: var(--dourado-claro); }
+
+  /* ── RODAPÉ ── */
+  footer {
+    background: var(--azul-judiciario);
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    padding: 40px;
+    font-size: 0.8rem;
+    margin-top: 80px;
+  }
+  footer strong { color: white; }
+
+  /* ── RESPONSIVO ── */
+  @media (max-width: 600px) {
+    .conteudo { padding: 0 20px 80px; }
+    .sumario-wrapper { padding: 40px 20px; }
+    .capa { padding: 40px 24px; }
+    .peticao-modelo { padding: 28px 18px; }
+    .nav-topo { padding: 10px 20px; }
+    .nav-topo a { display: none; }
+    .fluxo-item { max-width: 100%; }
+  }
+
+  @media print {
+    .nav-topo, .btn-topo { display: none; }
+    .capa { min-height: auto; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<section class="capa">
+  <div class="capa-badge">Material de Estudo</div>
+  <h1>Curso de<br>Perito Judicial</h1>
+  <h2>para Corretores de Imóveis</h2>
+  <div class="capa-divider"></div>
+  <div class="capa-info">
+    <span>📋 CPC – Lei nº 13.105/2015</span>
+    <span>🏛️ Perícia Judicial e Extrajudicial</span>
+    <span>📄 Modelos de Petições</span>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav-topo">
+  <span class="nav-title">⚖️ Perito Judicial — Corretores de Imóveis</span>
+  <div>
+    <a href="#sumario">Sumário</a>
+    <a href="#cap1">O Perito</a>
+    <a href="#cap2">A Perícia</a>
+    <a href="#cap3">Legislação</a>
+    <a href="#cap4">Como ser Perito</a>
+    <a href="#cap5">Petições</a>
+  </div>
+</nav>
+
+<!-- SUMÁRIO -->
+<div class="sumario-wrapper" id="sumario">
+  <h2 class="titulo-secao">Sumário</h2>
+  <ul class="sumario-lista">
+    <li><a href="#cap1">O Perito e o Judiciário</a>
+      <ul class="sub">
+        <li><a href="#quem-perito">Quem Pode Ser Perito</a></li>
+        <li><a href="#habilidades">Habilidades do Perito</a></li>
+        <li><a href="#elementos">Os Elementos do Processo</a></li>
+        <li><a href="#principios">Princípios Processuais</a></li>
+        <li><a href="#fases">Resumo das Fases de um Processo</a></li>
+        <li><a href="#estrutura">Estrutura do Judiciário</a></li>
+        <li><a href="#instancias">As Instâncias e a Atuação do Perito</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap-assistente">O Assistente Técnico</a>
+      <ul class="sub">
+        <li><a href="#quem-assistente">Quem Pode Ser Assistente Técnico</a></li>
+        <li><a href="#honor-assistente">Honorários do Assistente Técnico</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap2">A Perícia</a>
+      <ul class="sub">
+        <li><a href="#definicao-pericia">Definição</a></li>
+        <li><a href="#tipos-pericia">Perícia Judicial, Extrajudicial e Arbitral</a></li>
+        <li><a href="#caracteriza">O que Caracteriza a Perícia</a></li>
+        <li><a href="#falsa-pericia">Cuidado com a Falsa Perícia</a></li>
+        <li><a href="#responsabilidade">Responsabilidade e Riscos</a></li>
+        <li><a href="#honor-perito">Honorários do Perito</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap-avaliacao">Perícia Judicial de Avaliação Imobiliária</a>
+      <ul class="sub">
+        <li><a href="#avaliacao-imob">A Avaliação Imobiliária</a></li>
+        <li><a href="#regulamentos">Regulamentos – Corretores de Imóveis</a></li>
+        <li><a href="#ptam">O PTAM e o Laudo Pericial</a></li>
+        <li><a href="#req-ptam">Requisitos Mínimos do PTAM</a></li>
+        <li><a href="#req-laudo">Requisitos Mínimos do Laudo Pericial</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap3">Legislação – CPC Lei nº 13.105/2015</a></li>
+    <li><a href="#cap4">Como Ser Perito</a>
+      <ul class="sub">
+        <li><a href="#passo1">Passo 1 – Ser Legalmente Habilitado</a></li>
+        <li><a href="#passo2">Passo 2 – Cadastro do Tribunal</a></li>
+        <li><a href="#passo3">Passo 3 – Apresentação</a></li>
+        <li><a href="#passo4">Passo 4 – Seja Perito</a></li>
+        <li><a href="#passo5">Passo 5 – Replicar</a></li>
+        <li><a href="#fluxo">Fluxo da Perícia Judicial</a></li>
+      </ul>
+    </li>
+    <li><a href="#prazos">Os Prazos na Perícia</a></li>
+    <li><a href="#cap5">Comunicando-se com o Juízo (Petições)</a></li>
+    <li><a href="#modelos">Petições – Fundamentos Legais e Modelos</a></li>
+  </ul>
+</div>
+
+<!-- CONTEÚDO -->
+<main class="conteudo">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CAPÍTULO 1 – O PERITO E O JUDICIÁRIO       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="cap1">
+    <div class="capitulo-numero">Capítulo 1</div>
+    <h2>O Perito e o Judiciário</h2>
+
+    <div class="destaque-box">
+      <div class="label">Etimologia</div>
+      <p><strong>Pe·ri·to</strong> (do latim <em>peritus.a.um</em>) — adj.: Que tem perícia; experiente, hábil, prático, sabedor, versado.<br><br>
+      <strong>s.m./s.f.:</strong> Aquele(a) que é prático(a) ou sabedor(a) em determinados assuntos; aquele(a) que é judicialmente nomeado(a) para uma avaliação, exame ou vistoria; juridicamente: aquele(a) designado pelo juiz para opinar sobre assuntos que lhe foram submetidos em certa ação jurídica.</p>
+    </div>
+
+    <p>O Perito Judicial tem sua participação consolidada como <strong>auxiliar da justiça</strong>, sendo de grande relevância na prestação jurisdicional quando a prova do fato depender de conhecimento técnico ou científico.</p>
+    <p>O CPC reconhece a importância da prova pericial e, nesse contexto, prestigia o Perito Judicial, exigindo grande transparência para sua indicação e reforçando a fundamental necessidade do devido conhecimento técnico especializado.</p>
+
+    <ul class="conteudo-lista">
+      <li>Perito Judicial é o profissional que realiza a <strong>PERÍCIA JUDICIAL</strong>.</li>
+      <li>O Perito Judicial presta seu serviço para a Justiça, sendo de confiança do Juiz.</li>
+      <li>O resultado da atividade do Perito Judicial é a <strong>Prova Pericial</strong>.</li>
+      <li>A Prova Pericial consiste em <strong>exame, vistoria ou avaliação</strong>.</li>
+    </ul>
+
+    <div class="secao" id="quem-perito">
+      <h3>Quem Pode Ser Perito</h3>
+      <p>O juiz será assistido por Perito quando a prova do fato depender de conhecimento técnico ou científico. Os Peritos são nomeados entre os profissionais legalmente habilitados e os órgãos técnicos ou científicos devidamente inscritos em cadastro mantido pelo tribunal ao qual o juiz está vinculado.</p>
+      <p>Em se tratando de profissionais legalmente habilitados que possuem um Órgão de Classe profissional (exemplo: CRECI, OAB, CRM entre outros), esse profissional deve estar ativo e regular com suas obrigações pecuniárias, para que não sejam suspensos seus direitos de profissional desta categoria.</p>
+    </div>
+
+    <div class="secao" id="habilidades">
+      <h3>Habilidades do Perito</h3>
+      <p>Para a realização da atividade por parte do Perito Judicial, além das habilidades técnico-científicas da sua profissão, são requeridas as seguintes habilidades comportamentais:</p>
+      <div class="habilidades-grid">
+        <div class="habilidade-card"><strong>Conhecimento da Área</strong><p>Necessário conhecimento específico de sua área de atuação.</p></div>
+        <div class="habilidade-card"><strong>Adaptabilidade</strong><p>Capacidade de se adaptar a situações adversas e mudanças de condições.</p></div>
+        <div class="habilidade-card"><strong>Responsabilidade</strong><p>Responde pelos prejuízos causados e pode ser inabilitado por 2 a 5 anos.</p></div>
+        <div class="habilidade-card"><strong>Criatividade</strong><p>Criar alternativas e conceber ideias de solução para problemas que impeçam o exercício da função.</p></div>
+        <div class="habilidade-card"><strong>Capacidade de Decisão</strong><p>Tomar decisões rápidas, claras e eficientes.</p></div>
+        <div class="habilidade-card"><strong>Experiência</strong><p>Quanto mais experiência, tanto melhor e mais célere será a atuação.</p></div>
+        <div class="habilidade-card"><strong>Metodologia</strong><p>Avaliação dentro de critérios metodológicos rigorosos, de forma sistemática e comprovável.</p></div>
+        <div class="habilidade-card"><strong>Percepção</strong><p>Obter informações que outros não conseguiriam perceber, com reconhecimento rápido de situações difíceis.</p></div>
+        <div class="habilidade-card"><strong>Boa Aparência</strong><p>Cuido da aparência pessoal e higiene, transmitindo imagem de pessoa zelosa.</p></div>
+        <div class="habilidade-card"><strong>Autoconfiança</strong><p>Transparecer conhecimentos sólidos para transmitir confiança nas decisões.</p></div>
+        <div class="habilidade-card"><strong>Bom Relacionamento</strong><p>Saber lidar com as pessoas para desenvolver a atividade com o mínimo de obstáculos.</p></div>
+      </div>
+    </div>
+
+    <div class="secao" id="elementos">
+      <h3>Os Elementos do Processo</h3>
+      <ul class="conteudo-lista">
+        <li><strong>Fato Jurídico</strong> — Tudo que ocorre de origem natural ou humana que gera alguma consequência jurídica.</li>
+        <li><strong>Ato Jurídico</strong> — Decorrente da vontade manifestada de uma pessoa, proposto à ação por um processo.</li>
+        <li><strong>Partes do Processo</strong> — Os diretamente envolvidos no litígio ou no conflito.</li>
+        <li><strong>Litígio</strong> — As divergências entre as partes (Autor e Réu) que compõem um processo judicial.</li>
+        <li><strong>Autor</strong> — Aquele que move a ação, também chamado de requerente.</li>
+        <li><strong>Réu</strong> — Aquele que é acusado ou requerido.</li>
+        <li><strong>Juiz</strong> — Quem julga o processo, investido de autoridade pública com o poder para exercer a atividade jurisdicional.</li>
+        <li><strong>Escrivão</strong> — Responsável por dirigir os trabalhos do ofício, praticar atos jurídicos e executar tarefas inerentes ao foro judicial.</li>
+        <li><strong>Vara</strong> — Também chamado de juízo, julgado ou juizado; a jurisdição de um juiz (área de atuação definida).</li>
+        <li><strong>Tribunal</strong> — Órgão cuja finalidade é exercer a jurisdição, resolvendo litígios com eficácia de coisa julgada.</li>
+        <li><strong>Contencioso</strong> — O que dá, ou pode dar, lugar à contestação e discussão por via judicial.</li>
+        <li><strong>Magistrado</strong> — Membro do Poder Judiciário investido de autoridade judiciária (ex.: juízes).</li>
+        <li><strong>Cartório</strong> — Local da Vara onde se encontra toda espécie de ofício judicial, sendo o escrivão seu responsável.</li>
+      </ul>
+    </div>
+
+    <div class="secao" id="principios">
+      <h3>Princípios Processuais</h3>
+      <p>Dentre os princípios essenciais a serem tomados como regra fundamental no envolvimento com processos judiciais:</p>
+      <ul class="conteudo-lista">
+        <li><strong>Imparcialidade do Juiz</strong> — O juiz deve atuar de forma imparcial, sem tendência para qualquer das partes.</li>
+        <li><strong>Igualdade (Art. 5º CF)</strong> — Garantia constitucional da igualdade de tratamento de todos perante a lei.</li>
+        <li><strong>Contraditório e Ampla Defesa (Art. 5º CF, LV)</strong> — Os sujeitos devem tomar conhecimento dos fatos do processo e poder manifestar opinião.</li>
+        <li><strong>Princípio da Ação</strong> — O Poder Judiciário depende da provocação do titular da ação para se movimentar.</li>
+        <li><strong>Disponibilidade e Indisponibilidade</strong> — A liberdade que as pessoas têm de exercer ou não seus direitos.</li>
+        <li><strong>Livre Investigação das Provas</strong> — No Brasil assegura-se a livre investigação de provas pelo juiz.</li>
+        <li><strong>Impulso Oficial</strong> — O juiz deve mover o procedimento de fase em fase até finalizar a função jurisdicional.</li>
+        <li><strong>Oralidade</strong> — Imediatidade, identidade física do juiz, concentração da causa e irrecorribilidade.</li>
+        <li><strong>Persuasão Racional</strong> — O juiz pode decidir livremente de acordo com seu próprio convencimento.</li>
+        <li><strong>Exigência de Motivação</strong> — Obrigatoriedade de o magistrado explicar o porquê de sua decisão.</li>
+        <li><strong>Publicidade</strong> — Todos os julgamentos serão públicos, salvo quando a defesa da intimidade exigir restrição.</li>
+        <li><strong>Lealdade Processual</strong> — Todos que participam do processo devem comportar-se de acordo com a boa-fé.</li>
+        <li><strong>Economia e Instrumentalidade</strong> — O processo como instrumento deve ser realizado da maneira menos onerosa possível.</li>
+        <li><strong>Duplo Grau de Jurisdição</strong> — Garantia de novo julgamento por órgãos superiores das decisões de primeira instância.</li>
+      </ul>
+    </div>
+
+    <div class="secao" id="fases">
+      <h3>Resumo das Fases de um Processo</h3>
+      <ol class="conteudo-lista">
+        <li><strong>Petição Inicial</strong> — Redigida pelo advogado do Autor, descrevendo o motivo da ação.</li>
+        <li><strong>Citação</strong> — Chamamento do Réu ao processo.</li>
+        <li><strong>Resposta ou Contestação</strong> — Redigida pelo advogado do Réu, contendo a defesa.</li>
+        <li><strong>Preliminares</strong> — Audiências, sentenças antecipadas pelo juiz, bem como a extinção do processo se não tiver fundamentos jurídicos.</li>
+        <li><strong>Perícias</strong> — As diligências e as provas periciais.</li>
+        <li><strong>Instruções e Julgamento</strong> — Audiências para a conclusão do processo.</li>
+        <li><strong>Sentença do Juiz</strong> — Ato final definido pelo juiz.</li>
+      </ol>
+    </div>
+
+    <div class="secao" id="estrutura">
+      <h3>Estrutura do Judiciário</h3>
+      <ul class="conteudo-lista">
+        <li><strong>1ª Instância</strong> — Processo a cargo de Juízes nas Varas e Tribunais do Estado para a sentença.</li>
+        <li><strong>2ª Instância</strong> — Processo a cargo de Desembargadores nas Câmaras para os acórdãos.</li>
+        <li><strong>3ª Instância</strong> — Processo a cargo de Ministros nos Tribunais Superiores (STJ, STF, TSE, TST).</li>
+      </ul>
+    </div>
+
+    <div class="secao" id="instancias">
+      <h3>As Instâncias e a Atuação do Perito</h3>
+      <p>O Perito assiste o Juiz quando depender de conhecimento técnico ou científico para se obter a prova do fato — a Prova Pericial. Portanto, o juiz, na primeira instância, nomeia um Perito especializado no objeto da perícia, ou mais de um Perito, no caso de perícia complexa que abranja mais de uma área de conhecimento especializado.</p>
+      <div class="alerta">
+        <strong>⚠️ Nas demais instâncias</strong> não existe prova pericial. Os desembargadores ou os ministros (segunda e terceira instância) fazem análises dos laudos já juntados ao processo para poderem dar o parecer.
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- O ASSISTENTE TÉCNICO                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="cap-assistente">
+    <div class="capitulo-numero">Capítulo 2</div>
+    <h2>O Assistente Técnico</h2>
+
+    <p>O Assistente Técnico auxilia a operação de um fato juntamente com um advogado, tendo a função de avaliar e discutir tecnicamente o caso. O Assistente Técnico — muitas vezes chamado equivocadamente de perito assistente — verifica a prova pericial e envida esforços para fazer com que o Perito nomeado pelo juízo perceba as diferentes interpretações da matéria fática sob estudo.</p>
+
+    <div class="destaque-box">
+      <div class="label">Distinção Fundamental</div>
+      <p>O Perito presta seu serviço para a <strong>Justiça</strong>, sendo de confiança do Juiz. O Assistente Técnico presta seu serviço para <strong>uma das partes</strong> do processo judicial, sendo de confiança da parte.<br><br>
+      Enquanto o Perito entrega ao juízo um <strong>Laudo Pericial</strong>, o Assistente Técnico entrega um <strong>Parecer Técnico</strong>.</p>
+    </div>
+
+    <p>Os Assistentes Técnicos são de confiança da parte e <strong>não estão sujeitos a impedimento ou suspeição</strong>. Tanto o Perito quanto os Assistentes Técnicos devem entregar, respectivamente, laudo e pareceres em prazo fixado pelo juiz.</p>
+
+    <div class="secao" id="quem-assistente">
+      <h3>Quem Pode Ser Assistente Técnico</h3>
+      <p>O juiz nomeia o Perito e, conforme o §1º do artigo 465 do CPC, incumbe às partes, dentro de 15 dias contados da intimação do despacho de nomeação do perito, indicar assistente técnico.</p>
+      <p>O CPC estabelece que são auxiliares da Justiça: o escrivão, o chefe de secretaria, o oficial de justiça, o perito, o depositário, o administrador, o intérprete, o tradutor, o mediador, o conciliador judicial, o partidor, o distribuidor, o contabilista e o regulador de avarias. <strong>O Assistente Técnico não é auxiliar da Justiça</strong> — é auxiliar da Parte.</p>
+    </div>
+
+    <div class="secao" id="honor-assistente">
+      <h3>Honorários do Assistente Técnico</h3>
+      <p>Conforme o artigo 84 do CPC, as despesas abrangem as custas dos atos do processo, a indenização de viagem, a <strong>remuneração do assistente técnico</strong> e a diária de testemunha. Conforme o artigo 95 do CPC, cada parte adiantará a remuneração do assistente técnico que houver indicado.</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- A PERÍCIA                                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="cap2">
+    <div class="capitulo-numero">Capítulo 3</div>
+    <h2>A Perícia</h2>
+    <p>A Perícia é o mecanismo para assistir o juiz, ou as partes, na solução de um litígio ou um conflito.</p>
+
+    <div class="secao" id="definicao-pericia">
+      <h3>Definição</h3>
+      <div class="definicao-box">
+        <p>Meio de prova consistente no parecer técnico de pessoa habilitada. A perícia se realiza para o processo, ou seja, para os sujeitos principais deste, que requerem, para melhor solução da questão, que o perito não apresente nem decida, mas simplesmente contribui para o julgamento.</p>
+        <div class="fonte">— Extraído do website JusBrasil</div>
+      </div>
+      <div class="destaque-box">
+        <div class="label">Em Resumo</div>
+        <p><strong>PERÍCIA:</strong> Exame ou vistoria realizados por profissional especializado e legalmente habilitado com objetivo de geração de prova judicial ou extrajudicial.</p>
+      </div>
+    </div>
+
+    <div class="secao" id="tipos-pericia">
+      <h3>Perícia Judicial, Extrajudicial e Arbitral</h3>
+      <ul class="conteudo-lista">
+        <li><strong>Perícia Judicial</strong> — Aquela que se fundamenta numa ação postulada em Juízo, podendo ser determinada diretamente pelo juiz ou a ele requerida pelas partes litigantes.</li>
+        <li><strong>Perícia Extrajudicial</strong> — Contratada livremente por uma das partes num momento anterior ao litígio propriamente dito. Não se deve confundir com o parecer do assistente técnico.</li>
+        <li><strong>Perícia Arbitral</strong> — Realizada no juízo arbitral, ou seja, na instância decisória criada pela vontade das partes, subsidiando a convicção do árbitro (Lei nº 9.307/1996).</li>
+      </ul>
+    </div>
+
+    <div class="secao" id="caracteriza">
+      <h3>O que Caracteriza a Perícia</h3>
+      <p>A declaração de caráter técnico sobre um elemento da prova. A perícia serve para provar fatos de percepção técnica, que dependem de conhecimento pericial. Ela verifica e certifica. A percepção, observação e apreciação são momentos de verificação. Ela é meio de prova.</p>
+      <p>A perícia pode ser <strong>obrigatória ou facultativa</strong>. Em princípio, é facultativa, mas, por exceção, há perícias indispensáveis. Em qualquer caso, versa sobre fatos da causa que escapam ao conhecimento ordinário, pois dependem de conhecimento especial.</p>
+    </div>
+
+    <div class="secao" id="falsa-pericia">
+      <h3>Cuidado com a Falsa Perícia</h3>
+      <div class="alerta-vermelho">
+        <strong>⚠️ Artigo 342 do Código Penal Brasileiro:</strong><br>
+        Fazer afirmação falsa, ou negar ou calar a verdade como testemunha, PERITO, contador, tradutor ou intérprete em processo judicial, ou administrativo, inquérito policial, ou em juízo arbitral.<br><br>
+        <strong>Pena:</strong> reclusão, de 2 (dois) a 4 (quatro) anos, e multa, podendo aumentar-se de um sexto a um terço.
+      </div>
+      <p>O fato deixa de ser punível se, antes da sentença no processo em que ocorreu o ilícito, o agente se retrata ou declara a verdade.</p>
+    </div>
+
+    <div class="secao" id="responsabilidade">
+      <h3>Responsabilidade e Riscos na Perícia</h3>
+      <p>O Perito Judicial que, por dolo ou culpa, prestar informações inverídicas, responderá pelos prejuízos que causar à parte, ficará <strong>inabilitado por 2 (dois) anos</strong> a funcionar em outras perícias e incorrerá na sanção que a lei penal estabelecer.</p>
+      <p>O perito responde, civil e criminalmente, pelos erros, omissões, desídia e venalidade. O juiz poderá decretar a inabilitação do perito por 2 (dois) anos, impedindo o profissional de funcionar em qualquer juízo de comarca do território nacional.</p>
+    </div>
+
+    <div class="secao" id="honor-perito">
+      <h3>Honorários do Perito</h3>
+      <ul class="conteudo-lista">
+        <li>O Perito terá <strong>5 dias</strong> da data da nomeação para apresentar proposta de honorários.</li>
+        <li>A prova pericial só será produzida se a parte solicitante concordar com os honorários.</li>
+        <li>O juiz pode autorizar pagamento de até <strong>50% dos honorários</strong> no início dos trabalhos.</li>
+        <li>O remanescente é pago ao final, depois de entregue o laudo e prestados os esclarecimentos.</li>
+        <li>Se houver beneficiário de gratuidade da justiça, a perícia será custeada com recursos do orçamento do ente público.</li>
+        <li>Quando a perícia for inconclusiva ou deficiente, o juiz poderá <strong>reduzir a remuneração</strong> inicialmente arbitrada.</li>
+        <li>Se substituído, o Perito restituirá os valores recebidos. Não restituindo, pode ficar impedido de ser perito por <strong>5 anos</strong>.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PERÍCIA DE AVALIAÇÃO IMOBILIÁRIA            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="cap-avaliacao">
+    <div class="capitulo-numero">Capítulo 4</div>
+    <h2>Perícia Judicial de Avaliação Imobiliária</h2>
+
+    <div class="secao" id="avaliacao-imob">
+      <h3>A Avaliação Imobiliária</h3>
+      <p>A Avaliação Imobiliária é a atividade que visa definir ou estimar o <strong>valor de mercado do bem imóvel</strong>, na situação em que se encontra e no mercado onde esteja.</p>
+      <h4>Propósitos da Avaliação Imobiliária:</h4>
+      <ul class="conteudo-lista">
+        <li>Melhor adequação da oferta de venda</li>
+        <li>Maiores argumentos nas negociações de contrato de locação</li>
+        <li>Adequada partilha dos bens de uma herança ou de uma dissolução societária</li>
+        <li>Conhecimento apropriado para a compra de imóveis</li>
+        <li>Estudos econômicos e financeiros de um investimento</li>
+        <li>Cálculo correto de indenização por expropriação</li>
+        <li>Determinação do valor para efeitos fiscais</li>
+        <li>Informação precisa para assistir o juiz na solução de litígios</li>
+      </ul>
+    </div>
+
+    <div class="secao" id="regulamentos">
+      <h3>Regulamentos da Avaliação Imobiliária por Corretores de Imóveis</h3>
+      <p>O Artigo 3º da Lei nº 6.530/1978 versa que "compete ao Corretor de Imóveis exercer a intermediação na compra, venda, permuta e locação de imóveis, podendo, ainda, <strong>opinar quanto à comercialização imobiliária</strong>".</p>
+      <p>O órgão oficial competente ao exercício da profissão dos Corretores de Imóveis é o <strong>COFECI</strong> e seus CRECIs Regionais. A Resolução COFECI n° 1.066 de 2007, juntamente com o Ato Normativo COFECI nº 001 de 2011, regulamentam a elaboração de <strong>Parecer Técnico de Avaliação Mercadológica (PTAM)</strong> e o funcionamento do Cadastro Nacional de Avaliadores Imobiliários.</p>
+      <p>O COFECI determinou que a Avaliação Imobiliária realizada por Corretor de Imóveis é um Parecer Técnico de Avaliação Mercadológica que utiliza exclusivamente o <strong>Método Comparativo Direto de Dados de Mercado</strong> para a definição do valor do bem imóvel em avaliação.</p>
+    </div>
+
+    <div class="secao" id="ptam">
+      <h3>O PTAM e o Laudo Pericial</h3>
+      <p>O Perito, nomeado pelo juiz, deve apresentar seu <strong>Laudo Pericial</strong> — o documento resultante da perícia ora realizada. O Laudo Pericial por parte do Corretor de Imóveis, nomeado Perito, é o <strong>PTAM — Parecer Técnico de Avaliação Mercadológica</strong>.</p>
+    </div>
+
+    <div class="secao" id="req-ptam">
+      <h3>Requisitos Mínimos do PTAM</h3>
+      <p>A Resolução COFECI nº 1.066 em seu artigo 5º estabelece que o PTAM deve conter:</p>
+      <ol class="conteudo-lista">
+        <li>Identificação do solicitante</li>
+        <li>Objetivo do parecer técnico</li>
+        <li>Identificação e caracterização do imóvel</li>
+        <li>Indicação da metodologia utilizada</li>
+        <li>Valor resultante e sua data de referência</li>
+        <li>Identificação, breve currículo e assinatura do Corretor de Imóveis Avaliador</li>
+      </ol>
+      <p>O Ato Normativo COFECI 001/2011 (Anexo IV) estabelece os requisitos mínimos completos, incluindo: pesquisa de imóveis comparandos, homogeneização da amostra, determinação do valor de mercado, relatório fotográfico, plantas, certidões e currículo do avaliador.</p>
+    </div>
+
+    <div class="secao" id="req-laudo">
+      <h3>Requisitos Mínimos do Laudo Pericial</h3>
+      <p>O artigo 473 do CPC apresenta a lista mínima de elementos que o Laudo Pericial deve conter:</p>
+      <div class="artigo-cpc">
+        <p class="art-num">Art. 473 – CPC</p>
+        <p>I — a exposição do objeto da perícia;</p>
+        <p>II — a análise técnica ou científica realizada pelo perito;</p>
+        <p>III — a indicação do método utilizado, esclarecendo-o e demonstrando ser predominantemente aceito pelos especialistas da área do conhecimento da qual se originou;</p>
+        <p>IV — resposta conclusiva a todos os quesitos apresentados pelo juiz, pelas partes e pelo órgão do Ministério Público.</p>
+        <p>§1º No laudo, o perito deve apresentar sua fundamentação em linguagem simples e com coerência lógica, indicando como alcançou suas conclusões.</p>
+        <p>§2º É vedado ao perito ultrapassar os limites de sua designação, bem como emitir opiniões pessoais que excedam o exame técnico ou científico do objeto da perícia.</p>
+      </div>
+      <p>Os requisitos mínimos do PTAM — conforme o Anexo IV do Ato Normativo COFECI 001/2011 — respondem plenamente às exigências estabelecidas no artigo 473 do CPC. O Corretor de Imóveis, nomeado Perito, deve apresentar o PTAM como Laudo Pericial e protocolar no juízo pelo menos <strong>20 dias antes da audiência de instrução e julgamento</strong> (art. 477, CPC).</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LEGISLAÇÃO – CPC                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="cap3">
+    <div class="capitulo-numero">Capítulo 5</div>
+    <h2>Legislação — CPC Lei nº 13.105/2015</h2>
+
+    <p>A legislação aplicada ao Perito está plenamente contemplada no <strong>Código de Processo Civil — Lei nº 13.105, de 16 de março de 2015</strong>, que entrou em vigor em 18 de março de 2016.</p>
+    <p>Abaixo, os trechos do CPC que afetam diretamente a atuação do profissional enquanto perito judicial ou assistente técnico:</p>
+
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 1º</p>
+      <p>O processo civil será ordenado, disciplinado e interpretado conforme os valores e as normas fundamentais estabelecidos na Constituição da República Federativa do Brasil.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 5º</p>
+      <p>Aquele que de qualquer forma participa do processo deve comportar-se de acordo com a boa-fé.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 6º</p>
+      <p>Todos os sujeitos do processo devem cooperar entre si para que se obtenha, em tempo razoável, decisão de mérito justa e efetiva.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 95</p>
+      <p>Cada parte adiantará a remuneração do assistente técnico que houver indicado, sendo a do perito adiantada pela parte que houver requerido a perícia ou rateada quando a perícia for determinada de ofício ou requerida por ambas as partes.</p>
+      <p>§1º O juiz poderá determinar que a parte responsável pelo pagamento dos honorários do perito deposite em juízo o valor correspondente.</p>
+      <p>§4º O juiz poderá autorizar o pagamento de até cinquenta por cento dos honorários arbitrados a favor do perito no início dos trabalhos, devendo o remanescente ser pago apenas ao final, depois de entregue o laudo e prestados todos os esclarecimentos necessários.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 149</p>
+      <p>São auxiliares da Justiça, além de outros cujas atribuições sejam determinadas pelas normas de organização judiciária, o escrivão, o chefe de secretaria, o oficial de justiça, o perito, o depositário, o administrador, o intérprete, o tradutor, o mediador, o conciliador judicial, o partidor, o distribuidor, o contabilista e o regulador de avarias.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 156</p>
+      <p>O juiz será assistido por perito quando a prova do fato depender de conhecimento técnico ou científico.</p>
+      <p>§1º Os peritos serão nomeados entre os profissionais legalmente habilitados e os órgãos técnicos ou científicos devidamente inscritos em cadastro mantido pelo tribunal ao qual o juiz está vinculado.</p>
+      <p>§2º Para formação do cadastro, os tribunais devem realizar consulta pública, por meio de divulgação na rede mundial de computadores ou em jornais de grande circulação, além de consulta direta a universidades, a conselhos de classe, ao Ministério Público, à Defensoria Pública e à Ordem dos Advogados do Brasil.</p>
+      <p>§5º Na localidade onde não houver inscrito no cadastro disponibilizado pelo tribunal, a nomeação do perito é de livre escolha pelo juiz.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 157</p>
+      <p>O perito tem o dever de cumprir o ofício no prazo que lhe designar o juiz, empregando toda sua diligência, podendo escusar-se do encargo alegando motivo legítimo.</p>
+      <p>§1º A escusa será apresentada no prazo de 15 (quinze) dias, contado da intimação, da suspeição ou do impedimento supervenientes, sob pena de renúncia ao direito a alegá-la.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 158</p>
+      <p>O perito que, por dolo ou culpa, prestar informações inverídicas responderá pelos prejuízos que causar à parte e ficará inabilitado para atuar em outras perícias no prazo de 2 (dois) a 5 (cinco) anos, independentemente das demais sanções previstas em lei, devendo o juiz comunicar o fato ao respectivo órgão de classe.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 464</p>
+      <p>A prova pericial consiste em exame, vistoria ou avaliação.</p>
+      <p>§1º O juiz indeferirá a perícia quando: I — a prova do fato não depender de conhecimento especial de técnico; II — for desnecessária em vista de outras provas produzidas; III — a verificação for impraticável.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 465</p>
+      <p>O juiz nomeará perito especializado no objeto da perícia e fixará de imediato o prazo para a entrega do laudo.</p>
+      <p>§1º Incumbe às partes, dentro de 15 (quinze) dias contados da intimação do despacho de nomeação do perito: I — arguir o impedimento ou a suspeição do perito, se for o caso; II — indicar assistente técnico; III — apresentar quesitos.</p>
+      <p>§2º Ciente da nomeação, o perito apresentará em 5 (cinco) dias: I — proposta de honorários; II — currículo, com comprovação de especialização; III — contatos profissionais, em especial o endereço eletrônico.</p>
+      <p>§4º O juiz poderá autorizar o pagamento de até cinquenta por cento dos honorários arbitrados a favor do perito no início dos trabalhos.</p>
+      <p>§5º Quando a perícia for inconclusiva ou deficiente, o juiz poderá reduzir a remuneração inicialmente arbitrada para o trabalho.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 466</p>
+      <p>O perito cumprirá escrupulosamente o encargo que lhe foi cometido, independentemente de termo de compromisso.</p>
+      <p>§1º Os assistentes técnicos são de confiança da parte e não estão sujeitos a impedimento ou suspeição.</p>
+      <p>§2º O perito deve assegurar aos assistentes das partes o acesso e o acompanhamento das diligências e dos exames que realizar, com prévia comunicação, comprovada nos autos, com antecedência mínima de 5 (cinco) dias.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 468</p>
+      <p>O perito pode ser substituído quando: I — faltar-lhe conhecimento técnico ou científico; II — sem motivo legítimo, deixar de cumprir o encargo no prazo que lhe foi assinado.</p>
+      <p>§2º O perito substituído restituirá, no prazo de 15 (quinze) dias, os valores recebidos pelo trabalho não realizado, sob pena de ficar impedido de atuar como perito judicial pelo prazo de 5 (cinco) anos.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 473</p>
+      <p>O laudo pericial deverá conter: I — a exposição do objeto da perícia; II — a análise técnica ou científica realizada pelo perito; III — a indicação do método utilizado; IV — resposta conclusiva a todos os quesitos apresentados pelo juiz, pelas partes e pelo órgão do Ministério Público.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 476</p>
+      <p>Se o perito, por motivo justificado, não puder apresentar o laudo dentro do prazo, o juiz poderá conceder-lhe, por uma vez, prorrogação pela metade do prazo originalmente fixado.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 477</p>
+      <p>O perito protocolará o laudo em juízo, no prazo fixado pelo juiz, pelo menos 20 (vinte) dias antes da audiência de instrução e julgamento.</p>
+      <p>§1º As partes serão intimadas para, querendo, manifestar-se sobre o laudo do perito do juízo no prazo comum de 15 (quinze) dias, podendo o assistente técnico de cada uma das partes, em igual prazo, apresentar seu respectivo parecer.</p>
+      <p>§2º O perito do juízo tem o dever de, no prazo de 15 (quinze) dias, esclarecer ponto: I — sobre o qual exista divergência ou dúvida; II — divergente apresentado no parecer do assistente técnico.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 870</p>
+      <p>A avaliação será feita pelo oficial de justiça.</p>
+      <p>Parágrafo único. Se forem necessários conhecimentos especializados e o valor da execução o comportar, o juiz nomeará avaliador, fixando-lhe prazo não superior a 10 (dez) dias para entrega do laudo.</p>
+    </div>
+    <div class="artigo-cpc">
+      <p class="art-num">Art. 872</p>
+      <p>A avaliação realizada pelo oficial de justiça constará de vistoria e de laudo anexados ao auto de penhora ou, em caso de perícia realizada por avaliador, de laudo apresentado no prazo fixado pelo juiz, devendo-se, em qualquer hipótese, especificar: I — os bens, com as suas características, e o estado em que se encontram; II — o valor dos bens.</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- COMO SER PERITO                             -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="cap4">
+    <div class="capitulo-numero">Capítulo 6</div>
+    <h2>Como Ser Perito</h2>
+    <p>Seguem todas as exigências e quesitos técnicos e procedimentais para que uma pessoa possa ser nomeada pelo juiz como Perito num processo judicial.</p>
+
+    <div class="passos">
+      <div class="passo" id="passo1">
+        <div class="passo-num">1</div>
+        <div class="passo-conteudo">
+          <h4>Ser Legalmente Habilitado</h4>
+          <p>O artigo 156 do CPC deixa bem claro que o juiz nomeia como Perito um profissional legalmente habilitado de acordo com seu conhecimento técnico ou científico. <strong>Ser e estar legalmente habilitado</strong> significa ter respondido aos quesitos legais para exercer essa atividade e estar, no momento da potencial nomeação, plenamente ativo em resposta às suas obrigações pecuniárias e legais.</p>
+          <div class="alerta"><strong>Exemplo:</strong> Um Corretor de Imóveis pleiteante a ser nomeado Perito para Avaliação Imobiliária deve ser devidamente inscrito no CRECI de sua região, estar ativo, com obrigações pecuniárias em dia e sem processo ético-disciplinar.</div>
+        </div>
+      </div>
+
+      <div class="passo" id="passo2">
+        <div class="passo-num">2</div>
+        <div class="passo-conteudo">
+          <h4>Cadastro do Tribunal</h4>
+          <p>Cada tribunal mantém um cadastro próprio e independente com a lista dos profissionais que potencialmente possam ser nomeados enquanto Peritos. Este cadastro é precedido de consulta pública e sujeito a avaliações e reavaliações periódicas.</p>
+          <p><strong>Documentos geralmente solicitados para inscrição:</strong></p>
+          <ul class="conteudo-lista">
+            <li>Requerimento de inscrição preenchido, definindo as comarcas onde deseja atuar</li>
+            <li>Foto tamanho 3×4</li>
+            <li>Currículo profissional recente e assinado</li>
+            <li>CPF e comprovante de inscrição PIS/PASEP ou NIT</li>
+            <li>Carteira do Conselho de Classe respectivo (ex.: CRECI)</li>
+            <li>Certificado de especialização na área de atuação, se for o caso</li>
+            <li>Comprovante de endereço atualizado (últimos 3 meses)</li>
+            <li>Comprovante de conta corrente individual para crédito dos honorários</li>
+            <li>Declaração atualizada do órgão profissional sobre ausência de penalidade disciplinar</li>
+            <li>Declaração de inexistência de vínculo atual como perito do INSS</li>
+            <li>Certidão criminal com inexistência de condenação transitada em julgado</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="passo" id="passo3">
+        <div class="passo-num">3</div>
+        <div class="passo-conteudo">
+          <h4>Apresentação</h4>
+          <p>Legalmente habilitado e inscrito no cadastro do tribunal, o profissional deve <strong>fazer-se conhecido</strong>. O que faz com que o juiz nomeie este ou aquele profissional, quando ambos têm currículos similares, é a percepção de maior habilidade na demanda específica, pontualidade e competência.</p>
+          <div class="dica-box">
+            <strong>✅ Sugestões:</strong>
+            <ul style="margin: 8px 0 0 16px;">
+              <li>Faça visita às Varas dos Tribunais e converse com o Juiz e/ou Diretor da Vara</li>
+              <li>Apresente seus conhecimentos de forma prática, sucinta e objetiva</li>
+              <li>Mostre laudos e/ou pareceres que tenha feito no passado (os melhores)</li>
+              <li>Demonstre suas qualificações e como poderá assistir o juiz</li>
+              <li>Entregue seu currículo e cartão de visita (limite a 2–4 páginas)</li>
+            </ul>
+          </div>
+          <div class="alerta-vermelho">
+            <strong>❌ O que NÃO fazer:</strong>
+            <ul style="margin: 8px 0 0 16px;">
+              <li>Enviar currículo por e-mail (a não ser que o magistrado solicite)</li>
+              <li>Gastar o tempo do juiz de forma demasiada sem propósito</li>
+              <li>Fazer constante contato para verificar oportunidade de nomeação</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="passo" id="passo4">
+        <div class="passo-num">4</div>
+        <div class="passo-conteudo">
+          <h4>Seja Perito</h4>
+          <p>Quando o profissional recebe a nomeação de perito, deverá cumprir <strong>escrupulosamente</strong> o encargo que lhe foi cometido. O Perito Judicial deve ter plena consciência de que é o auxiliar da Justiça, desenvolvendo um trabalho de extrema responsabilidade e relevância perante o Poder Judiciário.</p>
+          <p>É fundamental exercer a profissão com <strong>zelo, diligência, honestidade, dignidade, independência profissional</strong> e guardar sigilo sobre o que souber em razão do exercício de suas funções. O perito deve considerar a profissão como alto título honorífico, sempre utilizando ciência e consciência.</p>
+        </div>
+      </div>
+
+      <div class="passo" id="passo5">
+        <div class="passo-num">5</div>
+        <div class="passo-conteudo">
+          <h4>Replicar</h4>
+          <p>Tendo realizado a perícia com sucesso, é provável que o Perito seja chamado para atuar em outro processo pelo mesmo juiz. Replicar é reproduzir o mesmo sucesso, agora em uma nova unidade de tempo e situação.</p>
+          <p>É comum que o resultado da atuação do Perito seja de conhecimento de outros juízes de outras Varas, provocando a possibilidade de novas nomeações. Quanto mais a repercussão for positiva, mais nomeações surgirão — criando <strong>boa reputação</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="secao" id="fluxo">
+      <h3>Fluxo da Perícia Judicial</h3>
+      <div class="fluxo">
+        <div class="fluxo-item"><div class="num">1</div><div class="txt">Nomeação do Perito pelo Juiz</div></div>
+        <div class="fluxo-item"><div class="num">2</div><div class="txt">Retirada do processo pelo Perito</div></div>
+        <div class="fluxo-item"><div class="num">3</div><div class="txt">Planejamento da Perícia e Proposta de Honorários</div></div>
+        <div class="fluxo-item"><div class="num">4</div><div class="txt">Devolução do Processo</div></div>
+        <div class="fluxo-item"><div class="num">5</div><div class="txt">Retirada do processo para realização da Perícia</div></div>
+        <div class="fluxo-item"><div class="num">6</div><div class="txt">Elaboração do Laudo Pericial</div></div>
+        <div class="fluxo-item"><div class="num">7</div><div class="txt">Devolução do processo e protocolo do Laudo Pericial</div></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- OS PRAZOS NA PERÍCIA                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="prazos">
+    <div class="capitulo-numero">Capítulo 7</div>
+    <h2>Os Prazos na Perícia</h2>
+
+    <p>Respeitar os prazos na realização da perícia e todas as suas atividades vinculadas é algo extremamente criterioso, rígido e de extrema importância. Conforme o artigo 219 do CPC, na contagem de prazo em dias, <strong>somente serão computados os dias úteis</strong>.</p>
+
+    <div class="alerta">
+      <strong>⚠️ Atenção!</strong> O perito pode ser substituído (art. 468 do CPC) quando faltar-lhe conhecimento técnico ou quando, sem motivo legítimo, deixar de cumprir o encargo no prazo que lhe foi assinado.
+    </div>
+
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Situação</th>
+            <th>Descrição</th>
+            <th>Artigo do CPC</th>
+            <th>Prazo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Impedimento e suspeição dos auxiliares da Justiça</strong></td>
+            <td>O juiz mandará processar o incidente ouvindo o arguido e facultando produção de prova.</td>
+            <td class="artigo">Art. 148 §2º</td>
+            <td class="prazo">15 dias</td>
+          </tr>
+          <tr>
+            <td><strong>Escusa do Perito</strong></td>
+            <td>A escusa será apresentada no prazo, sob pena de renúncia ao direito a alegá-la.</td>
+            <td class="artigo">Art. 157 §1º</td>
+            <td class="prazo">15 dias (da intimação ou impedimento)</td>
+          </tr>
+          <tr>
+            <td><strong>Realização da Perícia</strong></td>
+            <td>O perito tem o dever de cumprir o ofício no prazo que lhe designar o juiz.</td>
+            <td class="artigo">Art. 157</td>
+            <td class="prazo">Fixado pelo Juiz</td>
+          </tr>
+          <tr>
+            <td><strong>Resposta a quesito nas audiências</strong></td>
+            <td>Perito e assistentes técnicos responderão aos quesitos de esclarecimentos requeridos.</td>
+            <td class="artigo">Art. 361</td>
+            <td class="prazo">15 dias</td>
+          </tr>
+          <tr>
+            <td><strong>Impedimento/suspeição, indicação de assistente e quesitos</strong></td>
+            <td>Incumbe às partes arguir impedimento, indicar assistente técnico e apresentar quesitos.</td>
+            <td class="artigo">Art. 465 §1º</td>
+            <td class="prazo">15 dias (da intimação da nomeação)</td>
+          </tr>
+          <tr>
+            <td><strong>Apresentação de proposta de honorários, currículo e contatos</strong></td>
+            <td>Ciente da nomeação, o perito apresentará proposta de honorários, currículo e contatos.</td>
+            <td class="artigo">Art. 465 §2º</td>
+            <td class="prazo">5 dias</td>
+          </tr>
+          <tr>
+            <td><strong>Manifestação das partes sobre honorários</strong></td>
+            <td>As partes serão intimadas da proposta de honorários para se manifestarem, se quiserem.</td>
+            <td class="artigo">Art. 465 §3º</td>
+            <td class="prazo">5 dias</td>
+          </tr>
+          <tr>
+            <td><strong>Restituição de valores pelo Perito substituído</strong></td>
+            <td>O perito substituído restituirá os valores recebidos pelo trabalho não realizado.</td>
+            <td class="artigo">Art. 468 §2º</td>
+            <td class="prazo">15 dias</td>
+          </tr>
+          <tr>
+            <td><strong>Entrega do Laudo Pericial pelo Perito</strong></td>
+            <td>O perito e os assistentes técnicos devem entregar laudo e pareceres em prazo fixado pelo juiz.</td>
+            <td class="artigo">Art. 471 §2º</td>
+            <td class="prazo">Fixado pelo Juiz</td>
+          </tr>
+          <tr>
+            <td><strong>Manifestação das partes sobre o Laudo</strong></td>
+            <td>As partes serão intimadas para manifestar-se sobre o laudo do perito do juízo.</td>
+            <td class="artigo">Art. 477 §1º</td>
+            <td class="prazo">15 dias</td>
+          </tr>
+          <tr>
+            <td><strong>Apresentação de Parecer pelo Assistente Técnico</strong></td>
+            <td>O assistente técnico de cada uma das partes pode apresentar seu respectivo parecer.</td>
+            <td class="artigo">Art. 477 §1º</td>
+            <td class="prazo">15 dias</td>
+          </tr>
+          <tr>
+            <td><strong>Esclarecimentos do Perito</strong></td>
+            <td>O perito tem o dever de esclarecer pontos divergentes ou com dúvida.</td>
+            <td class="artigo">Art. 477 §2º</td>
+            <td class="prazo">15 dias</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- COMUNICANDO-SE COM O JUÍZO (PETIÇÕES)       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="cap5">
+    <div class="capitulo-numero">Capítulo 8</div>
+    <h2>Comunicando-se com o Juízo (Petições)</h2>
+
+    <div class="destaque-box">
+      <div class="label">Definição</div>
+      <p><strong>Pe·ti·ção</strong> (do latim <em>petitio.onis</em>) — Requerimento; pedido efetuado de modo escrito. Ação ou consequência de pedir. Juridicamente: solicitação feita por escrito para pedir um favor. Meio pelo qual se pleiteia direitos perante a Justiça.</p>
+    </div>
+
+    <p>Todos os comunicados referentes às solicitações apresentados ao judiciário no decorrer da atividade do perito ou do assistente técnico devem ser feitos no formato de petições. O direito de petição é garantido constitucionalmente pelo Art. 5º, XXXIV, da Constituição Federal.</p>
+
+    <div class="secao">
+      <h3>Orientações para Redação de Petições</h3>
+      <ul class="conteudo-lista">
+        <li><strong>Estética e Escrita</strong> — Redigir em bom português, de forma concisa, contendo apenas palavras e dados suficientes para alcançar o objetivo.</li>
+        <li><strong>Evite Abreviaturas</strong> — Use "Vossa Excelência" ao invés de "V. Exa.".</li>
+        <li><strong>Não faça inversões de períodos</strong> — Construa períodos simples: sujeito, predicado, complemento e advérbio.</li>
+        <li><strong>Evite uso excessivo do latim</strong> — Limite-se às expressões latinas mais conhecidas do que suas traduções. Termos latinos devem ser escritos em itálico.</li>
+        <li><strong>Elimine erros ortográficos ou gramaticais</strong> — Releia e revise sempre antes de entregar.</li>
+        <li><strong>Mantenha um padrão</strong> — Mesma fonte e tamanho na íntegra da petição, preferencialmente em preto sobre folha branca.</li>
+      </ul>
+
+      <h4>A Lógica Jurídica da Petição</h4>
+      <ol class="conteudo-lista">
+        <li>O endereçamento não deve ser abreviado.</li>
+        <li>Entre o endereçamento e o início da petição, mantenha espaço suficiente para o juiz dar seu despacho.</li>
+        <li>Faça sempre uma narração sucinta dos fatos ocorridos.</li>
+        <li>Indique o fundamento legal do pedido; descreva o fato demonstrando sua adequação ao direito; cite doutrina e jurisprudência se pertinente; conclua demonstrando que a ação deve ser procedente ou improcedente.</li>
+        <li>Pedido de deferimento, data e assinatura.</li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- MODELOS DE PETIÇÕES                         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="capitulo" id="modelos">
+    <div class="capitulo-numero">Capítulo 9</div>
+    <h2>Petições — Fundamentos Legais e Modelos</h2>
+
+    <p>Os modelos de petições a seguir servem como exemplo, sendo representações sugestivas para os textos a serem montados e utilizados no aspecto jurídico do perito judicial nomeado, tanto quanto pelos assistentes técnicos.</p>
+    <div class="alerta"><strong>Importante:</strong> Ao utilizar qualquer um dos modelos, atente-se às dicas anteriormente listadas e à fundamental importância de deixar espaço entre o endereçamento e o início da petição para o despacho do juiz.</div>
+
+    <div class="secao">
+      <h3>1. Aceitação de Designação de Perito</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome]
+Réu: [nome]
+Ação: [tipo de ação]
+Processo nº: [número do processo]
+
+[NOME DO PERITO EM MAIÚSCULO], [nacionalidade], [estado civil], RG nº [número], CPF nº [número], inscrito no [Órgão de Classe], sob o nº [inscrição], com escritório profissional nesta cidade na rua [nome] nº [número], bairro [nome], vem, respeitosamente, informar a Vossa Excelência, com fulcro nos artigos 156, §1º, e 465, §2º, ambos do Código de Processo Civil, que aceita o encargo para o qual foi nomeado e que apresentará a proposta de honorários judiciais após a juntada dos quesitos pelas partes.
+
+Desta forma, requer a juntada desta aos autos para tornar ciente todas as partes interessadas e devidos fins de direito.
+
+É o que requer.
+Pede Deferimento.
+
+[Cidade, UF], _____ de __________ de _____
+
+_______(Assinatura do perito)________
+[Nome do Perito]
+Nº do Órgão de Classe</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 156 §1º e Art. 465 §2º – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>2. Escusa de Nomeação do Encargo de Perito</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome]
+Réu: [nome]
+Ação: [tipo de ação]
+Processo nº: [número do processo]
+
+[NOME DO PERITO], Perito deste Juízo, devidamente qualificado nos autos do processo em epígrafe vem, respeitosamente, informar a Vossa Excelência, que apesar de muito honrado com a designação, por motivos alheios à sua vontade, encontra-se impossibilitado de exercer o encargo [caso entenda explicar: ", devido a..."]. Dessa forma, apresenta sinceras escusas e fica à disposição deste Juízo para maiores esclarecimentos, assim como para atuar em outros processos, quando for solicitado.
+
+Isto posto, requer a sua dispensa do encargo e a juntada desta aos autos para tornar ciente as partes interessadas e para os devidos fins de direito.
+
+É o que requer,
+Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____
+
+_________(Assinatura do perito)_______
+[Nome do Perito]
+Nº do Órgão de Classe</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 157 §1º e Art. 467 – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>3. Escusa por Suspeição ou Impedimento</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome]
+Réu: [nome]
+Ação: [tipo de ação]
+Processo nº: [número do processo]
+
+[NOME DO PERITO], Perito deste Juízo, devidamente qualificado nos autos do processo em epígrafe vem, respeitosamente, informar a Vossa Excelência, que apesar de muito honrado com a designação, encontra-se [suspeito/impedido] de atuar no referido processo [colocar a motivação da suspeição ou do impedimento]. Portanto, impossibilitado de exercer o encargo.
+
+Isto posto, requer a sua dispensa do encargo e a juntada desta aos autos para tornar ciente as partes interessadas e para os devidos fins de direito.
+
+É o que requer,
+Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 144, Art. 145, Art. 148, Art. 157 §1º – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>4. Petição do Perito Impugnado que Pretende ser Mantido na Função</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, respeitosamente, em razão da respeitável decisão, expor e informar a Vossa Excelência:
+
+a) Foi impugnação de folha(s) [nº(s)] alega ser este Perito [parentesco/amizade/outro motivo de suspeição];
+b) Houve equívoco por parte do patrono do [autor ou réu], pelo fato de não se tratar de [suspeição/impedimento], por não apresentar harmoniosamente com a realidade fática;
+c) Na verdade [explicação objetiva dos fatos por parte do Perito].
+
+Isto posto, acredita ter esclarecido todos os fatos. Requer a Vossa Excelência seja validada a sua designação e, por via de consequência, inadmitida a impugnação apresentada, ficando disponível para novos esclarecimentos.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 465 §1º, Art. 468, Art. 471, Art. 812 – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>5. Petição Informando a Pretensão de Honorários Periciais</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, devidamente qualificado nos autos do processo em epígrafe, vem, respeitosamente, requerer a Vossa Excelência a fixação dos honorários periciais em R$ [valor] ([valor por extenso]).
+
+Diante do exposto, requer a intimação [do autor/réu, responsável pelo pagamento] para que efetue o depósito da quantia fixada a título de verba honorária, no montante arbitrado por Vossa Excelência, a título de adiantamento, objetivando, assim, dar início às diligências periciais.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 465 §2º – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>6. Petição de Pretensão de Honorários com Esclarecimentos</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, respeitosamente, requerer a Vossa Excelência a fixação dos seus honorários em R$ [valor] ([valor por extenso]).
+
+Esclarece o Perito a Vossa Excelência que a quantia acima deve-se à extensa quesitação apresentada pelas Partes, totalizando [número por extenso] quesitos, conforme constam de folhas [indicar as folhas], o que demandará um tempo muito longo de trabalho [expectativa em dias/semanas]. Dessa forma, é motivada a realização de várias diligências, além de despesas extras com [viagem, pesquisa, foto, etc.].
+
+Diante do exposto, requer a intimação [do autor/réu] para que efetue o depósito da quantia fixada.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 465 §2º, §3º, §5º – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>7. Petição Reiterando Pedido de Depósito dos Honorários</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, qualificado nos autos do processo em epígrafe, requer a Vossa Excelência a intimação do responsável pelo adiantamento de seus honorários para que seja efetuado o depósito da quantia arbitrada, objetivando o início dos trabalhos periciais.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 82, Art. 84, Art. 95, Art. 465 §4º – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>8. Petição Solicitando Autorização para Uso de Outros Meios</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, devidamente qualificado nos autos do processo em epígrafe, vem, respeitosamente, requerer a Vossa Excelência autorização para [descrever o meio de prova necessário: questionar alguma pessoa sobre o objeto da perícia, buscar documentos em algum órgão, etc.]
+
+Desta forma, requer a Vossa Excelência [fazer o requerimento de acordo com o pedido acima, caso haja necessidade de intimações, notificações, dilação de prazo, etc.].
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 473 §3º – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>9. Petição para Intimação de Morador do Imóvel</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, respeitosamente, requerer a Vossa Excelência, a expedição de mandado para intimação do morador do imóvel no qual deve realizar a perícia, Sr. [nome do morador] residente na rua [nome, nº] para que permita o ingresso deste Perito no imóvel, visto que não logrou êxito nas tentativas anteriores.
+
+Diante dos fatos, requer a Vossa Excelência a intimação do Sr. [nome], bem como fazer constar no mandado que o seu descumprimento acarretará em crime de desobediência, autorizando o Perito a recorrer, se necessário, às forças policiais.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 269, Art. 271, Art. 466, Art. 477 – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>10. Petição de Apresentação de Laudo e Liberação dos Honorários</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, devidamente qualificado nos autos processuais, vem, respeitosamente, apresentar a Vossa Excelência, dentro do prazo legal, o Laudo Pericial em Anexo.
+
+Requer a liberação de seus honorários.
+
+Isto posto, requer a expedição de mandado de pagamento em favor do ora Requerente.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 465 §4º, Art. 473, Art. 477 – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>11. Petição de Pedido de Prorrogação de Prazo para Entrega do Laudo</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, elucidar e requer a Vossa Excelência:
+
+Como observável nos autos, pela grande quantidade de quesitos apresentados e a necessidade de apuração fática criteriosa da matéria, o prazo deferido por Vossa Excelência se tornou escasso, pelo fato de pretender, este Perito, obter as melhores colocações de ordem técnica, com o aprimoramento das diligências concernentes.
+
+Assim, requer a Vossa Excelência, apresentando suas desculpas, a prorrogação do prazo pelo período de [dizer o tempo necessário]. Ainda, requer que o prazo comece a correr a partir da ciência deste Perito, dando-se ciência imediata aos interessados.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 476 – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>12. Petição de Esclarecimento sobre Impugnação do Laudo</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, em resposta à respeitável decisão de Vossa Excelência, referente à impugnação do seu laudo, esclarecer:
+
+O Perito atendeu, na elaboração da prova técnica, todos os requisitos técnicos pertencentes à hipótese. Dessa forma, não há qualquer motivação fática e/ou legal para se entender pela existência de falha na peça apresentada.
+
+Os questionamentos mais se apresentam como inconformismo do Requerente com o conclusivo técnico, do que a presença de eventual mancha no laudo apresentado. Pode se perceber que a(s) impugnação(s) feita(s) resumem-se em [dizer os pontos falhos e justificar tecnicamente].
+
+Isto posto, requer a rejeição da impugnação apresentada, ficando este Perito à disposição de Vossa Excelência para qualquer outra informação complementar.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 477, Art. 429, Art. 436, Art. 635 – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>13. Petição sobre Novos e Sucessivos Esclarecimentos</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, respeitosamente, informar a Vossa Excelência que ratifica todos os posicionamentos anteriormente apresentados e que não há novos esclarecimentos a prestar, pois toda a matéria já foi esgotada e as novas questões apresentadas pelo Requerente à(s) fl.(s) [número das folhas] encontram-se nas peças técnicas presentes nos autos à(s) fl.(s) [número]. Portanto, resume-se o novo questionamento em desdobramento de anteriores quesitos, não tendo este Perito nada mais a acrescentar.
+
+Requer, a Vossa Excelência, a juntada desta aos autos, para ciência dos interessados, ratificando o Laudo e anteriores esclarecimentos.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 469, Art. 470 – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>14. Petição Requerendo Entrega de Chaves de Imóvel Vazio</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, respeitosamente, requerer a Vossa Excelência que seja feita a intimação da Parte [mencionar qual a parte] para que deposite nesta Vara as chaves do imóvel, que é objeto da prova pericial, pelo fato de encontrar-se vazio, não havendo no local quem possa autorizar a entrada do Perito para as diligências necessárias.
+
+Isto posto, requer a Vossa Excelência, que após apresentadas as chaves, que se notifique este Perito, para fins de designação de dia, hora e local para a diligência, tornando ciente todos os interessados.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 473 §3º – CPC</p></div>
+    </div>
+
+    <div class="secao">
+      <h3>15. Petição Comunicando Fato Ocorrido Durante a Diligência</h3>
+      <div class="peticao-modelo">Exmo. Sr. (Dr) Juiz de Direito da [VARA] Vara Cível de [CIDADE] – [UF]
+
+Autor: [nome] / Réu: [nome] / Ação: [tipo] / Processo nº: [número]
+
+[NOME DO PERITO], Perito deste Juízo, vem, respeitosamente, elucidar e requerer a Vossa Excelência:
+
+Na forma legal, este Perito deu início às diligências periciais. Entretanto, ocorreu [transcrever o que ocorreu].
+
+Em decorrência dos fatos supramencionados este Perito entendeu que é devido suspender todos os atos periciais, objetivando levar ao conhecimento de Vossa Excelência e dos demais interessados o ora esposado.
+
+Este Perito sugere a Vossa Excelência que tome providências no sentido de [colocar o que acha cabível para a hipótese].
+
+Dessa forma, aguarda a solução do Juízo para fins de dar prosseguimento nas diligências periciais, requerendo a suspensão do prazo para entrega do Laudo.
+
+É o que requer. Pede deferimento.
+
+[Cidade, UF], _____ de __________ de _____</div>
+      <div class="artigo-cpc"><p class="art-num">Fundamento Legal: Art. 5º, Art. 6º, Art. 313, Art. 315, Art. 466, Art. 976 – CPC</p></div>
+    </div>
+
+  </article>
+
+</main>
+
+<!-- RODAPÉ -->
+<footer>
+  <p><strong>Curso de Perito Judicial para Corretores de Imóveis</strong></p>
+  <p style="margin-top:10px;">Legislação de referência: CPC — Lei nº 13.105, de 16 de março de 2015 · Resolução COFECI nº 1.066/2007 · Ato Normativo COFECI nº 001/2011</p>
+</footer>
+
+<!-- BOTÃO TOPO -->
+<button class="btn-topo" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">↑</button>
+
+</body>
+</html>
