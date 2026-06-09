@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Apostilas - EAD CRECI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --accent: #f1c40f;
+            --dark: #002b5c;
+            --bg: #f4f7f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--accent);
+        }
+
+        header h1 { margin: 0; font-size: 2.2em; }
+        header p { opacity: 0.9; margin-top: 10px; }
+
+        .container {
+            max-width: 1200px;
+            margin: -30px auto 60px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        .card i {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: var(--dark);
+            height: 45px; /* Alinha os títulos */
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-top: auto;
+            transition: 0.3s;
+        }
+
+        .card:hover .btn {
+            background: var(--accent);
+            color: #000;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9em;
+        }
+
+        /* Cores Diferentes para Ícones para facilitar a vista */
+        .icon-blue { color: #3498db !important; }
+        .icon-gold { color: #f39c12 !important; }
+        .icon-green { color: #27ae60 !important; }
+        .icon-red { color: #e74c3c !important; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Apostilas EAD CRECI</h1>
+        <p>Portal de Treinamento e Capacitação Imobiliária</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- 1. HP12C -->
+        <a href="12c.html" class="card">
+            <i class="fas fa-calculator icon-blue"></i>
+            <h3>HP12C e Matemática Financeira</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 2. IA CRECI -->
+        <a href="apostila-ia-creci.html" class="card">
+            <i class="fas fa-robot icon-gold"></i>
+            <h3>Inteligência Artificial no CRECI</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 3. Fotografia -->
+        <a href="fotografia-imobiliaria.html" class="card">
+            <i class="fas fa-camera-retro icon-green"></i>
+            <h3>Fotografia Imobiliária</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 4. Avaliação -->
+        <a href="apostila-avaliacao-imobiliaria.html" class="card">
+            <i class="fas fa-home icon-blue"></i>
+            <h3>Avaliação Imobiliária</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 5. Perito Judicial -->
+        <a href="apostila-perito-judicial.html" class="card">
+            <i class="fas fa-gavel icon-red"></i>
+            <h3>Perito Judicial</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 6. Locação e Administração -->
+        <a href="locacao-administracao-imoveis.html" class="card">
+            <i class="fas fa-key icon-gold"></i>
+            <h3>Locação e Administração</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 7. Documentação -->
+        <a href="creci-documentacao.html" class="card">
+            <i class="fas fa-file-contract icon-blue"></i>
+            <h3>Documentação Imobiliária</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 8. Sistema Registral -->
+        <a href="apostila-sistema-registral-notarial-1.html" class="card">
+            <i class="fas fa-stamp icon-green"></i>
+            <h3>Sistema Registral e Notarial</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 9. Lucro Imobiliário -->
+        <a href="apostila-lucro-imobiliario.html" class="card">
+            <i class="fas fa-chart-pie icon-red"></i>
+            <h3>Lucro Imobiliário</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 10. Negociação -->
+        <a href="apostila-negociacao.html" class="card">
+            <i class="fas fa-handshake icon-blue"></i>
+            <h3>Negociação Imobiliária</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 11. Correspondente -->
+        <a href="apostila-correspondente-credito.html" class="card">
+            <i class="fas fa-piggy-bank icon-gold"></i>
+            <h3>Correspondente de Crédito</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 12. Gestão de Tempo -->
+        <a href="gestao-de-tempo-creci.html" class="card">
+            <i class="fas fa-clock icon-green"></i>
+            <h3>Gestão de Tempo</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 13. Inferência Estatística -->
+        <a href="apostila-inferencia-estatistica.html" class="card">
+            <i class="fas fa-chart-bar icon-red"></i>
+            <h3>Inferência Estatística</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+        <!-- 14. Resolução COFECI -->
+        <a href="resolucao-cofeci-1336-2014.html" class="card">
+            <i class="fas fa-balance-scale icon-blue"></i>
+            <h3>Resolução COFECI 1336/2014</h3>
+            <span class="btn">Acessar Apostila</span>
+        </a>
+
+    </div>
+
+    <footer>
+        <p>Portal serfico21-arch | Apostilas Oficiais EAD CRECI</p>
+    </footer>
+
+</body>
+</html>
+```
