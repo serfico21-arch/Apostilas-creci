@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Correspondente de Crédito Imobiliário | CRECI-SP EAD</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Nunito+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#006B3C;
+  --verde2:#004D2A;
+  --verde3:#2E9E6B;
+  --laranja:#E8930A;
+  --azul:#1A5FA8;
+  --branco:#FFFFFF;
+  --fundo:#F5F7F5;
+  --texto:#1A2820;
+  --cinza:#5A6B5E;
+  --borda:#C8DDD0;
+  --destaque:#EBF5EF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--fundo);color:var(--texto);font-size:16px;line-height:1.75}
+
+/* NAV LATERAL */
+#nav{position:fixed;top:0;left:0;height:100vh;width:270px;background:var(--verde2);overflow-y:auto;z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+#nav::-webkit-scrollbar{width:4px}
+#nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:2px}
+.nav-logo{padding:22px 20px 14px;border-bottom:1px solid rgba(255,255,255,.1)}
+.nav-logo .marca{font-family:'Nunito Sans',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:.5px}
+.nav-logo .marca span{color:var(--laranja)}
+.nav-logo small{display:block;font-size:11px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.5px}
+.nav-sec{padding:14px 20px 4px;font-size:9.5px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,.3);text-transform:uppercase}
+#nav a{display:flex;align-items:flex-start;gap:10px;padding:8px 20px;color:rgba(255,255,255,.6);text-decoration:none;font-size:12.5px;transition:all .2s;border-left:3px solid transparent;line-height:1.4}
+#nav a:hover,#nav a.ativo{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--verde3)}
+#nav a .n{font-size:10px;font-weight:800;background:rgba(255,255,255,.08);border-radius:4px;padding:2px 6px;min-width:26px;text-align:center;flex-shrink:0;margin-top:1px;color:var(--verde3)}
+
+/* TOGGLE MOBILE */
+#btn-menu{display:none;position:fixed;top:14px;left:14px;z-index:200;background:var(--verde2);color:#fff;border:none;width:42px;height:42px;border-radius:10px;cursor:pointer;font-size:20px;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+
+/* MAIN */
+main{margin-left:270px;max-width:900px;padding:48px 60px 100px}
+
+/* BARRA PROGRESSO */
+.scroll-progress{position:fixed;top:0;left:270px;right:0;height:3px;z-index:99}
+.scroll-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--verde3),var(--laranja));transition:width .1s}
+
+/* CAPA */
+.capa{background:linear-gradient(135deg,var(--verde2) 0%,var(--verde) 55%,var(--verde3) 100%);border-radius:20px;padding:60px 48px;color:#fff;margin-bottom:64px;position:relative;overflow:hidden}
+.capa::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M0 0h20v20H0V0zm20 20h20v20H20V20z'/%3E%3C/g%3E%3C/svg%3E")}
+.capa-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:24px;color:rgba(255,255,255,.9)}
+.capa h1{font-family:'Nunito Sans',sans-serif;font-size:clamp(32px,5.5vw,60px);font-weight:900;line-height:1.08;letter-spacing:-1px;margin-bottom:14px}
+.capa h1 .laranja{color:var(--laranja)}
+.capa .sub{font-size:16px;color:rgba(255,255,255,.72);max-width:480px;line-height:1.65;margin-bottom:32px}
+.capa-info{display:flex;flex-wrap:wrap;gap:14px}
+.capa-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,.8)}
+.capa-chip strong{display:block;color:#fff;font-size:14px;font-weight:800}
+
+/* SEÇÕES */
+.secao{margin-bottom:68px;scroll-margin-top:24px}
+.secao-hdr{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,var(--verde2),var(--verde));border-radius:12px;padding:16px 22px;margin-bottom:28px;color:#fff}
+.secao-hdr .ic{font-size:22px;flex-shrink:0}
+.secao-hdr h2{font-family:'Nunito Sans',sans-serif;font-size:clamp(17px,2.8vw,23px);font-weight:900;letter-spacing:.3px;line-height:1.2}
+
+/* TIPOGRAFIA */
+.cont p{margin-bottom:16px;font-size:15px;line-height:1.78;color:var(--texto)}
+.cont h3{font-size:17px;font-weight:800;color:var(--verde2);margin:28px 0 10px;padding-left:14px;border-left:4px solid var(--verde3)}
+.cont h4{font-size:15px;font-weight:700;color:var(--verde);margin:20px 0 6px}
+
+/* LISTAS */
+.lista{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:9px}
+.lista li{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.65}
+.lista li::before{content:'';flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--verde3);margin-top:8px}
+.lista li strong{color:var(--verde2)}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:20px 0}
+.card{background:#fff;border-radius:14px;padding:20px;border:1px solid var(--borda);box-shadow:0 2px 10px rgba(0,107,60,.07);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 6px 22px rgba(0,107,60,.14);transform:translateY(-2px)}
+.card .ic{font-size:26px;margin-bottom:8px}
+.card h4{font-size:13.5px;font-weight:800;color:var(--verde2);margin-bottom:6px}
+.card p{font-size:13px;color:var(--cinza);line-height:1.5;margin:0}
+.card .tag{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--verde3);margin-bottom:6px;display:block}
+
+/* DESTAQUE */
+.dest{border-radius:0 12px 12px 0;padding:18px 22px;margin:20px 0;font-size:14.5px;line-height:1.7}
+.dest.verde{background:var(--destaque);border-left:5px solid var(--verde3);border:1px solid var(--borda);border-left:5px solid var(--verde3);color:var(--verde2)}
+.dest.laranja{background:#FFF8EF;border:1px solid #FFE0B2;border-left:5px solid var(--laranja);color:#7C4A00}
+.dest.azul{background:#EEF4FF;border:1px solid #C4D8F5;border-left:5px solid var(--azul);color:#1A3A6E}
+.dest.vermelho{background:#FFF5F5;border:1px solid #FED7D7;border-left:5px solid #E53E3E;color:#742A2A}
+.dest strong{display:block;font-weight:800;margin-bottom:6px;font-size:15px}
+
+/* TABELAS */
+.tw{overflow-x:auto;margin:20px 0}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,107,60,.08);font-size:13.5px}
+thead tr{background:var(--verde2);color:#fff}
+thead th{padding:12px 16px;text-align:left;font-weight:800;font-size:12.5px;letter-spacing:.3px}
+tbody tr:nth-child(even){background:var(--destaque)}
+tbody td{padding:11px 16px;border-bottom:1px solid var(--borda);vertical-align:top;line-height:1.5}
+tbody tr:last-child td{border-bottom:none}
+
+/* COMPARATIVO SFH/SFI */
+.comp-table thead th:first-child{width:180px}
+
+/* FORMULAS */
+.formula-box{background:#1A2820;border-radius:12px;padding:20px 24px;margin:16px 0}
+.formula-box p{font-family:'Courier New',monospace;font-size:14px;color:#A8E6C3;margin:6px 0 0;line-height:1.8}
+.formula-box .f-titulo{font-size:11px;font-weight:700;letter-spacing:1.2px;color:rgba(255,255,255,.35);text-transform:uppercase}
+
+/* QUESTÕES */
+.questao{background:#fff;border-radius:14px;padding:22px;border:1px solid var(--borda);margin-bottom:20px;box-shadow:0 2px 8px rgba(0,107,60,.06)}
+.questao .q-titulo{font-size:14px;font-weight:800;color:var(--verde2);margin-bottom:10px}
+.questao .q-texto{font-size:14.5px;margin-bottom:12px;line-height:1.6}
+.questao .q-opcoes{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-direction:column;gap:6px}
+.questao .q-opcoes li{font-size:13.5px;padding:6px 10px;border-radius:7px;background:var(--fundo);border:1px solid var(--borda)}
+.questao .q-opcoes li.correta{background:#EBF5EF;border-color:var(--verde3);color:var(--verde2);font-weight:700}
+.questao .q-exp{font-size:13px;color:var(--cinza);background:var(--fundo);padding:12px 14px;border-radius:8px;line-height:1.65;border-left:3px solid var(--verde3)}
+
+/* ATENÇAO */
+.atencao{background:#FFF8EF;border:1px solid #FFE0B2;border-left:4px solid var(--laranja);border-radius:0 10px 10px 0;padding:14px 18px;margin:16px 0;font-size:14px;color:#7C4A00;font-weight:700}
+.atencao::before{content:'⚠️ ATENÇÃO: '}
+
+/* RODAPÉ */
+footer{margin-top:72px;padding:28px;background:var(--verde2);border-radius:14px;color:rgba(255,255,255,.55);text-align:center;font-size:13px}
+footer strong{color:#fff}
+
+/* RESPONSIVO */
+@media(max-width:860px){
+  #btn-menu{display:flex}
+  #nav{transform:translateX(-100%)}
+  #nav.aberto{transform:translateX(0)}
+  main{margin-left:0;padding:56px 22px 80px}
+  .scroll-progress{left:0}
+  .capa{padding:36px 22px}
+}
+@media(max-width:480px){
+  main{padding:56px 14px 80px}
+  .cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="scroll-progress"><div class="scroll-bar" id="scrollBar"></div></div>
+<button id="btn-menu" onclick="toggleMenu()" aria-label="Menu">☰</button>
+
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="marca">CRECI<span>SP</span></div>
+    <small>EAD · Correspondente de Crédito</small>
+  </div>
+  <div class="nav-sec">Sistema Financeiro</div>
+  <a href="#sfn"><span class="n">01</span>SFN — Sistema Financeiro Nacional</a>
+  <a href="#sfh"><span class="n">02</span>SFH — Sistema Financeiro da Habitação</a>
+  <a href="#sfi"><span class="n">03</span>SFI — Sistema de Financiamento Imobiliário</a>
+  <a href="#sfh-sfi"><span class="n">04</span>SFH & SFI — Comparativo</a>
+  <div class="nav-sec">Crédito Imobiliário</div>
+  <a href="#garantias"><span class="n">05</span>Garantias Imobiliárias</a>
+  <a href="#pf"><span class="n">06</span>Produtos para Pessoa Física</a>
+  <a href="#fgts"><span class="n">07</span>FGTS — Fundo de Garantia</a>
+  <a href="#home-equity"><span class="n">08</span>Home Equity / LTV</a>
+  <a href="#seguros"><span class="n">09</span>Seguros e Seguradoras</a>
+  <a href="#tributacao"><span class="n">10</span>Custos e Tributação</a>
+  <div class="nav-sec">Matemática</div>
+  <a href="#matematica"><span class="n">11</span>Matemática Financeira</a>
+  <a href="#hp12c"><span class="n">12</span>Calculadora HP-12C</a>
+  <div class="nav-sec">Legislação</div>
+  <a href="#lgpd"><span class="n">13</span>LGPD</a>
+  <a href="#cdc"><span class="n">14</span>Código de Defesa do Consumidor</a>
+  <a href="#etica"><span class="n">15</span>Ética no Atendimento</a>
+  <a href="#poscontratacao"><span class="n">16</span>Pós-Contratação</a>
+  <a href="#his"><span class="n">17</span>Habitação de Interesse Social</a>
+  <a href="#questoes"><span class="n">18</span>Questões Resolvidas</a>
+</nav>
+
+<main>
+
+<!-- CAPA -->
+<div class="capa">
+  <div class="capa-badge">📚 Curso EAD · CRECI-SP</div>
+  <h1>Correspondente de<br><span class="laranja">Crédito Imobiliário</span></h1>
+  <p class="sub">Guia completo para corretores de imóveis que atuam ou desejam atuar como correspondentes bancários no mercado de crédito imobiliário.</p>
+  <div class="capa-info">
+    <div class="capa-chip"><strong>CRECI-SP</strong>Conselho Regional</div>
+    <div class="capa-chip"><strong>Modalidade</strong>EAD Online</div>
+    <div class="capa-chip"><strong>Público</strong>Corretores de Imóveis</div>
+    <div class="capa-chip"><strong>106 páginas</strong>Conteúdo completo</div>
+  </div>
+</div>
+
+<!-- 01 SFN -->
+<section class="secao" id="sfn">
+  <div class="secao-hdr"><div class="ic">🏛️</div><h2>Sistema Financeiro Nacional — SFN</h2></div>
+  <div class="cont">
+    <p>O <strong>Sistema Financeiro Nacional (SFN)</strong> é um conjunto de regras, instituições e órgãos reguladores que trazem segurança, transparência e agilidade nas transações financeiras em todo o Brasil.</p>
+    <p>Dentre as funções do SFN destacam-se:</p>
+    <ul class="lista">
+      <li><strong>Prestação de serviços de gerenciamento de recursos:</strong> movimentações financeiras entre contas bancárias — transferências, pagamentos, saques e depósitos.</li>
+      <li><strong>Intermediação financeira:</strong> mediação entre quem investe (agente superavitário) e quem toma crédito (agente deficitário). A diferença entre a taxa cobrada ao tomador e a paga ao investidor chama-se <strong>SPREAD</strong>.</li>
+    </ul>
+
+    <h3>Instituições e Subsistemas do SFN</h3>
+    <div class="cards">
+      <div class="card"><div class="ic">📋</div><h4>Órgãos Normativos</h4><p>Determinam regras gerais: <strong>CMN</strong>, <strong>CNSP</strong> e <strong>CNPC</strong>.</p></div>
+      <div class="card"><div class="ic">🔍</div><h4>Entidades Supervisoras</h4><p>Fiscalizam o cumprimento das normas: <strong>BACEN</strong>, <strong>CVM</strong>, <strong>SUSEP</strong> e <strong>Previc</strong>.</p></div>
+      <div class="card"><div class="ic">🏦</div><h4>Operadores</h4><p>Lidam com o público como intermediários: bancos, cooperativas, bolsas, seguradoras etc.</p></div>
+    </div>
+    <p>Há dois subsistemas: o <strong>normativo</strong> (fiscaliza e regula) e o <strong>operativo</strong> (realiza a intermediação financeira).</p>
+
+    <h3>Estrutura — Participantes Relevantes para o Crédito Imobiliário</h3>
+    <ul class="lista">
+      <li>Conselho Monetário Nacional (CMN)</li>
+      <li>Banco Central do Brasil (BACEN / BCB)</li>
+      <li>Comissão de Valores Mobiliários (CVM)</li>
+      <li>Conselho Nacional de Seguros Privados (CNSP)</li>
+      <li>Superintendência de Seguros Privados (SUSEP)</li>
+      <li>Bancos Comerciais, de Investimento e Múltiplos</li>
+      <li>Sociedade de Crédito Imobiliário (SCI)</li>
+      <li>Associação de Poupança e Empréstimo (APE)</li>
+      <li>Companhias Hipotecárias (CH)</li>
+      <li>Cooperativas de Crédito Rural</li>
+    </ul>
+
+    <h3>Conselho Monetário Nacional (CMN)</h3>
+    <p>Instituído pela Lei nº 4.595/1964, é o <strong>órgão deliberativo máximo do SFN</strong>. Composto por: Ministro da Fazenda (presidente), Ministro do Planejamento e Presidente do BACEN. Responsabilidades principais:</p>
+    <ul class="lista">
+      <li>Definir diretrizes e normas das políticas monetária, creditícia e cambial.</li>
+      <li>Regular as instituições financeiras.</li>
+      <li>Ajustar o volume dos meios de pagamento.</li>
+      <li>Monitorar as condições financeiras das instituições (liquidez e solvência).</li>
+      <li>Regulamentar operações de redesconto e empréstimo.</li>
+    </ul>
+    <p>O CMN emite seus atos na forma de <strong>Resoluções</strong>.</p>
+
+    <h3>Banco Central do Brasil (BACEN / BCB)</h3>
+    <p>Autarquia federal criada pela mesma Lei nº 4.595/1964, com <strong>autonomia técnica, operacional, administrativa e financeira</strong>. Missão: assegurar a estabilidade do poder de compra da moeda e um sistema financeiro sólido. Objetivos principais:</p>
+    <ul class="lista">
+      <li>Zelar pela estabilidade e eficiência do sistema financeiro.</li>
+      <li>Suavizar as flutuações do nível de atividade econômica.</li>
+      <li>Fomentar o pleno emprego.</li>
+    </ul>
+    <p>Ferramentas de política monetária contracionista (para conter inflação):</p>
+    <ul class="lista">
+      <li><strong>Aumento da Taxa Selic:</strong> encarece o crédito, desestimula consumo e investimento.</li>
+      <li><strong>Venda de Títulos Públicos Federais:</strong> absorve recursos, reduz liquidez.</li>
+      <li><strong>Aumento do Depósito Compulsório:</strong> diminui recursos disponíveis para empréstimo.</li>
+      <li><strong>Elevação da Taxa de Desconto:</strong> torna o crédito mais caro para bancos.</li>
+    </ul>
+    <div class="atencao">As metas de política monetária são estabelecidas pelo CMN. Cabe ao BACEN conduzi-las.</div>
+    <p>O BACEN é comandado por uma diretoria colegiada de <strong>9 membros</strong> (1 presidente + 8 diretores), com mandato de 4 anos não coincidentes com o do Presidente da República. Documentos do BACEN: Resolução BCB, Instruções Normativas BCB e Resoluções Conjuntas.</p>
+
+    <h3>Comissão de Valores Mobiliários (CVM)</h3>
+    <p>Autarquia federal (Lei nº 6.385/1976), com autonomia administrativa independente. Administrada por 1 presidente e 4 diretores, nomeados pelo Presidente da República. Atribuições:</p>
+    <ul class="lista">
+      <li>Fiscalizar empresas de capital aberto.</li>
+      <li>Investigar e punir descumprimentos à regulação do mercado de valores mobiliários.</li>
+      <li>Zelar pelo funcionamento eficiente do mercado de capitais.</li>
+      <li>Proteger os investidores e estimular a formação de poupança.</li>
+      <li>Fiscalizar o funcionamento de bolsas de valores e bolsas de mercadorias.</li>
+    </ul>
+
+    <h3>Conselho Nacional de Seguros Privados (CNSP)</h3>
+    <p>Órgão governamental que fixa diretrizes e normas da política de seguros privados. Composto por representantes do Ministério da Economia, Ministério da Justiça, SUSEP, BACEN e CVM. Funções: estabelecer regras para seguradoras, previdência privada, capitalização e resseguro; disciplinar a corretagem do mercado.</p>
+
+    <h3>Tipos de Bancos e suas Carteiras</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Tipo</th><th>Carteira</th><th>Principais Operações</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bancos Comerciais</strong></td><td>Carteira Comercial</td><td>Crédito curto/médio prazo, depósitos à vista, desconto de títulos, cheque especial, câmbio</td></tr>
+          <tr><td><strong>Bancos de Investimento</strong></td><td>Carteira de Investimento</td><td>Fomentar investimentos médio/longo prazo, administração de fundos, IPO, underwriting, capital de giro</td></tr>
+          <tr><td><strong>Bancos de Desenvolvimento</strong></td><td>Carteira de Desenvolvimento</td><td>Crédito direcionado a empresas e produtores rurais, taxas reduzidas: giro, investimento, exportação, terras</td></tr>
+          <tr><td><strong>Bancos Múltiplos</strong></td><td>Carteira Múltipla</td><td>Combina várias carteiras. Uma deve ser comercial ou de investimento. Cada carteira tem CNPJ único; balanço pode ser consolidado.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sociedade de Crédito Imobiliário (SCI)</h3>
+    <p>Integrantes do SFH, instituídas pela Lei nº 4.380/64. Constituídas como S.A., devem ter "crédito imobiliário" na denominação, integrar o SBPE e seguir regras do BACEN. Captam recursos via cadernetas de poupança, letras hipotecárias, DI e repasses de fundos. Destinam recursos a: construção de habitações, crédito para casa própria e capital de giro para construtoras.</p>
+
+    <h3>Associação de Poupança e Empréstimo (APE)</h3>
+    <p>Não é instituição financeira — é sociedade civil (Lei nº 6.855/80). A participação ocorre por: depósito para formação de poupança ou aquisição de financiamento imobiliário (exclusivamente para casa própria). Capta via LH, Repasses, LCI, LF e DI.</p>
+
+    <h3>Companhias Hipotecárias (CH)</h3>
+    <p>Criadas pela Resolução CMN nº 2.122. Concedem crédito imobiliário com garantia de hipoteca ou alienação fiduciária, para fins comerciais ou residenciais. Captam via Letras Hipotecárias, Debêntures, LCI e Empréstimos. <strong>Importante:</strong> não captam por caderneta de poupança. Podem administrar FIIs.</p>
+
+    <h3>Cooperativas de Crédito Rural</h3>
+    <p>Instituições sem fins lucrativos, compostas por associação de pessoas — os cooperados são simultaneamente donos e usuários. Serviços disponíveis para associados: contracorrente, aplicações, cartão de crédito, empréstimos. Finalidades do crédito rural: custeio, investimento, comercialização e industrialização. Público-alvo: produtor rural, cooperativas de produtores e entidades ligadas ao agronegócio.</p>
+  </div>
+</section>
+
+<!-- 02 SFH -->
+<section class="secao" id="sfh">
+  <div class="secao-hdr"><div class="ic">🏡</div><h2>Sistema Financeiro da Habitação — SFH</h2></div>
+  <div class="cont">
+    <p>O SFH foi instituído pela <strong>Lei nº 4.380/1964</strong>, destinando-se a facilitar e promover a construção e a aquisição da casa própria, especialmente pelas classes de menor renda. Regulamentado pelo CMN.</p>
+
+    <h3>Intermediários Financeiros do SFH</h3>
+    <div class="cards">
+      <div class="card"><div class="ic">🏦</div><h4>Bancos Múltiplos com Carteira de Crédito Imobiliário</h4><p>Principal agente financeiro do SFH.</p></div>
+      <div class="card"><div class="ic">💰</div><h4>Caixa Econômica Federal (CEF)</h4><p>Centraliza o FGTS, principal agente operador do SFH e do FGTS.</p></div>
+      <div class="card"><div class="ic">🏘️</div><h4>SCI, APE e CH</h4><p>Sociedades de Crédito Imobiliário, Associações de Poupança e Companhias Hipotecárias.</p></div>
+      <div class="card"><div class="ic">🤝</div><h4>Outros</h4><p>Órgãos públicos, montepios, fundações, cooperativas, securitizadoras, institutos de previdência e caixas militares.</p></div>
+    </div>
+    <div class="dest azul">Além da poupança e do FGTS, o SFH também pode captar recursos via: LH, LCI, CRI e LIG — Letra Imobiliária Garantida.</div>
+
+    <h3>Direcionamento dos Recursos da Poupança</h3>
+    <p>Conforme a Resolução CMN nº 1.932/2010, os recursos da poupança são distribuídos:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Destinação</th><th>%</th><th>Condições</th></tr></thead>
+        <tbody>
+          <tr><td>Financiamento imobiliário (crédito imobiliário)</td><td><strong>65%</strong></td><td>80% ao SFH, 20% ao SBPE livre</td></tr>
+          <tr><td>Recolhimento compulsório ao BACEN</td><td><strong>20%</strong></td><td>Remunerado pela poupança — evita criação de moeda</td></tr>
+          <tr><td>Livre aplicação pela instituição financeira</td><td><strong>15%</strong></td><td>Pode ser destinado a cheque especial, cartão, financiamento de automóveis etc.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Dos 80% da fatia de 65% destinada ao SFH: 80% com <strong>CET máximo de 12% a.a.</strong> e 20% com taxa de mercado livre.</p>
+
+    <h3>Valor Máximo do Imóvel para Enquadramento no SFH</h3>
+    <ul class="lista">
+      <li>R$ 1.500.000,00 — para imóveis em todo o território nacional.</li>
+      <li>R$ 800.000,00 — para imóveis em Áreas de Interesse Social (AIS).</li>
+    </ul>
+
+    <h3>Valor Máximo Financiável (VMF)</h3>
+    <ul class="lista">
+      <li><strong>Tabela SAC:</strong> até 90% do valor do imóvel.</li>
+      <li><strong>Tabela PRICE:</strong> até 80% do valor do imóvel.</li>
+    </ul>
+
+    <h3>Caderneta de Poupança — Características</h3>
+    <p>Criada por D. Pedro II em 1861. Investimento mais popular do Brasil (75% da população). Características:</p>
+    <ul class="lista">
+      <li><strong>Liquidez imediata:</strong> dinheiro pode ser sacado a qualquer tempo.</li>
+      <li><strong>Garantia do FGC</strong> até R$ 250 mil por CPF/CNPJ por instituição.</li>
+      <li>Rendimento isento de IR para pessoa física (e PJ sem fins lucrativos).</li>
+      <li>Rentabilidade calculada na <strong>data de aniversário</strong>. Depósitos nos dias 29, 30 e 31 têm aniversário no dia 1° do mês seguinte.</li>
+    </ul>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Condição (SELIC)</th><th>Remuneração PF (mensal)</th><th>Remuneração PJ (trimestral)</th></tr></thead>
+        <tbody>
+          <tr><td>SELIC &gt; 8,50% a.a.</td><td>0,50% ao mês + TR</td><td>1,50% ao trimestre + TR</td></tr>
+          <tr><td>SELIC ≤ 8,50% a.a.</td><td>70% da SELIC + TR</td><td>70% da SELIC + TR (ao trimestre)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>PJ com fins lucrativos paga IR regressivo: 22,5% (até 180 dias), 20% (181–360), 17,5% (361–720), 15% (acima de 721 dias).</p>
+
+    <h3>FGTS — Características no Contexto do SFH</h3>
+    <p>Instituído pela Lei nº 5.107/1966 (atualizado pela Lei nº 8.036/1990). Depósito mensal compulsório de <strong>8% da remuneração</strong> do empregado CLT. Rendimento: <strong>3,04% a.a. + TR</strong>. Gerido pelo Conselho Curador do FGTS (CC-FGTS). Operador: Caixa Econômica Federal. Destina-se a: habitação popular, saneamento básico e infraestrutura urbana.</p>
+    <p>O trabalhador pode usar o FGTS para:</p>
+    <ul class="lista">
+      <li>Compra de imóveis prontos ou na planta (financiamento pelo SFH).</li>
+      <li>Amortização e quitação de financiamentos no SFH (após 2 anos de financiamento).</li>
+    </ul>
+
+    <h3>Tipos de Financiamento com FGTS</h3>
+    <ul class="lista">
+      <li><strong>Carta de Crédito Individual (CCI):</strong> aquisição, construção, conclusão, reforma ou lote urbano.</li>
+      <li><strong>Carta de Crédito Associativa (CCA):</strong> financiamento coletivo antes do imóvel ficar pronto, comum em programas habitacionais.</li>
+      <li><strong>Apoio à Produção:</strong> produção e comercialização de unidades habitacionais.</li>
+      <li><strong>Pró-Moradia:</strong> para famílias em vulnerabilidade social com renda familiar preponderante de até 3 salários mínimos.</li>
+      <li><strong>Pró-Cotista:</strong> para cotista do FGTS com mínimo 3 anos no regime, independente da renda.</li>
+      <li><strong>FIMAC:</strong> construção, ampliação ou reforma habitacional, inclusive hidrômetros e aquecimento solar.</li>
+    </ul>
+
+    <h3>Sistema Brasileiro de Poupança e Empréstimo (SBPE)</h3>
+    <p>Sistema de financiamento imobiliário que usa recursos da caderneta de poupança, administrado pelo CMN e operado por instituições autorizadas pelo BACEN. Oferece financiamentos para imóveis residenciais novos ou usados, construção e reforma. Divide-se em: SFH e SFI.</p>
+  </div>
+</section>
+
+<!-- 03 SFI -->
+<section class="secao" id="sfi">
+  <div class="secao-hdr"><div class="ic">📈</div><h2>Sistema de Financiamento Imobiliário — SFI</h2></div>
+  <div class="cont">
+    <p>O SFI (<strong>Lei nº 9.514/1997</strong>) regulariza a atuação de instituições financeiras em operações de financiamento de imóveis. Garante condições mais flexíveis que o SFH e a garantia utilizada é a <strong>alienação fiduciária</strong>. Na inadimplência, o imóvel pode ser retomado pela instituição financeira.</p>
+    <p>Nos contratos do SFI todo o valor emprestado é reposto integralmente e a remuneração é vinculada à taxa contratada livremente pelas partes (SAC ou PRICE). São obrigatórios os seguros <strong>MIP e DFI</strong>.</p>
+
+    <h3>Instituições Participantes do SFI</h3>
+    <ul class="lista">
+      <li><strong>Originadoras de crédito:</strong> CEF, Bancos com carteira de crédito imobiliário, SCIs, APEs, Companhias Hipotecárias e outras autorizadas pelo CMN.</li>
+      <li><strong>Participantes adicionais:</strong> Correspondentes bancários, agentes fiduciários, custodiantes, agências de rating, seguradoras, B3 e CVM.</li>
+    </ul>
+
+    <h3>Securitização</h3>
+    <p>Processo pelo qual ativos financeiros (empréstimos hipotecários, recebíveis) são agrupados e transformados em títulos negociáveis no mercado de capitais. A <strong>securitizadora</strong> compra a carteira de crédito de um banco (recebíveis futuros), paga à vista com desconto e emite títulos para investidores no mercado.</p>
+
+    <h3>Cédula de Crédito Imobiliário (CCI)</h3>
+    <p>Título de crédito emitido por instituição financeira, representando um recebível futuro de financiamento imobiliário. Características:</p>
+    <ul class="lista">
+      <li>Título de renda fixa com juros predeterminados.</li>
+      <li>Negociada no mercado de balcão e registrada na clearing da B3.</li>
+      <li>Sujeita ao IR (Tabela Regressiva).</li>
+      <li>Não possui cobertura do FGC.</li>
+      <li>Normalmente negociada entre bancos, securitizadoras e fundos de investimento.</li>
+    </ul>
+
+    <h3>Certificado de Recebíveis Imobiliários (CRI)</h3>
+    <p>Título de renda fixa de longo prazo emitido <strong>exclusivamente por companhia securitizadora</strong>, lastreado em recebíveis imobiliários. Características:</p>
+    <ul class="lista">
+      <li>Oferta pública deve ser autorizada pela CVM (exceto para investidor qualificado).</li>
+      <li>Isento de IR para pessoa física. Para PJ, incide a Tabela Regressiva.</li>
+      <li>Registrado na clearing da B3. Sem cobertura do FGC.</li>
+      <li>Sem prazo mínimo (valor comum de aplicação: R$ 1.000,00).</li>
+    </ul>
+    <div class="dest verde"><strong>Investidor Qualificado (CVM)</strong> Pessoa física ou jurídica com investimentos ≥ R$ 1 milhão; profissional com certificação CEA ou CGA; ou instituição financeira.</div>
+  </div>
+</section>
+
+<!-- 04 SFH vs SFI -->
+<section class="secao" id="sfh-sfi">
+  <div class="secao-hdr"><div class="ic">⚖️</div><h2>SFH &amp; SFI — Comparativo</h2></div>
+  <div class="cont">
+    <div class="tw">
+      <table class="comp-table">
+        <thead><tr><th>Característica</th><th>SFH</th><th>SFI</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Legislação</strong></td><td>Lei nº 4.380/1964</td><td>Lei nº 9.514/1997</td></tr>
+          <tr><td><strong>Finalidade</strong></td><td>Facilitar casa própria para baixa renda</td><td>Atender demanda do mercado imobiliário geral</td></tr>
+          <tr><td><strong>Taxa de Juros</strong></td><td>CET máximo de 12% a.a. (ou taxa de mercado)</td><td>Taxa livremente negociada entre as partes</td></tr>
+          <tr><td><strong>Garantias</strong></td><td>Hipoteca, Alienação Fiduciária e outros</td><td>Alienação Fiduciária, Hipoteca e Cessão Fiduciária</td></tr>
+          <tr><td><strong>Prazo Máximo</strong></td><td>35 anos (não ultrapassar 80 anos e 6 meses de idade) / 30 anos com hipoteca</td><td>35 anos (mesma regra de idade)</td></tr>
+          <tr><td><strong>Valor Máximo Financiável</strong></td><td>90% (SAC) / 80% (PRICE)</td><td>Livremente negociado</td></tr>
+          <tr><td><strong>Origem dos Recursos</strong></td><td>SBPE, FGTS, Poupança e Programas habitacionais</td><td>Mercado financeiro e de capitais</td></tr>
+          <tr><td><strong>Imóvel</strong></td><td>Residencial ou Comercial urbano</td><td>Qualquer imóvel</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 05 GARANTIAS -->
+<section class="secao" id="garantias">
+  <div class="secao-hdr"><div class="ic">🔒</div><h2>Garantias Imobiliárias</h2></div>
+  <div class="cont">
+    <div class="dest laranja"><strong>⚠️ Atenção!</strong> As garantias no contexto do financiamento imobiliário são diferentes das garantias relacionadas às locações imobiliárias.</div>
+    <p>A <strong>Resolução CMN nº 3.932/2010</strong> classifica as garantias nos seguintes tipos:</p>
+
+    <h3>1. Hipoteca</h3>
+    <p>Direito real de garantia no qual o devedor (hipotecante) oferece um imóvel como garantia, mas mantém a <strong>propriedade</strong> do bem. Na inadimplência, a execução é judicial (mais complexa). O imóvel hipotecado pode ser vendido ou dado em garantia em locação. A cobrança pode ocorrer por: cobrança judicial ou adjudicação do bem (leilão/adjudicação direta pelo credor).</p>
+
+    <h3>2. Alienação Fiduciária</h3>
+    <p>O devedor (fiduciante) <strong>transfere a propriedade</strong> do imóvel ao credor (fiduciário) como garantia. O devedor fica com a <strong>posse direta</strong> (pode morar e, com anuência do credor, locá-lo). A propriedade retorna ao devedor na quitação do financiamento. Não gera incidência do ITBI (apenas custos de registro).</p>
+    <div class="dest verde">
+      <strong>Processo de inadimplência na alienação fiduciária:</strong>
+      1. Notificação ao devedor para regularizar em 15 dias. 2. Se não houver pagamento (purgação da mora), o imóvel é transferido ao nome da instituição financeira (com pagamento de ITBI e, em caso de imóvel foreiro, laudêmio). 3. Leilão: 1° oferta ao valor de mercado (após 30 dias da consolidação); 2° oferta 15 dias depois, aceito qualquer lance superior à dívida total. Reintegração de posse em 60 dias.
+    </div>
+
+    <h3>3. Fiança</h3>
+    <p>Garantia pessoal: terceiro (fiador) se responsabiliza pela inadimplência do contratante. A instituição financeira geralmente exige que o fiador tenha imóvel quitado de valor superior ao financiamento e comprovação de renda para honrar as parcelas. Para fiador casado (exceto separação total de bens), a assinatura do cônjuge é obrigatória.</p>
+
+    <h3>4. Penhor e Cessão de Recebíveis</h3>
+    <ul class="lista">
+      <li><strong>Penhor:</strong> garantia por bens móveis (joias, obras de arte). O bem fica com o credor até quitação. Se a dívida não for paga, o bem é executado ou vendido.</li>
+      <li><strong>Cessão de Recebíveis:</strong> similar ao penhor, mas usando créditos em vez de bens. A construtora cede seus recebíveis futuros ao banco, que os recebe dos compradores. Exige anuência do comprador.</li>
+    </ul>
+
+    <div class="dest azul"><strong>Propriedade vs. Posse</strong> Propriedade: direito real de usar, fruir, dispor e reivindicar (posse indireta). Posse: exercício de uso efetivo do imóvel (posse direta). Durante o financiamento com alienação fiduciária, o banco tem a propriedade e o comprador tem a posse.</div>
+  </div>
+</section>
+
+<!-- 06 PRODUTOS PF -->
+<section class="secao" id="pf">
+  <div class="secao-hdr"><div class="ic">👤</div><h2>Produtos para Pessoa Física</h2></div>
+  <div class="cont">
+    <h3>Aquisição — Análise do Proponente</h3>
+    <p>O proponente deve ser: brasileiro nato ou naturalizado (ou estrangeiro com visto permanente); com Idoneidade Cadastral, Capacidade Civil e Capacidade Financeira.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Índice de Correção</th><th>Tabela SAC (VMF)</th><th>Tabela PRICE (VMF)</th><th>Taxa</th></tr></thead>
+        <tbody>
+          <tr><td>Corrigido pela TR</td><td>90% do valor do imóvel</td><td>80% do valor do imóvel</td><td>8,50% a 9,75% a.a. + TR</td></tr>
+          <tr><td>Corrigido pelo IPCA</td><td>80% do valor do imóvel</td><td>80% (renda comprometida 15%)</td><td>2,95% a 4,95% a.a. + IPCA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="atencao">Não podem ser negociados imóveis com financiamento em aberto. Para negociar, é necessário quitar o financiamento anterior. A instituição que recebe é chamada de interveniente quitante.</div>
+
+    <h3>Análise de Crédito — Os 5 C's</h3>
+    <div class="cards">
+      <div class="card"><div class="ic">🤝</div><h4>1. Caráter</h4><p>Histórico de crédito e adimplência (SPC, Serasa, Boa Vista).</p></div>
+      <div class="card"><div class="ic">💰</div><h4>2. Capacidade</h4><p>Renda disponível. Comprometimento máximo: <strong>30% da renda</strong>. Permite composição de renda.</p></div>
+      <div class="card"><div class="ic">🏦</div><h4>3. Capital</h4><p>Patrimônio total do proponente (bens e direitos).</p></div>
+      <div class="card"><div class="ic">🔒</div><h4>4. Colateral</h4><p>Garantia do credor — nos financiamentos CA-300/400/600 é o próprio imóvel.</p></div>
+      <div class="card"><div class="ic">📊</div><h4>5. Condições</h4><p>Contexto econômico: perspectiva de mercado, emprego e taxas de juros.</p></div>
+    </div>
+
+    <h3>Análise de Seguro — Seguros Obrigatórios</h3>
+    <p>A Lei nº 11.977/2009 estabelece <strong>dois seguros obrigatórios</strong> em todos os contratos de financiamento:</p>
+    <ul class="lista">
+      <li><strong>MIP (Morte e Invalidez Permanente):</strong> beneficiária é a instituição financeira. Cobre o saldo devedor na morte ou invalidez. Não cobre doenças anteriores ao contrato. Proporcional em caso de mais de um proponente.</li>
+      <li><strong>DFI (Danos Físicos ao Imóvel):</strong> protege o bem financiado contra incêndio, vendaval, desmoronamento, inundação, destelhamento e saída para reparos. Valor: avaliação inicial do imóvel.</li>
+    </ul>
+
+    <h3>Análise Jurídica e Documentação Básica</h3>
+    <p>Requisitos civis fundamentais: ser agente capaz (maior de 18 anos, não interditado — ou menor emancipado entre 16 e 18); objeto lícito (imóvel quitado e regularizado); e contratação dentro da lei.</p>
+    <p>Documentos do proponente: RG e CPF; certidão de estado civil; declaração de IR ou DIRF; comprovação de não propriedade de imóvel nas condições do FGTS; declaração de estado civil e de negativa de imóvel próprio.</p>
+
+    <h3>Análise do Imóvel</h3>
+    <p><strong>Avaliação Técnica:</strong> realizada por engenheiro ou arquiteto (sem vínculo com a IF). Resulta em Laudo de Avaliação (método comparativo de dados de mercado). Deve ser arquivada por toda a vigência do contrato.</p>
+    <p>Requisitos físicos avaliados: habitabilidade, estabilidade e solidez, vícios construtivos graves, sistemas construtivos não convencionais. O laudo verifica: liquidez, LTV, comparação com valor da prefeitura, tipo de imóvel, vícios e problemas.</p>
+    <p><strong>Avaliação Jurídica:</strong> analisa a matrícula, IPTU, certidão negativa de débitos imobiliários e condominiais. Verifica: titularidade, legalidade, ausência de débitos e de impedimentos para venda.</p>
+
+    <h3>Análise do Vendedor</h3>
+    <p>Verifica legitimidade, capacidade civil, condições que possam levar a fraude e dívidas do vendedor. A Lei nº 13.097/2015 estabelece que negócios jurídicos sobre imóveis não serão eficazes se houver as seguintes averbações na matrícula:</p>
+    <ul class="lista">
+      <li>Registro de citação de ações reipersecutórias.</li>
+      <li>Averbação de constrição judicial ou fase de cumprimento de sentença.</li>
+      <li>Averbação de restrição administrativa ou convencional (indisponibilidade, ônus).</li>
+      <li>Averbação de ação que possa reduzir o proprietário à insolvência.</li>
+    </ul>
+    <p>O vendedor deve ter: Idoneidade Cadastral, Capacidade Civil e Titularidade do Direito. Se pessoa jurídica, pesquisar também CNPJ e regularidade do FGTS.</p>
+  </div>
+</section>
+
+<!-- 07 FGTS -->
+<section class="secao" id="fgts">
+  <div class="secao-hdr"><div class="ic">💼</div><h2>FGTS — Fundo de Garantia do Tempo de Serviço</h2></div>
+  <div class="cont">
+    <div class="dest azul">O FGTS é o Fundo de Garantia <strong>DO</strong> Tempo de Serviço (não "sob"). É uma garantia criada <em>com base</em> no tempo de serviço do trabalhador.</div>
+
+    <h3>Requisitos do Proponente para Uso do FGTS</h3>
+    <ul class="lista">
+      <li>Mínimo de 3 anos de contribuição ao FGTS (mesmo em empresas diferentes).</li>
+      <li>Não ter financiamento ativo no SFH.</li>
+      <li>Não ser proprietário, comprador, possuidor, usufrutuário ou cessionário de imóvel residencial no município onde exerce trabalho ou nos municípios limítrofes.</li>
+    </ul>
+
+    <h3>Requisitos do Imóvel para Uso do FGTS</h3>
+    <ul class="lista">
+      <li>Ser imóvel residencial urbano para moradia própria (proibido aluguel).</li>
+      <li>Valor máximo de avaliação: R$ 1,5 milhão (SFH).</li>
+      <li>Aprovado em laudo de avaliação.</li>
+      <li>Estar no mesmo município (ou cidades vizinhas) onde o trabalhador atua.</li>
+      <li>Não ter sido adquirido com FGTS há menos de 3 anos.</li>
+      <li>Matrícula atualizada, livre e sem restrições.</li>
+    </ul>
+
+    <h3>Procedimento para Uso do FGTS</h3>
+    <p>1. Proposta de financiamento → 2. Análise do enquadramento → 3. Liberação junto à CEF → 4. Assinatura do contrato → 5. Registro do imóvel → 6. Pagamento ao vendedor.</p>
+    <p>O FGTS pode ser usado para amortização esporádica a cada <strong>2 anos</strong>.</p>
+
+    <h3>Uso do FGTS para Imóvel em Construção</h3>
+    <p>Condições: vinculado a financiamento SFH/SFI, por programa de autofinanciamento ou por contrato de empreitada (registrado em Cartório). O terreno deve ser de propriedade do trabalhador. A liberação das parcelas respeita o cronograma físico-financeiro da obra. A última parcela é condicionada à comprovação de conclusão (Laudo de Avaliação ou averbação na matrícula).</p>
+    <p>Cancelamento do repasse do FGTS pode ocorrer por: desistência do trabalhador, transferência do financiamento, obra paralisada por mais de um ano, demora de mais de 90 dias para entrega do DAMP e contrato assinado.</p>
+
+    <h3>Crédito com Garantia do Imóvel (CGI)</h3>
+    <p>Etapas: 1. Simulação → 2. Aprovação do crédito → 3. Avaliação do imóvel → 4. Análise jurídica → 5. Contrato (averbação da alienação fiduciária). Benefícios:</p>
+    <ul class="lista">
+      <li>Taxas atrativas (risco menor para o banco).</li>
+      <li>Prazo de até 20 anos para quitação.</li>
+      <li>Não é necessário desocupar o bem.</li>
+      <li>Liberação do dinheiro em até 30 dias após aprovação.</li>
+      <li>Livre uso do dinheiro (sem destinação específica obrigatória).</li>
+      <li>Bem não precisa estar quitado para ser dado em garantia.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 08 HOME EQUITY / LTV -->
+<section class="secao" id="home-equity">
+  <div class="secao-hdr"><div class="ic">🏠</div><h2>Home Equity, LTV e Sistemas de Amortização</h2></div>
+  <div class="cont">
+    <h3>Home Equity</h3>
+    <p><strong>Home Equity</strong> = patrimônio imobiliário já quitado. Ex.: imóvel de R$ 600.000,00 com R$ 150.000,00 pagos → Home Equity de R$ 150.000,00. Pode ser usado como garantia para:</p>
+    <ul class="lista">
+      <li><strong>Refinanciamento:</strong> trocar o financiamento por um empréstimo com taxa menor.</li>
+      <li><strong>Linha de crédito com garantia imobiliária (CCB):</strong> valor máximo de até 60% do valor do imóvel, com contratação obrigatória de MIP e DFI.</li>
+    </ul>
+
+    <h3>Loan To Value (LTV)</h3>
+    <p>Relação entre o valor do empréstimo e o valor do bem dado como garantia, expressa em percentual. Varia conforme o enquadramento (SFH com CET 12%, SFH taxa de mercado, ou SFI). A idade máxima do proponente na última prestação: <strong>80 anos e 6 meses</strong>.</p>
+
+    <h3>Planos de Reajuste</h3>
+    <ul class="lista">
+      <li><strong>SFH:</strong> TR (Taxa Referencial, instituída pela Lei nº 8.177/1991), aplicada às parcelas e ao saldo devedor.</li>
+      <li><strong>SFI:</strong> a taxa de atualização pode ser livremente negociada — IGPM, IPCA ou INCC.</li>
+    </ul>
+
+    <h3>Sistemas de Amortização</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Característica</th><th>PRICE (SAF)</th><th>SAC</th><th>SACRE</th></tr></thead>
+        <tbody>
+          <tr><td>Parcelas</td><td>Fixas</td><td>Decrescentes</td><td>Inicialmente iguais, depois crescentes</td></tr>
+          <tr><td>Amortização</td><td>Aumenta a cada pagamento</td><td>Constante</td><td>Constante</td></tr>
+          <tr><td>Juros</td><td>Diminui a cada pagamento</td><td>Diminui a cada pagamento</td><td>Diminui a cada pagamento</td></tr>
+          <tr><td>Custo Total</td><td>Maior</td><td>Menor</td><td>Menor (que PRICE)</td></tr>
+          <tr><td>Previsibilidade</td><td>Maior</td><td>Menor</td><td>Variável</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>O Art. 15-B da Lei nº 4.380/1964 permite que os sistemas de amortização sejam livremente pactuados entre as partes.</p>
+
+    <h3>CET e CESH</h3>
+    <ul class="lista">
+      <li><strong>CET (Custo Efetivo Total):</strong> soma de taxa de juros, encargos, tarifas, custos de seguros e demais despesas. Sempre comparar CET, não apenas a taxa de juros.</li>
+      <li><strong>CESH (Custo Efetivo do Seguro Habitacional):</strong> custo total do seguro habitacional (prêmio + encargos + taxas + despesas). Deve ser apresentado na proposta de financiamento.</li>
+    </ul>
+
+    <h3>Instrumentos Contratuais e Liberação do Valor</h3>
+    <p>O contrato deve respeitar a Lei nº 4.380/1964 (SFH) e a Lei nº 9.514/1997 (SFI). Deve conter: qualificação do imóvel, formalização da garantia, lista de seguros, uso do FGTS (se for o caso) e condições do financiamento. Após assinatura, é realizado o registro no CRI (recolhimento do ITBI). O valor pago ao vendedor é corrigido entre a assinatura e a liberação pela remuneração da poupança + 0,50% ao mês (para operações no SFH).</p>
+  </div>
+</section>
+
+<!-- 09 SEGUROS -->
+<section class="secao" id="seguros">
+  <div class="secao-hdr"><div class="ic">🛡️</div><h2>Seguros e Seguradoras</h2></div>
+  <div class="cont">
+    <p>Seguro é um contrato pelo qual a seguradora, mediante recebimento de um prêmio, se obriga a indenizar o segurado em caso de sinistro previsto nas condições contratuais. Fundamentado no <strong>princípio do mutualismo</strong>. Regulamentadas pela SUSEP.</p>
+
+    <h3>Elementos Essenciais do Seguro</h3>
+    <ul class="lista">
+      <li><strong>Risco:</strong> sem risco não há seguro. O objetivo é evitar perdas, não obter ganhos.</li>
+      <li><strong>Prêmio de seguro:</strong> valor pago pelo segurado para obter o seguro.</li>
+      <li><strong>Contrato (apólice):</strong> contrato entre seguradora e segurado; deve seguir a boa-fé objetiva.</li>
+      <li><strong>Reserva de benefícios a conceder:</strong> saldo formado pelos prêmios pagos para uso em sinistros.</li>
+    </ul>
+
+    <h3>Partes no Contrato de Seguro</h3>
+    <ul class="lista">
+      <li><strong>Segurado:</strong> em nome de quem está o seguro.</li>
+      <li><strong>Segurador:</strong> companhia S.A. autorizada pela SUSEP.</li>
+      <li><strong>Beneficiário:</strong> quem recebe a indenização no sinistro.</li>
+      <li><strong>Estipulante:</strong> empresa ou pessoa que contrata o seguro em nome do segurado.</li>
+    </ul>
+
+    <h3>MIP — Morte e Invalidez Permanente</h3>
+    <p>Seguro obrigatório nos financiamentos imobiliários. Beneficiária: a instituição financeira. Cobre o saldo devedor. Não cobre doenças anteriores ao contrato e não tem carência. É proporcional em caso de mais de um proponente. Dados para cálculo: idade do(s) proponente(s) (máx. 80 anos e 6 meses), valor total do financiamento e prazo restante.</p>
+
+    <h3>DFI — Danos Físicos ao Imóvel</h3>
+    <p>Obrigatório no SFH (mas não no SFI). Coberturas básicas: incêndio e explosão, vendaval, desmoronamento ou ameaça, destelhamento, inundação ou alagamento, saída do imóvel para reparos. Valor: avaliação inicial do imóvel.</p>
+    <p>Riscos excluídos: vícios de construção (em até 6 anos), mau uso (falta de manutenção) e riscos não seguráveis (terremoto, guerra, tumultos).</p>
+
+    <h3>RCC — Responsabilidade Civil do Consumidor</h3>
+    <p>Seguro para o construtor, não obrigatório em financiamentos. Beneficiário: o construtor. Riscos excluídos: erro de projeto, danos causados pelo construtor, mau uso, riscos não seguráveis, danos a bens de terceiros em guarda, danos corporais ao empregado, danos por descumprimento de norma técnica e danos morais.</p>
+
+    <h3>Livre Escolha da Seguradora</h3>
+    <p>O Art. 79 da Lei nº 11.977/2009 garante ao mutuário a livre escolha da seguradora para MIP e DFI. Condições:</p>
+    <ul class="lista">
+      <li>A seguradora deve cobrir MIP e DFI.</li>
+      <li>O beneficiário deve ser a instituição financeira.</li>
+      <li>A vigência deve ser pelo prazo do contrato.</li>
+      <li>A instituição financeira tem 15 dias para analisar e responder.</li>
+    </ul>
+    <p>Na contratação junto à IF, deve haver: oferta de diferentes seguradoras, adesão de apólice e ciência do cliente do CESH.</p>
+  </div>
+</section>
+
+<!-- 10 TRIBUTAÇÃO -->
+<section class="secao" id="tributacao">
+  <div class="secao-hdr"><div class="ic">💰</div><h2>Custos e Tributação</h2></div>
+  <div class="cont">
+    <h3>Características Gerais dos Tributos</h3>
+    <p>Todo tributo possui 5 características: competência de recebimento (quem recebe), contribuinte (quem paga), fato gerador (o que gera a obrigação), base de cálculo (sobre o que incide) e alíquota (percentual aplicado).</p>
+
+    <h3>Principais Impostos por Competência</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Imposto</th><th>Incidência</th><th>Competência</th></tr></thead>
+        <tbody>
+          <tr><td><strong>IPTU</strong></td><td>Imóveis edificados ou terrenos baldios no município</td><td>Municipal</td></tr>
+          <tr><td><strong>ISS</strong></td><td>Prestação de serviços</td><td>Municipal</td></tr>
+          <tr><td><strong>ITBI / ITIV</strong></td><td>Transferência de propriedade de imóveis entre vivos</td><td>Municipal</td></tr>
+          <tr><td><strong>ICMS</strong></td><td>Circulação de mercadorias e serviços</td><td>Estadual</td></tr>
+          <tr><td><strong>IPI</strong></td><td>Produção e importação de produtos industrializados</td><td>Federal</td></tr>
+          <tr><td><strong>IR</strong></td><td>Renda de pessoas físicas e jurídicas</td><td>Federal</td></tr>
+          <tr><td><strong>IOF</strong></td><td>Operações financeiras (câmbio, seguros, crédito, valores mobiliários)</td><td>Federal</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>ITBI / ITIV</h3>
+    <p>Incide na transmissão de imóvel entre vivos. Recolhido ao município onde se localiza o imóvel (art. 156 CF). Fato gerador: toda e qualquer transferência de propriedade a outra pessoa viva, incluindo: compra e venda, permuta, dação em pagamento, adjudicação, partilha acima da meação, usufruto, cessão de direitos, extinção ou instituição do direito de superfície e demais atos de transmissão.</p>
+    <p><strong>Contribuinte:</strong> em geral, o adquirente (pessoa física ou jurídica). Exceção: se o adquirente tiver atividade imobiliária, o imposto é cobrado do transmitente.</p>
+
+    <h3>Foro e Laudêmio (Enfiteuse)</h3>
+    <p>A enfiteuse (aforamento / emprazamento) é um contrato real perpétuo de propriedade bipartida. O enfiteuta (foreiro) tem a posse direta; o senhorio tem a posse indireta. Direitos do enfiteuta: uso, transferência onerosa, preferência na alienação e resgate (após 10 anos, pagando 2,5% do valor + 10 foros anuais — se bem público: 17% do valor venal).</p>
+    <ul class="lista">
+      <li><strong>Foro:</strong> taxa paga anualmente pelo enfiteuta ao senhorio (0,60% do valor — bens públicos).</li>
+      <li><strong>Laudêmio:</strong> valor pago apenas na transferência da enfiteuse (2,5% a 5% do valor). Não é tributo.</li>
+    </ul>
+    <p>Pelo Código Civil (Lei nº 10.406/2002), não é permitida a criação de novas enfiteuses. As existentes referem-se principalmente a terras limítrofes à costa, terras de igrejas e pertencentes à família real (Petrópolis/RJ).</p>
+
+    <h3>IOF — Imposto sobre Operação Financeira</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Contexto</th><th>Alíquota</th><th>Fato Gerador</th><th>Contribuinte</th></tr></thead>
+        <tbody>
+          <tr><td>Seguros no SFH (MIP e DFI obrigatórios)</td><td><strong>0%</strong></td><td>Recebimento do prêmio</td><td>Segurado</td></tr>
+          <tr><td>Outros seguros habitacionais (SFH)</td><td><strong>7,38%</strong></td><td>Recebimento do prêmio</td><td>Segurado</td></tr>
+          <tr><td>Crédito imobiliário — PF</td><td>0,0082% a.d. + 0,38%</td><td>Efetivação da operação</td><td>Contratante</td></tr>
+          <tr><td>Crédito imobiliário — PJ</td><td>0,0041% a.d. + 0,38%</td><td>Efetivação da operação</td><td>Contratante</td></tr>
+          <tr><td>SFH/SFI — residência própria PF</td><td><strong>Isenção</strong></td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 11 MATEMÁTICA -->
+<section class="secao" id="matematica">
+  <div class="secao-hdr"><div class="ic">🔢</div><h2>Matemática Financeira</h2></div>
+  <div class="cont">
+    <h3>Conceitos Fundamentais</h3>
+    <div class="cards">
+      <div class="card"><div class="ic">💰</div><h4>Capital (C)</h4><p>Quantia de dinheiro disponível no momento presente.</p></div>
+      <div class="card"><div class="ic">📈</div><h4>Juros (J)</h4><p>Remuneração pelo uso do capital (simples ou composto).</p></div>
+      <div class="card"><div class="ic">🎯</div><h4>Montante (M)</h4><p>Valor futuro do capital após aplicação dos juros.</p></div>
+      <div class="card"><div class="ic">%</div><h4>Taxa de Juros (i)</h4><p>Percentual anual, mensal ou diário cobrado pelo uso do capital.</p></div>
+      <div class="card"><div class="ic">⏱️</div><h4>Tempo (t)</h4><p>Período em que o capital é aplicado ou emprestado.</p></div>
+    </div>
+
+    <h3>Fórmulas Fundamentais</h3>
+    <div class="formula-box">
+      <div class="f-titulo">Juros Simples</div>
+      <p>J = C × i × t</p>
+      <div class="f-titulo" style="margin-top:14px">Juros Compostos (Montante)</div>
+      <p>M = C × (1 + i)ᵗ</p>
+      <div class="f-titulo" style="margin-top:14px">Valor Presente</div>
+      <p>VP = M / (1 + i)ᵗ</p>
+      <div class="f-titulo" style="margin-top:14px">Valor Futuro</div>
+      <p>FV = C × (1 + i)ᵗ</p>
+    </div>
+
+    <h3>Juros Simples vs. Compostos — Exemplo Prático</h3>
+    <p>Capital de R$ 5.000,00 a 2% ao mês por 6 meses:</p>
+    <ul class="lista">
+      <li><strong>Juros simples:</strong> J = 5.000 × 0,02 × 6 = 600 → Total: R$ 5.600,00</li>
+      <li><strong>Juros compostos:</strong> M = 5.000 × (1,02)⁶ = 5.000 × 1,126162 → Total: R$ 5.630,81</li>
+    </ul>
+    <div class="dest verde">A diferença existe porque nos juros compostos a taxa incide sobre o saldo acumulado a cada período ("juros sobre juros"), enquanto nos juros simples sempre incide sobre o capital inicial.</div>
+
+    <h3>Capitalização Simples e Composta</h3>
+    <p><strong>Capitalização Simples:</strong> juros incidem sempre sobre o capital inicial. VP de R$ 5.000 a 2% ao mês por 36 meses: VF = 5.000 + (5.000 × 0,02 × 36) = R$ 8.600,00.</p>
+    <p><strong>Capitalização Composta:</strong> juros incidem sobre o saldo acumulado. VP de R$ 5.000 a 2% ao mês por 36 meses: VF = 5.000 × (1,02)³⁶ = 5.000 × 2,039887 = <strong>R$ 10.199,44</strong>.</p>
+
+    <h3>Taxas Proporcionais e Equivalentes</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Regime</th><th>Relação entre taxas</th><th>Fórmula Mensal → Anual</th><th>Fórmula Anual → Mensal</th></tr></thead>
+        <tbody>
+          <tr><td>Juros Simples (capitalização simples)</td><td><strong>Proporcional</strong></td><td>Ta = Tm × 12</td><td>Tm = Ta / 12</td></tr>
+          <tr><td>Juros Compostos (capitalização composta)</td><td><strong>Equivalente</strong></td><td>Ta = (1 + Tm)¹² − 1</td><td>Tm = (1 + Ta)^(1/12) − 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Exemplo: taxa mensal de 1% → taxa anual equivalente = (1,01)¹² − 1 = 12,68% (e não 12%).</p>
+
+    <h3>Taxa Nominal vs. Taxa Real</h3>
+    <ul class="lista">
+      <li><strong>Taxa nominal:</strong> percentual determinado e escrito no contrato.</li>
+      <li><strong>Taxa real:</strong> taxa que ocorreu de fato, descontada a inflação.</li>
+    </ul>
+    <p>Exemplo: rendimento de 25% ao ano com inflação (IPCA) de 6% → taxa real ≠ 25% − 6% = 19%. O cálculo correto desconta a inflação do nominal: taxa real = (1,25/1,06) − 1 ≈ 17,92%. Se a inflação superar a taxa nominal, a taxa real é negativa.</p>
+
+    <h3>Taxa Prefixada vs. Pós-Fixada</h3>
+    <ul class="lista">
+      <li><strong>Prefixada:</strong> percentual definido no momento da assinatura do contrato. Maior previsibilidade.</li>
+      <li><strong>Pós-fixada:</strong> atrelada a um índice (TR, IPCA, SELIC). Só se sabe o percentual no momento da incidência. Maior variação.</li>
+    </ul>
+
+    <h3>Amortização — SAC em Planilha</h3>
+    <p>Financiamento de R$ 360.000,00 à taxa de 1% ao mês por 180 meses (SAC):</p>
+    <div class="formula-box">
+      <div class="f-titulo">Fórmulas SAC</div>
+      <p>Amortização (A) = VP / n = 360.000 / 180 = 2.000,00</p>
+      <p>Saldo Devedor: SDk = SD(k-1) − A</p>
+      <p>Juros: Jk = i × SD(k-1)</p>
+      <p>Prestação: PMTk = A + Jk</p>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Período (k)</th><th>Saldo Devedor (SD)</th><th>Amortização (A)</th><th>Juros (J)</th><th>Prestação (PMT)</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>360.000,00</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>1</td><td>358.000,00</td><td>2.000,00</td><td>3.600,00</td><td>5.600,00</td></tr>
+          <tr><td>2</td><td>356.000,00</td><td>2.000,00</td><td>3.580,00</td><td>5.580,00</td></tr>
+          <tr><td>3</td><td>354.000,00</td><td>2.000,00</td><td>3.560,00</td><td>5.560,00</td></tr>
+          <tr><td>4</td><td>352.000,00</td><td>2.000,00</td><td>3.540,00</td><td>5.540,00</td></tr>
+          <tr><td>5</td><td>350.000,00</td><td>2.000,00</td><td>3.520,00</td><td>5.520,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 12 HP12C -->
+<section class="secao" id="hp12c">
+  <div class="secao-hdr"><div class="ic">🧮</div><h2>Calculadora HP-12C</h2></div>
+  <div class="cont">
+    <p>A HP-12C opera com <strong>Notação Polonesa Inversa (NPR)</strong> — os operadores vêm depois dos números. Não há tecla de igual. Para armazenar um valor na memória, pressiona-se <strong>ENTER</strong>. Exemplo: 5 + 4 → [5] [ENTER] [4] [+].</p>
+
+    <h3>Teclas Financeiras</h3>
+    <div class="cards">
+      <div class="card"><div class="ic">N</div><h4>N (Número de Períodos)</h4><p>Período de incidência dos juros.</p></div>
+      <div class="card"><div class="ic">i</div><h4>i (Taxa de Juros)</h4><p>Taxa em percentual por período.</p></div>
+      <div class="card"><div class="ic">PV</div><h4>PV (Present Value)</h4><p>Valor Presente — capital inicial.</p></div>
+      <div class="card"><div class="ic">PMT</div><h4>PMT (Pagamento)</h4><p>Valor das parcelas.</p></div>
+      <div class="card"><div class="ic">FV</div><h4>FV (Future Value)</h4><p>Valor Futuro — montante final.</p></div>
+    </div>
+    <div class="dest azul"><strong>Fluxo de Caixa e Sinais:</strong> A HP-12C usa positivo/negativo para indicar direção do fluxo. PV positivo (entrada) → FV negativo (saída). Para inverter o sinal, use a tecla <strong>CHS</strong>.</div>
+
+    <h3>Configuração END / BEGIN</h3>
+    <ul class="lista">
+      <li><strong>END (G + 8):</strong> primeiro pagamento vence ao FINAL do primeiro período (padrão). 100 prestações = 100 incidências de juros.</li>
+      <li><strong>BEGIN (G + 7):</strong> primeiro pagamento vence no INÍCIO do primeiro período (entrada + parcelas). 100 prestações = 99 incidências de juros → prestação menor.</li>
+    </ul>
+    <p>Exemplo: imóvel de R$ 350.000,00, sem entrada, 100 prestações mensais a 0,5% a.m.</p>
+    <ul class="lista">
+      <li>END: PMT = R$ 4.456,18</li>
+      <li>BEGIN (1 entrada + 99 parcelas): PMT = R$ 4.434,01 (diferença de R$ 22,17 por parcela = mais de R$ 2.000 no total)</li>
+    </ul>
+
+    <h3>Exemplo de Cálculo — PRICE</h3>
+    <p>Financiamento de R$ 350.000,00, juros de 1,5% ao mês, 20 anos (240 meses):</p>
+    <div class="formula-box">
+      <p>[350000] [PV]  →  armazena R$ 350.000 como valor presente</p>
+      <p>[1.5] [i]      →  armazena taxa de 1,5% ao mês</p>
+      <p>[240] [N]      →  armazena período de 240 meses</p>
+      <p>[PMT]         →  calcula a prestação mensal</p>
+    </div>
+
+    <h3>Converter Taxa Anual em Mensal Equivalente (Juros Compostos)</h3>
+    <div class="formula-box">
+      <div class="f-titulo">Taxa anual de 10% → mensal equivalente</div>
+      <p>Tm = (1 + 0,10)^(1/12) − 1 = 0,7974% a.m.</p>
+      <p>Na HP-12C: [1.1] [ENTER] [12] [1/x] [yˣ] [1] [−]</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 LGPD -->
+<section class="secao" id="lgpd">
+  <div class="secao-hdr"><div class="ic">🔐</div><h2>Lei Geral de Proteção de Dados — LGPD</h2></div>
+  <div class="cont">
+    <p>A <strong>Lei nº 13.709/2018</strong> (LGPD) dispõe sobre a proteção de dados pessoais. Aplica-se a qualquer organização que trate dados de pessoas no Brasil, independentemente do país de sede.</p>
+
+    <h3>Definições Fundamentais (Art. 5°)</h3>
+    <div class="cards">
+      <div class="card"><div class="ic">👤</div><h4>Dado Pessoal</h4><p>Qualquer informação relacionada a pessoa natural identificada ou identificável.</p></div>
+      <div class="card"><div class="ic">🔴</div><h4>Dado Sensível</h4><p>Origem racial/étnica, convicção religiosa, opinião política, saúde, vida sexual, dado genético ou biométrico.</p></div>
+      <div class="card"><div class="ic">🙈</div><h4>Dado Anonimizado</h4><p>Dado cujo titular não pode ser identificado por meios técnicos razoáveis. Não é considerado dado pessoal.</p></div>
+      <div class="card"><div class="ic">🏢</div><h4>Controlador</h4><p>Quem toma as decisões sobre o tratamento dos dados.</p></div>
+      <div class="card"><div class="ic">⚙️</div><h4>Operador</h4><p>Quem realiza o tratamento em nome do controlador.</p></div>
+      <div class="card"><div class="ic">👩‍💼</div><h4>Encarregado (DPO)</h4><p>Canal de comunicação entre controlador, titulares e a ANPD.</p></div>
+    </div>
+
+    <h3>10 Princípios da LGPD (Art. 6°)</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Nº</th><th>Princípio</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Finalidade</td><td>Tratamento para propósitos legítimos, específicos, explícitos e informados ao titular.</td></tr>
+          <tr><td>2</td><td>Adequação</td><td>Compatibilidade com as finalidades informadas ao titular.</td></tr>
+          <tr><td>3</td><td>Necessidade</td><td>Limitação ao mínimo necessário para a finalidade.</td></tr>
+          <tr><td>4</td><td>Livre Acesso</td><td>Garantia de consulta facilitada e gratuita aos titulares.</td></tr>
+          <tr><td>5</td><td>Qualidade dos Dados</td><td>Exatidão, clareza, relevância e atualização.</td></tr>
+          <tr><td>6</td><td>Transparência</td><td>Informações claras sobre o tratamento e os agentes envolvidos.</td></tr>
+          <tr><td>7</td><td>Segurança</td><td>Medidas técnicas e administrativas para proteção dos dados.</td></tr>
+          <tr><td>8</td><td>Prevenção</td><td>Adoção de medidas para prevenir danos.</td></tr>
+          <tr><td>9</td><td>Não Discriminação</td><td>Impossibilidade de tratamento para fins discriminatórios.</td></tr>
+          <tr><td>10</td><td>Responsabilização</td><td>Demonstração de medidas eficazes de conformidade.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Hipóteses de Tratamento de Dados (Art. 7°)</h3>
+    <ul class="lista">
+      <li>Consentimento do titular.</li>
+      <li>Cumprimento de obrigação legal.</li>
+      <li>Execução de políticas públicas pela administração pública.</li>
+      <li>Realização de estudos por órgão de pesquisa (com anonimização).</li>
+      <li>Execução de contrato do qual o titular seja parte.</li>
+      <li>Exercício regular de direitos em processo judicial/administrativo/arbitral.</li>
+      <li>Proteção da vida do titular ou de terceiro.</li>
+      <li>Tutela da saúde, por profissional de saúde.</li>
+      <li>Interesse legítimo do controlador.</li>
+      <li>Proteção do crédito.</li>
+    </ul>
+
+    <h3>Direitos do Titular (Art. 18°)</h3>
+    <ul class="lista">
+      <li>Confirmação da existência e acesso aos dados.</li>
+      <li>Correção de dados incompletos, inexatos ou desatualizados.</li>
+      <li>Anonimização, bloqueio ou eliminação de dados desnecessários.</li>
+      <li>Portabilidade para outro fornecedor.</li>
+      <li>Eliminação dos dados tratados com consentimento.</li>
+      <li>Informação sobre entidades com as quais os dados foram compartilhados.</li>
+      <li>Revogação do consentimento a qualquer momento.</li>
+    </ul>
+
+    <h3>Sanções Administrativas (Art. 52°)</h3>
+    <ul class="lista">
+      <li>Advertência com prazo para correção.</li>
+      <li>Multa simples de até <strong>2% do faturamento</strong>, limitada a <strong>R$ 50 milhões por infração</strong>.</li>
+      <li>Multa diária.</li>
+      <li>Publicização da infração.</li>
+      <li>Bloqueio ou eliminação dos dados.</li>
+      <li>Suspensão parcial do banco de dados por até 6 meses.</li>
+      <li>Proibição parcial ou total de atividades de tratamento.</li>
+    </ul>
+
+    <h3>ANPD — Autoridade Nacional de Proteção de Dados</h3>
+    <p>Autarquia de natureza especial (Art. 55-A), responsável por zelar, implementar e fiscalizar a LGPD em todo o território nacional. Composta por Conselho Diretor (5 membros, mandato de 4 anos), Conselho Nacional de Proteção de Dados, Corregedoria, Ouvidoria e Procuradoria.</p>
+  </div>
+</section>
+
+<!-- 14 CDC -->
+<section class="secao" id="cdc">
+  <div class="secao-hdr"><div class="ic">⚖️</div><h2>Código de Defesa do Consumidor — CDC</h2></div>
+  <div class="cont">
+    <p>A <strong>Lei nº 8.078/1990</strong> institui a Política Nacional das Relações de Consumo com o objetivo de proteger os consumidores. Direitos básicos:</p>
+    <ul class="lista">
+      <li>Proteção à vida, saúde e segurança.</li>
+      <li>Liberdade de escolha e condições de contratação.</li>
+      <li>Especificações corretas sobre o produto/serviço.</li>
+      <li>Proteção contra publicidade enganosa e cláusulas abusivas.</li>
+      <li>Reparação de danos e facilidade de acesso à justiça (PROCON).</li>
+    </ul>
+
+    <h3>Danos na Prestação de Serviços (Art. 14)</h3>
+    <p>O fornecedor responde, <strong>independentemente de culpa</strong>, pelos danos causados por defeitos na prestação de serviços. O serviço é defeituoso quando não fornece a segurança esperada. Exclui-se a responsabilidade quando o fornecedor provar que: o defeito inexiste; ou a culpa é exclusiva do consumidor ou de terceiro.</p>
+
+    <h3>Vícios e Disparidades</h3>
+    <p>O fornecedor tem 30 dias para reparar/substituir o produto ou serviço com vício. O consumidor pode optar por: abatimento proporcional do preço ou ressarcimento (valor pago + atualização + reparação dos danos).</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Tipo de Vício</th><th>Produto/Serviço Não Durável</th><th>Produto/Serviço Durável</th></tr></thead>
+        <tbody>
+          <tr><td>Aparente</td><td>30 dias a partir da aquisição</td><td>90 dias a partir da aquisição</td></tr>
+          <tr><td>Oculto</td><td>30 dias a partir do conhecimento</td><td>90 dias a partir do conhecimento</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Prescrição: perde o direito de reclamar judicialmente (pode ainda reclamar com o fornecedor). Decadência: perde o direito de reclamar em qualquer âmbito.</p>
+
+    <h3>Desconsideração da Personalidade Jurídica</h3>
+    <p>O CDC permite ao juiz ignorar a autonomia da empresa e responsabilizar sócios/administradores quando houver: abuso de direito, excesso de poder, infração legal ou violação do estatuto social. Também se aplica em caso de falência, insolvência ou encerramento por má administração.</p>
+
+    <h3>Práticas Comerciais — Publicidade</h3>
+    <ul class="lista">
+      <li><strong>Publicidade Enganosa:</strong> induz o consumidor a erro com informações falsas/incompletas → prejuízo financeiro.</li>
+      <li><strong>Publicidade Abusiva:</strong> explora vulnerabilidades emocionais ou necessidades de forma indevida → prejuízo moral.</li>
+    </ul>
+    <p>O CDC veda ao fornecedor (art. 39): condicionar venda de um produto à compra de outro; enviar produto sem solicitação; prevalecer-se da fraqueza do consumidor; exigir vantagem excessiva; executar serviço sem orçamento aprovado; elevar preço sem justa causa; entre outras 13 condutas abusivas.</p>
+
+    <h3>Proteção Contratual — Cláusulas Abusivas</h3>
+    <p>São nulas as cláusulas que: impossibilitem a responsabilidade do fornecedor por vícios; impeçam o reembolso; estabeleçam obrigações iníquas ou abusivas; invertam o ônus da prova; determinem arbitragem compulsória; permitam variação unilateral do preço; ou autorizem cancelamento unilateral sem direito equivalente ao consumidor.</p>
+    <p><strong>Contrato de Adesão:</strong> cláusulas pré-aprovadas ou estabelecidas unilateralmente pelo fornecedor. Deve ser redigido em caracteres legíveis com fonte mínima de <strong>corpo 12</strong>.</p>
+
+    <h3>Cobrança de Dívidas</h3>
+    <p>O consumidor inadimplente não pode ser exposto ao ridículo, submetido a constrangimento ou ameaça. A cobrança indevida gera direito à <strong>repetição de indébito</strong> (devolução em dobro + juros + correção).</p>
+
+    <h3>SAC — Serviço de Atendimento ao Cliente</h3>
+    <p>Regulamentado pelo Decreto nº 11.034/2022. O SAC não se refere a oferta/contratação de produtos. O acesso deve ser gratuito. Condições mínimas para atendimento telefônico: horário mínimo de 8 horas diárias; disponibilidade de atendimento por humano; opções de reclamação e cancelamento no primeiro menu. Princípios: tempestividade, segurança, privacidade, resolutividade, dignidade, boa-fé, transparência, eficiência, eficácia, celeridade e cordialidade.</p>
+
+    <h3>Ouvidoria</h3>
+    <p>Canal independente acionado quando o cliente não obteve solução no SAC. Funções: receber e analisar manifestações; investigar causas; mediar conflitos; recomendar melhorias; prover resposta final em <strong>16 dias</strong>. Pela Resolução CMN nº 4.860/2020, todas as instituições financeiras autorizadas pelo BACEN devem possuir Ouvidoria.</p>
+  </div>
+</section>
+
+<!-- 15 ÉTICA -->
+<section class="secao" id="etica">
+  <div class="secao-hdr"><div class="ic">🎯</div><h2>Ética no Atendimento ao Cliente</h2></div>
+  <div class="cont">
+    <p>A atuação dos profissionais certificados pela <strong>ABECIP</strong> é pautada pelo Código de Ética e Conduta para Profissionais Certificados ABECIP. Princípios gerais:</p>
+    <ul class="lista">
+      <li>Estrita observância das leis, normas, regulamentos e autorregulação.</li>
+      <li>Princípios éticos da probidade e boa-fé nos negócios.</li>
+      <li>Plena defesa dos interesses dos clientes.</li>
+      <li>Transparência nos procedimentos.</li>
+      <li>Respeito ao sistema de livre concorrência.</li>
+      <li>Responsabilidade social e manutenção do sigilo sobre informações confidenciais.</li>
+    </ul>
+
+    <h3>Conduta no Relacionamento com os Clientes</h3>
+    <ul class="lista">
+      <li>Evitar situações de conflito de interesses.</li>
+      <li>Considerar o perfil de cada cliente antes de recomendar operações.</li>
+      <li>Empregar cuidado e diligência como em negócios próprios.</li>
+      <li>Orientar o cliente sobre a operação, evitando induzi-lo ao erro.</li>
+      <li>Manter sigilo sobre informações e dados dos clientes.</li>
+      <li>Não manifestar opinião que possa prejudicar a imagem de integrantes do SBPE, SFH, SFI ou SFN.</li>
+    </ul>
+
+    <h3>Conduta no Relacionamento com o Mercado</h3>
+    <ul class="lista">
+      <li>Evitar referências prejudiciais a concorrentes (respeitar a concorrência leal).</li>
+      <li>Não utilizar informação privilegiada e manter o dever de sigilo.</li>
+      <li>Contribuir para o desenvolvimento do mercado de crédito imobiliário.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 16 PÓS-CONTRATAÇÃO -->
+<section class="secao" id="poscontratacao">
+  <div class="secao-hdr"><div class="ic">📋</div><h2>Pós-Contratação</h2></div>
+  <div class="cont">
+    <p>A pós-contratação compreende todas as situações que ocorrem após a assinatura do contrato de financiamento, podendo perdurar até 35 anos. Inclui: cobrança das prestações, prestação de informações, administração das parcelas e seguros, e amortizações/abatimentos.</p>
+    <p>A tarifa mensal de administração de contrato autorizada pelo CMN (Resolução 3.932/2010) é de no máximo <strong>R$ 25,00</strong> (valor fixo desde 2010).</p>
+
+    <h3>Amortização vs. Liquidação</h3>
+    <ul class="lista">
+      <li><strong>Liquidar:</strong> quitar totalmente a dívida. A IF tem 30 dias para fornecer o termo de quitação (sob pena de multa de 0,50% ao mês sobre o valor total do contrato).</li>
+      <li><strong>Amortizar:</strong> reduzir o saldo devedor sem quitá-lo. Pode ser temporária (alívio momentâneo, parcelas voltam ao normal) ou permanente (redução definitiva das parcelas e do custo total).</li>
+    </ul>
+
+    <h3>Amortização/Liquidação com FGTS</h3>
+    <p>Pré-requisitos: ser titular ou cotitular do financiamento; mínimo de 3 anos de conta FGTS; respeitar as regras do MMP.</p>
+    <p>Limites para amortização com FGTS:</p>
+    <ul class="lista">
+      <li>Somente até 12 prestações.</li>
+      <li>Somente até 80% do valor das prestações.</li>
+      <li>Somente até o limite do saldo na conta do FGTS.</li>
+    </ul>
+
+    <h3>Interstício Mínimo para Uso do FGTS</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Período</th><th>Regra</th></tr></thead>
+        <tbody>
+          <tr><td>Antes de 01/05/1993</td><td>Permitia mais de um financiamento em municípios diferentes. No mesmo município: alienação em 180 dias.</td></tr>
+          <tr><td>02/05/1993 a 24/06/1998</td><td>Permite mais um financiamento em localidades distintas com alienação em 180 dias.</td></tr>
+          <tr><td>Após 25/05/1998</td><td>Permite mais de um financiamento com comprovação da alienação. <strong>Interstício mínimo de 2 anos após a última utilização do FGTS.</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Para amortizar com FGTS também é necessário: cotitularidade, FGTS regular (3 anos), ausência de uso nos últimos 3 anos e interstício mínimo de 2 anos.</p>
+  </div>
+</section>
+
+<!-- 17 HIS -->
+<section class="secao" id="his">
+  <div class="secao-hdr"><div class="ic">🏘️</div><h2>Habitação de Interesse Social</h2></div>
+  <div class="cont">
+    <p>O <strong>Sistema Nacional de Habitação de Interesse Social (SNHIS)</strong> foi instituído pela <strong>Lei nº 11.124/2005</strong>. Objetivo: implantar políticas que promovam o acesso à moradia digna para a população de baixa renda.</p>
+
+    <h3>FNHIS — Fundo Nacional de Habitação de Interesse Social</h3>
+    <p>Centraliza recursos orçamentários dos programas de Urbanização de Assentamentos Precários e de HIS. Composição: Orçamento Geral da União, FAD, dotações orçamentárias, empréstimos externos/internos, contribuições e doações. Destinação dos recursos: aquisição, construção, reforma, locação social, arrendamento, produção de lotes, regularização fundiária e saneamento.</p>
+
+    <h3>Objetivos do SNHIS (Lei nº 11.124/2005)</h3>
+    <ul class="lista">
+      <li>Viabilizar o acesso à terra urbanizada e à habitação digna à população de menor renda.</li>
+      <li>Implementar políticas de investimentos e subsídios habitacionais.</li>
+      <li>Articular e apoiar as instituições do setor habitacional.</li>
+    </ul>
+
+    <h3>Constituição Federal de 1988 — Moradia como Direito Social</h3>
+    <p>Art. 6°: são direitos sociais a educação, saúde, alimentação, trabalho, <strong>moradia</strong>, transporte, lazer, segurança e outros. Art. 183: usucapião urbano para área de até 250 m² ocupada ininterruptamente por 5 anos, sem oposição, para moradia própria — desde que não seja proprietário de outro imóvel.</p>
+
+    <h3>Estatuto da Cidade (Lei nº 10.257/2001)</h3>
+    <p>Estabelece diretrizes da política urbana: garantia do direito a cidades sustentáveis, simplificação da legislação de parcelamento, acessibilidade. Art. 9°: usucapião urbana para área ou edificação de até 250 m², por 5 anos, para moradia própria.</p>
+
+    <h3>Políticas Públicas de HIS — Histórico</h3>
+    <ul class="lista">
+      <li>1964: Criação do SFH e Banco Nacional da Habitação (BNH).</li>
+      <li>1986: BNH encerrado.</li>
+      <li>2000: Moradia incluída como direito social na CF.</li>
+      <li>2001: Estatuto das Cidades.</li>
+      <li>2003: Criação do Ministério das Cidades.</li>
+      <li>2009: Programa Minha Casa, Minha Vida (PMCMV) — subsídios para famílias de baixa renda.</li>
+      <li>2020: Substituído pelo Programa Casa Verde e Amarela (CVA).</li>
+      <li>Agosto 2023: Relançamento do PMCMV (combinando elementos anteriores).</li>
+    </ul>
+
+    <h3>Hipossuficiência e Vulnerabilidade</h3>
+    <ul class="lista">
+      <li><strong>Hipossuficiência social:</strong> carência financeira que impede o próprio sustento.</li>
+      <li><strong>Vulnerabilidade:</strong> estado que deixa a pessoa mais suscetível a riscos. O consumidor é sempre a parte mais frágil na relação comercial (princípio da vulnerabilidade do consumidor).</li>
+    </ul>
+
+    <h3>Déficit Habitacional — 4 Componentes</h3>
+    <ul class="lista">
+      <li>Habitações e domicílios precários (improvisados ou sem alvenaria).</li>
+      <li>Coabitação familiar (duas ou mais famílias no mesmo espaço sem privacidade).</li>
+      <li>Ônus excessivo do custo do aluguel urbano (renda ≤ 3 SM e gasto ≥ 30% com aluguel).</li>
+      <li>Adensamento excessivo em imóveis alugados (mais de 3 moradores por dormitório).</li>
+    </ul>
+
+    <h3>Locação Social</h3>
+    <p>O PMCMV oferece moradias subsidiadas para aluguel a famílias de baixa renda. O Estado subsidia parte do aluguel conforme renda, localidade e tipo de unidade. Contrato formal firmado com a entidade gestora.</p>
+
+    <h3>Habitação Rural</h3>
+    <p>O Programa Nacional de Habitação Rural (integrado ao PMCMV) garante acesso à moradia para famílias rurais de baixa renda. Modalidades: construção, reforma, melhoria e aquisição de unidades habitacionais.</p>
+  </div>
+</section>
+
+<!-- 18 QUESTÕES -->
+<section class="secao" id="questoes">
+  <div class="secao-hdr"><div class="ic">📝</div><h2>Questões Resolvidas</h2></div>
+  <div class="cont">
+    <h3>Sistema Financeiro Nacional</h3>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 01 — SFN</div>
+      <div class="q-texto">A Comissão de Valores Mobiliários deve:</div>
+      <ul class="q-opcoes">
+        <li>a) Gerir a auto-regulação</li>
+        <li>b) Definir a taxa básica de juros</li>
+        <li class="correta">c) Estimular o mercado de capitais ✓</li>
+        <li>d) Autorizar o funcionamento de instituições financeiras</li>
+      </ul>
+      <div class="q-exp">A CVM atua exclusivamente no mercado de valores mobiliários. A auto-regulação é feita por ANBIMA, ABECIP e FEBRABAN. A taxa Selic é definida pelo COPOM. O funcionamento de IFs é autorizado pelo BACEN. A única alternativa relacionada a valores mobiliários é estimular o mercado de capitais.</div>
+    </div>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 02 — SFN</div>
+      <div class="q-texto">O Conselho Monetário Nacional (CMN) é considerado o:</div>
+      <ul class="q-opcoes">
+        <li>a) Legislador do sistema de previdência complementar aberta</li>
+        <li>b) Fiscalizador do mercado de capitais</li>
+        <li>c) Banco dos bancos</li>
+        <li class="correta">d) Órgão máximo do Sistema Financeiro Nacional ✓</li>
+      </ul>
+      <div class="q-exp">O BACEN é o "banco dos bancos". A CVM fiscaliza o mercado de capitais. O CNPC legisla sobre previdência complementar. O CMN é o órgão normativo máximo do SFN — apenas define normas, não executa operações.</div>
+    </div>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 03 — SFN</div>
+      <div class="q-texto">É atribuição do Banco Central:</div>
+      <ul class="q-opcoes">
+        <li>a) Autorizar o funcionamento da bolsa de valores</li>
+        <li>b) Liquidar títulos privados</li>
+        <li>c) Liquidar títulos públicos</li>
+        <li class="correta">d) Autorizar o funcionamento de instituições financeiras ✓</li>
+      </ul>
+      <div class="q-exp">O funcionamento da bolsa de valores é atribuição da CVM. A liquidação de títulos (públicos ou privados) é feita por câmaras de liquidação e custódia. A missão do BACEN inclui autorizar o funcionamento de instituições financeiras.</div>
+    </div>
+
+    <h3>Sistema Financeiro da Habitação</h3>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 04 — SFH</div>
+      <div class="q-texto">A atualização monetária das parcelas de um financiamento enquadrado no SFH é:</div>
+      <ul class="q-opcoes">
+        <li class="correta">a) Feito pelo índice básico de remuneração dos depósitos de poupança ✓</li>
+        <li>b) Feito pelo IPCA</li>
+        <li>c) Feito de acordo com o contrato</li>
+        <li>d) Inexistente</li>
+      </ul>
+      <div class="q-exp">O SFH utiliza recursos do SBPE (poupança) e do FGTS. Como a poupança é a principal fonte, a atualização das parcelas segue o índice básico de remuneração dos depósitos de poupança (TR). No SFI, a atualização é livremente negociada.</div>
+    </div>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 05 — SFH</div>
+      <div class="q-texto">Os recursos captados em cadernetas de poupança são direcionados para aplicação em:</div>
+      <ul class="q-opcoes">
+        <li>a) Financiamentos imobiliários no âmbito do SFH.</li>
+        <li class="correta">b) Financiamentos imobiliários no âmbito do SFH e Taxa de Mercado. ✓</li>
+        <li>c) Financiamentos imobiliários no âmbito do SFH e no Programa Pró-Cotista.</li>
+        <li>d) Financiamentos do Programa Carta de Crédito Individual.</li>
+      </ul>
+      <div class="q-exp">A poupança é direcionada ao SFH, mas não só com CET máximo de 12%. Dos 65% destinados ao crédito imobiliário, 80% vai ao SFH e os outros 20% podem ir ao SBPE com taxa de mercado livre. Pró-Cotista e Carta de Crédito são formas de uso do FGTS.</div>
+    </div>
+
+    <h3>Sistema de Financiamento Imobiliário</h3>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 06 — SFI</div>
+      <div class="q-texto">As principais fontes de recurso do SFI são:</div>
+      <ul class="q-opcoes">
+        <li>a) Companhias seguradoras, SBPE e FGTS</li>
+        <li>b) Fundos de pensão, companhias seguradoras e SBPE</li>
+        <li>c) Fundos de pensão, fundos de ações, companhias seguradoras e bancos de investimento</li>
+        <li class="correta">d) Fundos de pensão, companhias seguradoras e bancos de investimento ✓</li>
+      </ul>
+      <div class="q-exp">SBPE e FGTS pertencem ao SFH. Fundos de ações não têm relação com financiamentos imobiliários. As principais fontes do SFI são os fundos de pensão, companhias seguradoras e bancos de investimento.</div>
+    </div>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 07 — SFI</div>
+      <div class="q-texto">Certificados de Recebíveis Imobiliários são:</div>
+      <ul class="q-opcoes">
+        <li>a) Ações</li>
+        <li>b) Títulos de renda variável</li>
+        <li>c) Derivativos</li>
+        <li class="correta">d) Títulos de renda fixa ✓</li>
+      </ul>
+      <div class="q-exp">CRIs são títulos de valor mobiliário de renda fixa, emitidos exclusivamente por securitizadoras. Ações e derivativos são de renda variável. Se o CRI fosse uma ação, seria renda variável — e como não pode haver duas alternativas corretas, as que mencionam ações e derivativos (renda variável) estão erradas.</div>
+    </div>
+
+    <h3>Garantias Imobiliárias</h3>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 08 — Garantias</div>
+      <div class="q-texto">Na alienação fiduciária, em caso de inadimplência, após a consolidação da propriedade ao credor:</div>
+      <ul class="q-opcoes">
+        <li>a) O imóvel é imediatamente leiloado pelo valor de mercado.</li>
+        <li class="correta">b) A primeira oferta é ao valor de mercado, após 30 dias; a segunda, 15 dias depois, aceita lance superior à dívida total. ✓</li>
+        <li>c) O credor pode adjudicar diretamente sem leilão.</li>
+        <li>d) A dívida é automaticamente extinta com a transferência do imóvel.</li>
+      </ul>
+      <div class="q-exp">O processo de leilão na alienação fiduciária segue dois momentos: 1° oferta a valor de mercado (30 dias após consolidação); 2° oferta 15 dias depois, aceitando qualquer lance superior à dívida + custos. Se no 2° leilão não houver lance válido, a dívida é extinta e o credor fica com o imóvel.</div>
+    </div>
+
+    <h3>Matemática Financeira</h3>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 09 — Matemática Financeira</div>
+      <div class="q-texto">Qual a taxa de juros mensal equivalente a uma taxa anual de 12% em regime de capitalização composta?</div>
+      <ul class="q-opcoes">
+        <li>a) 1,00% ao mês (proporcional)</li>
+        <li>b) 1,12% ao mês</li>
+        <li class="correta">c) 0,9489% ao mês (equivalente) ✓</li>
+        <li>d) 0,8333% ao mês</li>
+      </ul>
+      <div class="q-exp">Em capitalização composta, as taxas são EQUIVALENTES (não proporcionais). Fórmula: Tm = (1 + 0,12)^(1/12) − 1 = (1,12)^(1/12) − 1 ≈ 0,9489% a.m. Se fossem proporcionais (regime simples), seria 12%/12 = 1% a.m. A taxa equivalente em regime composto é sempre menor que a proporcional.</div>
+    </div>
+
+    <div class="questao">
+      <div class="q-titulo">Questão 10 — Código de Defesa do Consumidor</div>
+      <div class="q-texto">Qual a multa máxima que a ANPD pode aplicar a uma empresa por infração à LGPD?</div>
+      <ul class="q-opcoes">
+        <li>a) 1% do faturamento, limitada a R$ 10 milhões</li>
+        <li class="correta">b) 2% do faturamento, limitada a R$ 50 milhões por infração ✓</li>
+        <li>c) 5% do faturamento, sem limite</li>
+        <li>d) R$ 10 milhões por infração</li>
+      </ul>
+      <div class="q-exp">O Art. 52 da LGPD estabelece multa simples de até 2% do faturamento da pessoa jurídica, limitada a R$ 50.000.000,00 por infração. Essa sanção é aplicada após procedimento administrativo que garante ampla defesa.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>CRECI-SP</strong> — Conselho Regional de Corretores de Imóveis do Estado de São Paulo<br>
+  Curso EAD · Correspondente de Crédito Imobiliário para Corretores de Imóveis<br><br>
+  Todos os direitos reservados. É proibida a reprodução parcial ou total deste material.
+</footer>
+
+</main>
+
+<script>
+// Scroll progress
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('scrollBar').style.width=pct+'%';
+});
+// Nav ativo
+const secoes=document.querySelectorAll('.secao');
+const links=document.querySelectorAll('#nav a');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove('ativo'));
+      const a=document.querySelector(`#nav a[href="#${e.target.id}"]`);
+      if(a)a.classList.add('ativo');
+    }
+  });
+},{threshold:0.25});
+secoes.forEach(s=>obs.observe(s));
+// Menu mobile
+function toggleMenu(){
+  document.getElementById('nav').classList.toggle('aberto');
+}
+document.querySelectorAll('#nav a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    if(window.innerWidth<=860)
+      document.getElementById('nav').classList.remove('aberto');
+  });
+});
+</script>
+</body>
+</html>
