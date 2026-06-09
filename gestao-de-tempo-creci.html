@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestão de Tempo e Produtividade – CRECI-SP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal:      #00BCD4;
+      --teal-dark: #0097A7;
+      --navy:      #0D1B2A;
+      --slate:     #1E2D3D;
+      --white:     #F7FAFC;
+      --muted:     #8FA3B1;
+      --accent:    #FFD600;
+      --text:      #1A2530;
+      --card-bg:   #FFFFFF;
+      --border:    #DDE6ED;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── HERO ─────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 60%, var(--teal-dark) 100%);
+      color: #fff;
+      padding: 80px 24px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(0,188,212,.06) 0px,
+        rgba(0,188,212,.06) 1px,
+        transparent 1px,
+        transparent 40px
+      );
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      background: var(--teal);
+      color: var(--navy);
+      padding: 4px 14px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.4rem, 7vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .hero h1 span { color: var(--teal); }
+    .hero-sub {
+      margin-top: 16px;
+      font-size: 1rem;
+      color: rgba(255,255,255,.65);
+      max-width: 540px;
+      margin-inline: auto;
+      position: relative;
+    }
+    .hero-clock {
+      margin-top: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: .85rem;
+      color: rgba(255,255,255,.8);
+      position: relative;
+    }
+    .hero-clock svg { width: 18px; height: 18px; fill: var(--teal); }
+
+    /* ── NAV PILLS ──────────────────────────── */
+    .nav-pills {
+      background: var(--navy);
+      padding: 0 24px;
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-pills::-webkit-scrollbar { display: none; }
+    .nav-pills a {
+      white-space: nowrap;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 12px 16px;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .nav-pills a:hover {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+    }
+
+    /* ── LAYOUT ─────────────────────────────── */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+    section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    p { margin-bottom: 16px; font-size: .97rem; }
+
+    /* ── QUOTE BLOCK ─────────────────────────── */
+    .quote {
+      border-left: 4px solid var(--teal);
+      background: #EFF9FB;
+      padding: 20px 24px;
+      margin: 28px 0;
+      border-radius: 0 6px 6px 0;
+      font-style: italic;
+      color: var(--slate);
+      font-size: .93rem;
+    }
+
+    /* ── CARD GRID ────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 20px;
+      position: relative;
+    }
+    .card-icon {
+      width: 36px; height: 36px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .card-icon svg { width: 18px; height: 18px; fill: #fff; }
+    .card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .card p { font-size: .87rem; color: #4A6070; margin: 0; }
+
+    /* ── SMART TABLE ─────────────────────────── */
+    .smart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+      font-size: .9rem;
+    }
+    .smart-table th {
+      background: var(--navy);
+      color: #fff;
+      text-align: left;
+      padding: 12px 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .smart-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .smart-table tr:hover td { background: #F0F8FB; }
+    .letter-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 4px;
+      background: var(--teal);
+      color: var(--navy);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    /* ── TRIADE SPHERES ──────────────────────── */
+    .triade-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .sphere {
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .sphere-urgencia { background: #FFF3E0; border: 2px solid #FFA726; }
+    .sphere-importancia { background: #E8F5E9; border: 2px solid #43A047; }
+    .sphere-circunstancia { background: #F3E5F5; border: 2px solid #AB47BC; }
+    .sphere h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .sphere-urgencia h3 { color: #E65100; }
+    .sphere-importancia h3 { color: #1B5E20; }
+    .sphere-circunstancia h3 { color: #6A1B9A; }
+    .sphere p { font-size: .83rem; margin: 0; color: #3D4A55; }
+    .sphere-pct {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .sphere-urgencia .sphere-pct { color: #FFA726; }
+    .sphere-importancia .sphere-pct { color: #43A047; }
+    .sphere-circunstancia .sphere-pct { color: #AB47BC; }
+
+    /* ── STEPS ────────────────────────────────── */
+    .steps { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--teal);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-body h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .step-body p { font-size: .87rem; color: #4A6070; margin: 0; }
+
+    /* ── ABCDE BAR ───────────────────────────── */
+    .abcde { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+    .abcde-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+    .abcde-letter {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      width: 36px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .ltr-a { color: #D32F2F; }
+    .ltr-b { color: #F57C00; }
+    .ltr-c { color: #FBC02D; }
+    .ltr-d { color: #388E3C; }
+    .ltr-e { color: #7B1FA2; }
+    .abcde-content h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: .9rem;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .abcde-content p { font-size: .83rem; color: #4A6070; margin: 0; }
+
+    /* ── PARETO VISUAL ───────────────────────── */
+    .pareto-bar { margin: 28px 0; }
+    .pareto-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .bar-track {
+      height: 22px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .bar-fill-80 {
+      height: 100%;
+      width: 80%;
+      background: linear-gradient(90deg, var(--teal-dark), var(--teal));
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .bar-fill-20 {
+      height: 100%;
+      width: 20%;
+      background: var(--accent);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 36px 24px;
+      font-size: .8rem;
+    }
+    footer strong { color: var(--teal); }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 600px) {
+      .triade-grid { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">CRECI-SP · Curso EAD</div>
+  <h1>Gestão de<br><span>Tempo</span> &amp;<br>Produtividade</h1>
+  <p class="hero-sub">Aprenda a administrar seu recurso mais precioso e transforme cada dia em resultado.</p>
+  <div class="hero-clock">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 11H7v-2h4V6h2v7z"/></svg>
+    O tempo não usado não pode ser estocado — use-o com sabedoria
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-pills">
+  <a href="#fundamentos">Fundamentos</a>
+  <a href="#smart">Metas SMART</a>
+  <a href="#pareto">Pareto 80/20</a>
+  <a href="#triade">Tríade</a>
+  <a href="#abcde">Curva ABCDE</a>
+  <a href="#gtd">Método GTD</a>
+  <a href="#habitos">Hábitos</a>
+</nav>
+
+<!-- FUNDAMENTOS -->
+<section id="fundamentos">
+  <div class="container">
+    <div class="section-label">Conceito Base</div>
+    <h2 class="section-title">Por que gerir o tempo?</h2>
+    <div class="quote">
+      "O tempo é um recurso não renovável e perecível. Quando o tempo acaba, ele acaba mesmo. Quem não administra o seu tempo joga sua vida fora, porque um dia só pode ser vivido uma vez."
+    </div>
+    <p>O tempo é valioso, mensurável e finito — não conseguimos criá-lo. Por isso, precisamos cuidar desse recurso com clareza e objetividade, sabendo exatamente <strong>aonde queremos chegar</strong>.</p>
+    <p>Três passos fundamentais norteiam toda boa gestão de tempo:</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Definir metas e objetivos</h4>
+          <p>Estabeleça objetivos a curto (até 1 ano), médio (1–3 anos) e longo prazo (acima de 3 anos).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Planejar a rotina</h4>
+          <p>Monte um planejamento semanal e mensal consistente que oriente suas ações diárias.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Fiscalizar e monitorar</h4>
+          <p>Revise regularmente o que foi planejado, ajustando rotas conforme necessário.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SMART -->
+<section id="smart">
+  <div class="container">
+    <div class="section-label">Ferramenta</div>
+    <h2 class="section-title">Metas SMART</h2>
+    <p>Cada objetivo deve ser testado com cinco perguntas. Esse filtro garante que você persiga metas que valem o investimento de tempo.</p>
+    <table class="smart-table">
+      <thead>
+        <tr>
+          <th>Letra</th>
+          <th>Significado</th>
+          <th>Pergunta-chave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="letter-badge">S</span></td>
+          <td><strong>Specific</strong> – Específico</td>
+          <td>O objetivo está claramente definido, sem ser vago?</td>
+        </tr>
+        <tr>
+          <td><span class="letter-badge">M</span></td>
+          <td><strong>Mensurable</strong> – Mensurável</td>
+          <td>Consigo quantificar o progresso e o resultado?</td>
+        </tr>
+        <tr>
+          <td><span class="letter-badge">A</span></td>
+          <td><strong>Achievable</strong> – Alcançável</td>
+          <td>Alguém já conseguiu? Está ao alcance real?</td>
+        </tr>
+        <tr>
+          <td><span class="letter-badge">R</span></td>
+          <td><strong>Relevant</strong> – Relevante</td>
+          <td>Fará diferença real na minha vida ou negócio?</td>
+        </tr>
+        <tr>
+          <td><span class="letter-badge">T</span></td>
+          <td><strong>Time</strong> – Prazo</td>
+          <td>Existe uma data limite definida para alcançá-lo?</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="quote" style="margin-top:24px;">
+      Exemplo: <em>"Quero ganhar muito dinheiro"</em> → não é SMART.<br>
+      <strong>"Quero ter uma renda de R$ 10.000/mês até dezembro deste ano"</strong> → é SMART.
+    </div>
+  </div>
+</section>
+
+<!-- PARETO -->
+<section id="pareto">
+  <div class="container">
+    <div class="section-label">Lei de Pareto</div>
+    <h2 class="section-title">O Princípio 80/20</h2>
+    <p>Criado por Vilfredo Pareto, o princípio afirma que <strong>80% dos resultados são produzidos por apenas 20% das causas</strong>. Isso significa que o essencial consome pouco tempo — e o acessório consome muito.</p>
+
+    <div class="pareto-bar">
+      <div class="pareto-label"><span>Resultados obtidos</span><span>80%</span></div>
+      <div class="bar-track"><div class="bar-fill-80">80%</div></div>
+      <div class="pareto-label"><span>Esforço necessário</span><span>20%</span></div>
+      <div class="bar-track"><div class="bar-fill-20">20%</div></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <h3>Clientes</h3>
+        <p>20% dos clientes geram 80% da receita. Identifique-os e invista neles.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11H7v9h2v-9zm4-4h-2v13h2V7zm4 8h-2v5h2v-5zM3 3v18h18V3H3zm16 16H5V5h14v14z"/></svg>
+        </div>
+        <h3>Eficiência</h3>
+        <p>Concentre-se nas tarefas de alto impacto. Elas produzem a maior parte dos resultados.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
+        </div>
+        <h3>Eficaz vs Eficiente</h3>
+        <p>Eficaz = resultado no tempo. Eficiente = resultado com máxima qualidade e mínimo recurso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRIADE -->
+<section id="triade">
+  <div class="container">
+    <div class="section-label">Christian Barbosa</div>
+    <h2 class="section-title">Tríade do Tempo</h2>
+    <p>Metodologia que divide todas as atividades em três esferas independentes. A <strong>tríade ideal</strong> mantém 70% do tempo na importância, com urgências e circunstâncias reduzidas ao mínimo.</p>
+
+    <div class="triade-grid">
+      <div class="sphere sphere-urgencia">
+        <div class="sphere-pct">10%</div>
+        <h3>Urgência</h3>
+        <p>Tarefas que devem ser feitas imediatamente. Causam estresse e geralmente surgem por falta de planejamento.</p>
+      </div>
+      <div class="sphere sphere-importancia">
+        <div class="sphere-pct">70%</div>
+        <h3>Importância</h3>
+        <p>Atividades que trazem resultados reais. Têm prazo, podem ser planejadas e geram sensação de dever cumprido.</p>
+      </div>
+      <div class="sphere sphere-circunstancia">
+        <div class="sphere-pct">20%</div>
+        <h3>Circunstância</h3>
+        <p>Tarefas desnecessárias feitas por hábito ou pressão social. Roubam o tempo sem trazer resultados.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:28px;">Para chegar à tríade ideal: <strong>diminua urgências</strong> com planejamento antecipado, <strong>reduza circunstâncias</strong> aprendendo a dizer não, e <strong>assuma responsabilidade</strong> pelas próprias escolhas.</p>
+  </div>
+</section>
+
+<!-- ABCDE -->
+<section id="abcde">
+  <div class="container">
+    <div class="section-label">Priorização</div>
+    <h2 class="section-title">Curva ABCDE</h2>
+    <p>Baseada no Princípio de Pareto, essa ferramenta classifica cada tarefa do dia por impacto. O segredo está em <strong>iniciar pela A1 e completá-la antes de seguir para a próxima</strong>.</p>
+
+    <div class="abcde">
+      <div class="abcde-row">
+        <div class="abcde-letter ltr-a">A</div>
+        <div class="abcde-content">
+          <h4>Alta Importância</h4>
+          <p>Tarefas de maior impacto que podem gerar 80% dos resultados. Devem ser feitas sem falta.</p>
+        </div>
+      </div>
+      <div class="abcde-row">
+        <div class="abcde-letter ltr-b">B</div>
+        <div class="abcde-content">
+          <h4>Média Importância</h4>
+          <p>Necessárias, muitas vezes urgentes, mas com impacto menor nos objetivos principais.</p>
+        </div>
+      </div>
+      <div class="abcde-row">
+        <div class="abcde-letter ltr-c">C</div>
+        <div class="abcde-content">
+          <h4>Baixa Importância</h4>
+          <p>Fáceis e agradáveis de fazer, porém não contribuem para seus objetivos maiores.</p>
+        </div>
+      </div>
+      <div class="abcde-row">
+        <div class="abcde-letter ltr-d">D</div>
+        <div class="abcde-content">
+          <h4>Delegar</h4>
+          <p>Tarefas que outra pessoa pode executar, liberando você para as atividades de alto impacto.</p>
+        </div>
+      </div>
+      <div class="abcde-row">
+        <div class="abcde-letter ltr-e">E</div>
+        <div class="abcde-content">
+          <h4>Eliminar</h4>
+          <p>Atividades dispensáveis — como redes sociais sem objetivo — que consomem tempo sem retorno.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GTD -->
+<section id="gtd">
+  <div class="container">
+    <div class="section-label">David Allen</div>
+    <h2 class="section-title">Método GTD</h2>
+    <p><em>Getting Things Done</em> — "A Arte de Fazer Acontecer". O princípio central: <strong>sua mente é para ter ideias, não para guardá-las</strong>. Organize tudo externamente para focar apenas na execução.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Capturar</h4>
+          <p>Colete tudo: e-mails, ideias, pedidos, convites. Use um bloco físico ou o celular para não perder nada.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Esclarecer</h4>
+          <p>Para cada item: demanda ação? Se não → descarte, guarde ou incube. Se sim → faça (menos de 2 min), delegue ou transforme em projeto.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Organizar</h4>
+          <p>Agrupe por similaridade: Projetos, Tarefas, Pessoal, Rua, Telefonemas, Redes Sociais. Ganhe tempo executando itens similares em bloco.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Revisar</h4>
+          <p>Defina um dia fixo para revisão semanal — verifique o que foi feito e programe a semana seguinte.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Executar</h4>
+          <p>Tudo foi decidido. Não há mais o que pensar — é hora de fazer o que foi planejado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HÁBITOS -->
+<section id="habitos">
+  <div class="container">
+    <div class="section-label">Neurociência</div>
+    <h2 class="section-title">Hábitos &amp; Mindset</h2>
+    <p>Hábito é algo que, após aprendido e repetido, torna-se automático. O cérebro economiza energia gravando rotinas para não precisar reaprender. Por isso, <strong>mudar hábitos é o coração da gestão de tempo</strong>.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+        </div>
+        <h3>Gatilho → Ação → Recompensa</h3>
+        <p>Todo hábito depende de um gatilho que aciona a ação, seguida de uma recompensa que o consolida.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+        </div>
+        <h3>Mindset Fixo vs Progressivo</h3>
+        <p>Mindset fixo teme o fracasso. Mindset progressivo enxerga erros como oportunidades de melhoria contínua.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        </div>
+        <h3>Técnica Pomodoro</h3>
+        <p>Trabalhe por blocos de 25 minutos com foco total, depois descanse 3–5 min. Adapte ao seu limite de concentração.</p>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:32px;">
+      <strong>Lei de Parkinson:</strong> "O trabalho se expande para preencher o tempo disponível para sua realização." Defina prazos curtos e realistas — seu foco aumenta quando o tempo é limitado.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Material didático produzido pelo <strong>CRECI-SP</strong> · Curso EAD Gestão de Tempo e Produtividade</p>
+  <p style="margin-top:6px;">Todos os direitos reservados. Reprodução proibida sem autorização.</p>
+</footer>
+
+</body>
+</html>

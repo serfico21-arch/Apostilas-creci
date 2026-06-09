@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso de Fotografia Imobiliária — CRECI</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --preto: #0a0a0a;
+    --branco: #f5f0e8;
+    --ouro: #c8a96e;
+    --ouro-escuro: #9a7a45;
+    --cinza: #2a2a2a;
+    --cinza-medio: #555;
+    --accent: #d4522a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--preto);
+    color: var(--branco);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,169,110,.15) 0%, transparent 70%),
+      linear-gradient(180deg, #111 0%, var(--preto) 100%);
+    border-bottom: 1px solid rgba(200,169,110,.2);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 59px,
+      rgba(200,169,110,.04) 59px, rgba(200,169,110,.04) 60px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 59px,
+      rgba(200,169,110,.04) 59px, rgba(200,169,110,.04) 60px
+    );
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid var(--ouro);
+    color: var(--ouro);
+    font-size: .7rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    animation: fadeUp .8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    animation: fadeUp .8s .15s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--ouro);
+  }
+
+  .hero-sub {
+    margin-top: 24px;
+    font-size: 1.05rem;
+    color: rgba(245,240,232,.55);
+    max-width: 480px;
+    animation: fadeUp .8s .3s ease both;
+  }
+
+  .hero-scroll {
+    margin-top: 64px;
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--ouro), transparent);
+    animation: fadeUp .8s .5s ease both;
+  }
+
+  /* ── ÍNDICE ── */
+  .index-section {
+    padding: 100px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: .68rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--ouro);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+
+  .modulos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2px;
+  }
+
+  .modulo-card {
+    background: var(--cinza);
+    padding: 36px 32px;
+    border: 1px solid rgba(200,169,110,.1);
+    transition: background .25s, border-color .25s;
+    cursor: default;
+  }
+
+  .modulo-card:hover {
+    background: #333;
+    border-color: rgba(200,169,110,.35);
+  }
+
+  .modulo-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: rgba(200,169,110,.2);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .modulo-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .03em;
+  }
+
+  /* ── MÓDULO BLOCKS ── */
+  .modulo-section {
+    border-top: 1px solid rgba(200,169,110,.15);
+    padding: 80px 24px;
+  }
+
+  .modulo-section .inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .modulo-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .modulo-big-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: rgba(200,169,110,.12);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .modulo-header-text { flex: 1; }
+
+  .modulo-header-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .modulo-header-text p {
+    color: rgba(245,240,232,.55);
+    font-size: .95rem;
+  }
+
+  /* sub-topics */
+  .subtopicos { display: grid; gap: 24px; }
+
+  .topico {
+    background: var(--cinza);
+    border: 1px solid rgba(200,169,110,.1);
+    border-left: 3px solid var(--ouro);
+    padding: 28px 32px;
+    transition: border-color .2s;
+  }
+
+  .topico:hover { border-left-color: var(--accent); }
+
+  .topico h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--ouro);
+  }
+
+  .topico ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .topico ul li {
+    font-size: .9rem;
+    color: rgba(245,240,232,.75);
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .topico ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--ouro);
+    font-size: .8rem;
+  }
+
+  /* two-col */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* highlight box */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(200,169,110,.12), rgba(200,169,110,.05));
+    border: 1px solid rgba(200,169,110,.3);
+    padding: 32px;
+    border-radius: 2px;
+    margin-top: 24px;
+  }
+
+  .highlight-box p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--ouro);
+    line-height: 1.5;
+  }
+
+  /* triângulo da exposição */
+  .triangulo-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 32px 0;
+  }
+
+  .triangulo {
+    position: relative;
+    width: 260px;
+    height: 230px;
+  }
+
+  .triangulo svg { width: 100%; height: 100%; }
+
+  .tri-label {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .tri-iso   { top: -6px; left: 50%; transform: translateX(-50%); color: #e07a5f; }
+  .tri-ab    { bottom: -4px; left: 0; color: #9b7fce; }
+  .tri-vel   { bottom: -4px; right: 0; color: #4ea8de; }
+  .tri-exp   { top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(245,240,232,.5); font-size: .75rem; font-family: 'DM Sans', sans-serif; font-style: italic; font-weight: 300; }
+
+  /* tabela */
+  .tabela-wrap { overflow-x: auto; margin-top: 24px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+
+  th {
+    background: var(--ouro-escuro);
+    color: var(--branco);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 500;
+    letter-spacing: .05em;
+    font-size: .8rem;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(200,169,110,.1);
+    color: rgba(245,240,232,.8);
+  }
+
+  tr:hover td { background: rgba(200,169,110,.05); }
+
+  /* erros */
+  .erros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .erro-card {
+    background: var(--cinza);
+    border: 1px solid rgba(212,82,42,.25);
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .erro-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  .erro-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .erro-card p {
+    font-size: .82rem;
+    color: rgba(245,240,232,.6);
+  }
+
+  /* angulos */
+  .angulos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  @media(max-width:540px){ .angulos-grid{ grid-template-columns:1fr; } }
+
+  .angulo-card {
+    background: var(--cinza);
+    padding: 32px;
+    border: 1px solid rgba(200,169,110,.1);
+    text-align: center;
+  }
+
+  .angulo-card .diagram {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+  }
+
+  .angulo-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--ouro);
+    margin-bottom: 8px;
+  }
+
+  .angulo-card p {
+    font-size: .82rem;
+    color: rgba(245,240,232,.6);
+    font-style: italic;
+  }
+
+  /* dicas finais */
+  .dicas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .dica-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(200,169,110,.1);
+  }
+
+  .dica-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--ouro);
+    font-weight: 900;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: right;
+  }
+
+  .dica-text h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .dica-text p {
+    font-size: .88rem;
+    color: rgba(245,240,232,.55);
+  }
+
+  /* footer */
+  footer {
+    border-top: 1px solid rgba(200,169,110,.2);
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: .78rem;
+    color: rgba(245,240,232,.35);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  footer strong { color: var(--ouro); }
+
+  /* animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* nav dots */
+  .nav-dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(200,169,110,.3);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+
+  .nav-dot.active, .nav-dot:hover {
+    background: var(--ouro);
+    transform: scale(1.5);
+  }
+
+  @media(max-width:480px){ .nav-dots{ display:none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- HERO -->
+<section class="hero" id="s0">
+  <span class="badge">CRECI · Curso Oficial</span>
+  <h1>Fotografia<br><em>Imobiliária</em></h1>
+  <p class="hero-sub">Do planejamento à edição — tudo que você precisa para fotografar imóveis com profissionalismo.</p>
+  <div class="hero-scroll"></div>
+</section>
+
+<!-- MÓDULOS / ÍNDICE -->
+<section class="index-section" id="s1">
+  <p class="section-label reveal">Estrutura do Curso</p>
+  <h2 class="section-title reveal">6 Módulos</h2>
+  <div class="modulos-grid reveal">
+    <div class="modulo-card"><div class="modulo-num">01</div><h3>Planejamento</h3></div>
+    <div class="modulo-card"><div class="modulo-num">02</div><h3>Conhecendo sua Câmera</h3></div>
+    <div class="modulo-card"><div class="modulo-num">03</div><h3>Equipamento Fotográfico</h3></div>
+    <div class="modulo-card"><div class="modulo-num">04</div><h3>Erros Comuns e Como Corrigir</h3></div>
+    <div class="modulo-card"><div class="modulo-num">05</div><h3>Técnicas e Estilos</h3></div>
+    <div class="modulo-card"><div class="modulo-num">06</div><h3>Organização, Edição e Apresentação</h3></div>
+  </div>
+</section>
+
+<!-- MÓDULO 1: PLANEJAMENTO -->
+<section class="modulo-section" id="s2">
+  <div class="inner">
+    <div class="modulo-header reveal">
+      <div class="modulo-big-num">01</div>
+      <div class="modulo-header-text">
+        <p class="section-label">Módulo</p>
+        <h2>Planejamento</h2>
+        <p>O sucesso da foto começa antes de apontar a câmera.</p>
+      </div>
+    </div>
+
+    <div class="subtopicos">
+
+      <div class="topico reveal">
+        <h4>Referência Visual</h4>
+        <ul>
+          <li>Estudar fotos de sucesso do seu segmento (apartamento, casa, terreno, comercial, fazenda…)</li>
+          <li>Divulgação de lançamentos e revistas de interiores são a referência do cliente</li>
+          <li>Monte sua lista por ambiente, atualize com frequência (Pinterest, Google Drive, Evernote)</li>
+          <li>Referências recomendadas: educastello.com.br · edsonferreira.com · lucaantunes.com.br</li>
+        </ul>
+      </div>
+
+      <div class="two-col">
+        <div class="topico reveal">
+          <h4>Por Ambiente — Referências</h4>
+          <ul>
+            <li><strong>Fachada:</strong> linhas retas, vista frontal, calçada e via de acesso</li>
+            <li><strong>Sala:</strong> diagonais convergindo; elementos coloridos em destaque</li>
+            <li><strong>Cozinha:</strong> linhas verticais paralelas; diagonais convergem para saída</li>
+            <li><strong>Banheiro:</strong> linha da cintura, verticais paralelas, uso dos espelhos</li>
+            <li><strong>Quarto:</strong> linha da cintura, luz natural + artificial, clima</li>
+            <li><strong>Lazer:</strong> elemento principal, edificações e acessos</li>
+          </ul>
+        </div>
+        <div class="topico reveal">
+          <h4>Espelhos</h4>
+          <ul>
+            <li>Use para ampliar espaço e mostrar outros pontos</li>
+            <li>O fotógrafo <strong>NUNCA</strong> deve aparecer no reflexo</li>
+            <li>Use elementos do ambiente para se esconder</li>
+            <li>Mantenha as mesmas regras de enquadramento</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Definir o Formato da Foto</h4>
+        <ul>
+          <li>Onde serão publicadas? (portal imobiliário, redes sociais, impressão)</li>
+          <li>Quais tipos são aceitos? Retrato ou Paisagem?</li>
+          <li>Qual qualidade mínima é exigida?</li>
+        </ul>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Preparação do Espaço</h4>
+        <ul>
+          <li>Aparenta ser mais <strong>novo e conservado</strong></li>
+          <li>Mostra tamponamentos, assoalhos, teto e parede sem distração</li>
+          <li>Destaca seu anúncio e demonstra profissionalismo ao cliente</li>
+        </ul>
+      </div>
+
+      <div class="two-col">
+        <div class="topico reveal">
+          <h4>O que Mostrar</h4>
+          <ul>
+            <li>Crie um check-list por imóvel</li>
+            <li>Inclua conexões entre ambientes</li>
+            <li>Faça fotos amplas e fotos de detalhe</li>
+            <li>Decoração, arte, itens de interesse do cliente</li>
+          </ul>
+        </div>
+        <div class="topico reveal">
+          <h4>O que NÃO Mostrar</h4>
+          <ul>
+            <li>Menores de idade</li>
+            <li>Lixo ou sujeira</li>
+            <li>Fotos tortas, escuras ou claras demais</li>
+            <li>Pessoas e animais</li>
+            <li>Fotos sem nenhum acesso ou janela</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Ângulos Sugeridos</h4>
+        <div class="angulos-grid" style="margin-top:16px;">
+          <div class="angulo-card">
+            <svg class="diagram" viewBox="0 0 80 80">
+              <rect x="5" y="5" width="70" height="70" fill="none" stroke="rgba(200,169,110,.3)" stroke-width="1"/>
+              <line x1="5" y1="5" x2="40" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <line x1="75" y1="5" x2="40" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <line x1="5" y1="75" x2="40" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <line x1="75" y1="75" x2="40" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <circle cx="40" cy="40" r="3" fill="var(--ouro)"/>
+            </svg>
+            <h4>Extremo Central</h4>
+            <p>Diagonais se encontram no centro; linhas horizontais e verticais ficam paralelas</p>
+          </div>
+          <div class="angulo-card">
+            <svg class="diagram" viewBox="0 0 80 80">
+              <rect x="5" y="5" width="70" height="70" fill="none" stroke="rgba(200,169,110,.3)" stroke-width="1"/>
+              <line x1="5" y1="5" x2="55" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <line x1="75" y1="5" x2="55" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <line x1="5" y1="75" x2="30" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <line x1="75" y1="75" x2="30" y2="40" stroke="var(--ouro)" stroke-width="1.5" opacity=".7"/>
+              <circle cx="55" cy="40" r="3" fill="var(--ouro)"/>
+              <circle cx="30" cy="40" r="3" fill="var(--accent)"/>
+            </svg>
+            <h4>Extremo Diagonal</h4>
+            <p>Linhas verticais ficam paralelas e diagonais convergem para dois pontos</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="topico reveal" style="border-left-color:var(--accent)">
+        <h4 style="color:var(--accent)">⚠ Cuidado com Fotos Adulteradas</h4>
+        <ul>
+          <li>Você tem responsabilidade se passar impressão de espaço maior que a realidade</li>
+          <li>Não informar defeitos aparentes de seu conhecimento também gera responsabilidade</li>
+          <li>Lentes ultra grande-angulares em excesso distorcem dimensões — use com critério</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULO 2: CÂMERA -->
+<section class="modulo-section" id="s3">
+  <div class="inner">
+    <div class="modulo-header reveal">
+      <div class="modulo-big-num">02</div>
+      <div class="modulo-header-text">
+        <p class="section-label">Módulo</p>
+        <h2>Conhecendo sua Câmera</h2>
+        <p>Escolha a ferramenta certa e domine o Triângulo da Exposição.</p>
+      </div>
+    </div>
+
+    <div class="subtopicos">
+      <div class="topico reveal">
+        <h4>Tipos de Câmera</h4>
+        <div class="two-col" style="margin-top:16px;">
+          <ul>
+            <li><strong>Compactas:</strong> fáceis, custam menos, sem modo manual, qualidade limitada em pouca luz</li>
+            <li><strong>Smartphones:</strong> sempre disponíveis, apps de edição rápida, sem zoom óptico, qualidade limitada</li>
+            <li><strong>Modo Manual (DSLR/Mirrorless):</strong> controle preciso de luz, excelentes em ambientes escuros, lentes intercambiáveis — maior custo e curva de aprendizado</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="topico reveal">
+        <h4>O Triângulo da Exposição</h4>
+        <div class="triangulo-wrapper">
+          <div class="triangulo">
+            <span class="tri-label tri-iso">ISO</span>
+            <svg viewBox="0 0 260 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="130,20 240,210 20,210" stroke="rgba(200,169,110,.6)" stroke-width="2" fill="rgba(200,169,110,.04)"/>
+              <defs>
+                <marker id="a" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6 Z" fill="rgba(200,169,110,.6)"/>
+                </marker>
+              </defs>
+              <line x1="130" y1="20" x2="130" y2="200" stroke="rgba(200,169,110,.3)" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#a)"/>
+              <line x1="240" y1="210" x2="25" y2="210" stroke="rgba(200,169,110,.3)" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#a)"/>
+            </svg>
+            <span class="tri-label tri-ab">Abertura</span>
+            <span class="tri-label tri-vel">Velocidade</span>
+            <span class="tri-label tri-exp">exposição</span>
+          </div>
+        </div>
+        <ul>
+          <li><strong>Abertura (f/):</strong> quanto maior o número, menos luz entra. f/2.8 → f/22</li>
+          <li><strong>Velocidade:</strong> fração de segundo (1/15 a 1/500). Mais lento = mais luz, risco de borrão</li>
+          <li><strong>ISO:</strong> sensibilidade do sensor (100–6400). Mais alto = mais luz, mais ruído na imagem</li>
+        </ul>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Relação Tempo × ISO</h4>
+        <div class="tabela-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tempo de Exposição</th>
+                <th>2"</th><th>1"</th><th>1/2</th><th>1/4</th>
+                <th>1/8</th><th>1/15</th><th>1/30</th><th>1/60</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ISO equivalente</td>
+                <td>100</td><td>200</td><td>400</td><td>800</td>
+                <td>1600</td><td>3200</td><td>6400</td><td>12800</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-box">
+          <p>Tempos longos necessitam de tripé. ISO baixo = máxima qualidade de imagem.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULO 3: EQUIPAMENTO -->
+<section class="modulo-section" id="s4">
+  <div class="inner">
+    <div class="modulo-header reveal">
+      <div class="modulo-big-num">03</div>
+      <div class="modulo-header-text">
+        <p class="section-label">Módulo</p>
+        <h2>Equipamento Fotográfico</h2>
+        <p>Tripé, lentes e o que realmente importa para imóveis.</p>
+      </div>
+    </div>
+
+    <div class="subtopicos">
+      <div class="two-col">
+        <div class="topico reveal">
+          <h4>Tripé</h4>
+          <ul>
+            <li>Ajusta o alinhamento da foto com precisão</li>
+            <li>Permite longas exposições com ISO baixo (máxima qualidade)</li>
+            <li>Requer mais tempo de setup — vale o investimento</li>
+            <li>Controles: Pan (horizontal), Tilt (vertical), Inclinação 90°, Coluna central</li>
+          </ul>
+        </div>
+        <div class="topico reveal">
+          <h4>Lentes Ultra Grande-Angulares Retilíneas</h4>
+          <ul>
+            <li>Grande ângulo de visão (11–17mm equiv. 35mm)</li>
+            <li>Pouca distorção de lente (diferente de olho-de-peixe)</li>
+            <li>Utilizadas em lançamentos e revistas</li>
+            <li>Cuidado com bordas e distorção de dimensões</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Equivalência de Distância Focal por Sensor</h4>
+        <div class="tabela-wrap">
+          <table>
+            <thead>
+              <tr><th>Sensor</th><th>Lente Real</th><th>Equivalência 35mm</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Celular</td><td>4mm</td><td>28mm</td></tr>
+              <tr><td>Micro 4/3</td><td>14mm</td><td>28mm</td></tr>
+              <tr><td>APS-C</td><td>18mm</td><td>28mm</td></tr>
+              <tr><td>Full Frame</td><td>28mm</td><td>28mm</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Combos Recomendados</h4>
+        <ul>
+          <li><strong>Canon:</strong> Lente EF-S 10–18mm + Corpo T5 ≈ R$ 2.600</li>
+          <li><strong>Nikon / Sony:</strong> Sigma 10–20mm (equiv. 15–30mm) ≈ R$ 2.300</li>
+          <li>Outras opções: Panasonic 7–14mm, Nikon AF-P 10–20mm, Canon EF 11–24mm f/4L</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULO 4: ERROS -->
+<section class="modulo-section" id="s5">
+  <div class="inner">
+    <div class="modulo-header reveal">
+      <div class="modulo-big-num">04</div>
+      <div class="modulo-header-text">
+        <p class="section-label">Módulo</p>
+        <h2>Erros Comuns e Como Corrigir</h2>
+        <p>4 casos práticos que transformam fotos ruins em boas fotos.</p>
+      </div>
+    </div>
+
+    <div class="erros-grid reveal">
+      <div class="erro-card">
+        <div class="erro-icon">☀️</div>
+        <h4>1. Contraluz</h4>
+        <p>Feche as cortinas, acenda todas as luzes e controle a exposição manualmente para equilibrar interior e exterior.</p>
+      </div>
+      <div class="erro-card">
+        <div class="erro-icon">🗑️</div>
+        <h4>2. Poluição Visual</h4>
+        <p>Remova bagunça, objetos pessoais, animais e tudo que não interessa ao comprador. Aumenta sensação de espaço e valor.</p>
+      </div>
+      <div class="erro-card">
+        <div class="erro-icon">📐</div>
+        <h4>3. Enquadramento</h4>
+        <p>Desalinhamento gera estranheza. Mantenha verticais paralelas, remova "molduras" e inclua elementos de teto e piso.</p>
+      </div>
+      <div class="erro-card">
+        <div class="erro-icon">🎯</div>
+        <h4>4. Foco</h4>
+        <p>Use tripé e estabilização de imagem. Segure a câmera com as duas mãos, cotovelos encostados, e tire 3 fotos seguidas sem se mover.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal" style="margin-top:32px;">
+      <p>"Em fotos impactantes, as 4 diagonais principais se encontram em um ponto. Use isso para evidenciar os elementos mais importantes do ambiente."</p>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULO 5: TÉCNICAS -->
+<section class="modulo-section" id="s6">
+  <div class="inner">
+    <div class="modulo-header reveal">
+      <div class="modulo-big-num">05</div>
+      <div class="modulo-header-text">
+        <p class="section-label">Módulo</p>
+        <h2>Técnicas e Estilos</h2>
+        <p>Panorâmica, 360° e fotografia aérea a serviço do anúncio.</p>
+      </div>
+    </div>
+
+    <div class="subtopicos">
+      <div class="topico reveal">
+        <h4>1. Foto Panorâmica</h4>
+        <ul>
+          <li>Compensa a falta de lente grande-angular</li>
+          <li>Útil em grandes áreas e também funciona na vertical</li>
+          <li>Atenção: distorção maior nas bordas da junção</li>
+          <li>Mantenha o tripé fixo e gire apenas no eixo horizontal</li>
+        </ul>
+      </div>
+      <div class="topico reveal">
+        <h4>2. Fotos 360°</h4>
+        <ul>
+          <li>São uma opção <em>adicional</em>, não substituta das fotos tradicionais</li>
+          <li>Oferecem imersividade e interação ao comprador</li>
+          <li>App recomendado: Google Street View (gratuito)</li>
+          <li>Compartilhamento: Google Fotos, Facebook, Kuula</li>
+          <li>Câmeras: LG 360, Samsung Gear 360, Ricoh Theta S</li>
+        </ul>
+      </div>
+      <div class="topico reveal">
+        <h4>3. Fotografia Aérea (Drone)</h4>
+        <ul>
+          <li>Acessível e extremamente eficaz para fachadas e grandes áreas</li>
+          <li>Amplia a visão do bairro, região, terreno e relevo</li>
+          <li>Referência de equipamento: DJI Phantom 3 Standard</li>
+          <li>Verifique restrições de voo da ANAC para a área fotografada</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULO 6: ORGANIZAÇÃO -->
+<section class="modulo-section" id="s7">
+  <div class="inner">
+    <div class="modulo-header reveal">
+      <div class="modulo-big-num">06</div>
+      <div class="modulo-header-text">
+        <p class="section-label">Módulo</p>
+        <h2>Organização, Edição e Apresentação</h2>
+        <p>O trabalho não termina quando você sai do imóvel.</p>
+      </div>
+    </div>
+
+    <div class="subtopicos">
+      <div class="topico reveal">
+        <h4>Estrutura de Pastas Recomendada</h4>
+        <ul>
+          <li><strong>Pasta raiz:</strong> Cidade / Região</li>
+          <li><strong>Subpasta do imóvel:</strong> <code style="color:var(--ouro);background:rgba(200,169,110,.1);padding:2px 6px;border-radius:2px;">2024-06-09 – Rua X, Nº – CEP</code></li>
+          <li><strong>/Originais</strong> → direto da câmera</li>
+          <li><strong>/Editadas</strong> → <code style="color:var(--ouro);background:rgba(200,169,110,.1);padding:2px 6px;border-radius:2px;">001-Sala.jpg</code></li>
+          <li><strong>/Anúncio</strong> → iguais às editadas, ordenadas para o portal</li>
+          <li><strong>/Documentos</strong> → Autorização, IPTU, planta, certidões…</li>
+        </ul>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Programas e Aplicativos</h4>
+        <ul>
+          <li><strong>Adobe Lightroom</strong> — melhor opção para edição em lote e catálogo (assinatura)</li>
+          <li><strong>Adobe Photoshop</strong> — retoques avançados e composição (assinatura)</li>
+          <li><strong>Adobe Bridge</strong> — renomeação em lote e organização (gratuito)</li>
+          <li><strong>Google Snapseed</strong> — edição rápida no celular (gratuito)</li>
+          <li>O melhor programa é aquele com o qual você se sente mais confortável.</li>
+        </ul>
+      </div>
+
+      <div class="topico reveal">
+        <h4>Ordem das Fotos no Anúncio</h4>
+        <ul>
+          <li><strong>1ª foto:</strong> o ambiente de maior destaque do imóvel</li>
+          <li>Fotos iniciais devem ser dos melhores ambientes</li>
+          <li>Navegabilidade compreensiva: inclua fotos de acessos entre ambientes</li>
+          <li>Inclua informações complementares: planta, serviços próximos, dados técnicos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DICAS FINAIS -->
+<section class="modulo-section" id="s8">
+  <div class="inner">
+    <p class="section-label reveal">Encerramento</p>
+    <h2 class="section-title reveal">Dicas Finais</h2>
+    <div class="dicas-list">
+      <div class="dica-item reveal">
+        <div class="dica-num">1</div>
+        <div class="dica-text">
+          <h4>Sempre se pode melhorar</h4>
+          <p>Cada sessão é uma oportunidade de evoluir. Analise suas fotos criticamente e identifique o que pode melhorar.</p>
+        </div>
+      </div>
+      <div class="dica-item reveal">
+        <div class="dica-num">2</div>
+        <div class="dica-text">
+          <h4>Compare</h4>
+          <p>Coloque suas fotos ao lado das suas referências visuais. A comparação direta acelera o aprendizado.</p>
+        </div>
+      </div>
+      <div class="dica-item reveal">
+        <div class="dica-num">3</div>
+        <div class="dica-text">
+          <h4>Planejamento economiza tempo</h4>
+          <p>Fotos de qualidade captadas com planejamento reduzem drasticamente o tempo de edição e organização posterior.</p>
+        </div>
+      </div>
+      <div class="dica-item reveal">
+        <div class="dica-num">4</div>
+        <div class="dica-text">
+          <h4>Postura na captação gera confiança</h4>
+          <p>Quando você chega preparado, com equipamento adequado e rotina definida, o proprietário percebe o profissionalismo.</p>
+        </div>
+      </div>
+      <div class="dica-item reveal">
+        <div class="dica-num">5</div>
+        <div class="dica-text">
+          <h4>Se atualize sempre</h4>
+          <p>Tecnologia de câmeras, drones, 360° e edição avança rapidamente. Mantenha sua lista de referências atualizada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Curso de Fotografia Imobiliária · <strong>CRECI</strong> · Material de apoio</p>
+  <p style="margin-top:8px;">Apostila oficial do Conselho Regional de Corretores de Imóveis</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Nav dots
+  const sections = document.querySelectorAll('[id^="s"]');
+  const dotsEl = document.getElementById('navDots');
+  sections.forEach((sec, i) => {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.title = sec.querySelector('h2,h1') ? sec.querySelector('h2,h1').textContent.trim() : '';
+    d.addEventListener('click', () => sec.scrollIntoView({ behavior: 'smooth' }));
+    dotsEl.appendChild(d);
+  });
+
+  const dots = dotsEl.querySelectorAll('.nav-dot');
+  const sectObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = Array.from(sections).indexOf(e.target);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => sectObs.observe(s));
+</script>
+</body>
+</html>

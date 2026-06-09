@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucro Imobiliário — CRECI-SP</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f5;
+  --paper: #ffffff;
+  --ink: #1a1208;
+  --mid: #5c4f3a;
+  --dim: #a89880;
+  --rule: #e8e0d4;
+  --fire: #d63a0f;
+  --fire2: #f05a2a;
+  --fire-dim: rgba(214,58,15,0.1);
+  --amber: #c97d20;
+  --amber-dim: rgba(201,125,32,0.12);
+  --green: #2a7a4b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 80px 52px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-stripe {
+  position: absolute;
+  top: 0; right: 0;
+  width: 5px; height: 100%;
+  background: linear-gradient(180deg, var(--fire), var(--fire2), var(--amber));
+}
+.hero-bg-text {
+  position: absolute;
+  bottom: -30px; right: -20px;
+  font-family: 'Fraunces', serif;
+  font-size: 180px;
+  font-weight: 900;
+  color: rgba(255,255,255,.03);
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--fire2);
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(44px, 7vw, 80px);
+  font-weight: 900;
+  line-height: 1.0;
+  max-width: 700px;
+}
+.hero h1 span { color: var(--fire2); }
+.hero-sub {
+  margin-top: 18px;
+  font-size: 15px;
+  color: rgba(250,248,245,.55);
+  max-width: 520px;
+  font-weight: 300;
+}
+.hero-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.pill {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  padding: 6px 16px;
+  border-radius: 2px;
+  border: 1px solid rgba(250,248,245,.15);
+  color: rgba(250,248,245,.5);
+}
+.pill.hot { border-color: rgba(214,58,15,.5); color: var(--fire2); }
+
+/* ── NAV ── */
+nav {
+  background: var(--paper);
+  border-bottom: 2px solid var(--rule);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 52px;
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+.nav-item {
+  padding: 16px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: var(--dim);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all .2s;
+  text-transform: uppercase;
+}
+.nav-item:hover  { color: var(--mid); }
+.nav-item.active { color: var(--fire); border-color: var(--fire); }
+
+/* ── LAYOUT ── */
+.main { max-width: 1060px; margin: 0 auto; padding: 60px 52px; }
+.section { display: none; animation: up .35s ease; }
+.section.active { display: block; }
+@keyframes up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── TYPOGRAPHY ── */
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 10px;
+}
+.title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.12;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+.desc {
+  font-size: 14.5px;
+  color: var(--mid);
+  max-width: 640px;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+.divider { height: 1px; background: var(--rule); margin: 48px 0; }
+
+/* ── CONCEPT BOXES ── */
+.concept-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 32px 0; }
+@media(max-width:640px){ .concept-row { grid-template-columns:1fr; } }
+
+.cbox {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 28px 26px;
+  position: relative;
+  overflow: hidden;
+}
+.cbox::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--fire);
+}
+.cbox.amber::after { background: var(--amber); }
+.cbox.green::after { background: var(--green); }
+
+.cbox-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; }
+.cbox h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--ink); }
+.cbox p  { font-size: 13.5px; color: var(--mid); font-weight: 300; line-height: 1.65; }
+
+/* ── LAW BOX ── */
+.law {
+  background: var(--fire-dim);
+  border-left: 4px solid var(--fire);
+  border-radius: 0 6px 6px 0;
+  padding: 20px 22px;
+  margin: 20px 0;
+}
+.law-ref { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--fire); margin-bottom: 8px; }
+.law p { font-size: 13px; color: var(--ink); line-height: 1.7; font-weight: 400; }
+.law p strong { color: var(--fire); }
+
+.note {
+  background: var(--amber-dim);
+  border-left: 4px solid var(--amber);
+  border-radius: 0 6px 6px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.65;
+  font-weight: 400;
+}
+.note strong { color: var(--amber); }
+
+/* ── ALÍQUOTAS ── */
+.aliq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 28px 0; }
+.aliq-card {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 24px 22px;
+  background: var(--paper);
+  position: relative;
+  transition: transform .2s, box-shadow .2s;
+}
+.aliq-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.07); }
+.aliq-pct {
+  font-family: 'Fraunces', serif;
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.aliq-card:nth-child(1) .aliq-pct { color: #2a7a4b; }
+.aliq-card:nth-child(2) .aliq-pct { color: var(--amber); }
+.aliq-card:nth-child(3) .aliq-pct { color: var(--fire2); }
+.aliq-card:nth-child(4) .aliq-pct { color: var(--fire); }
+
+.aliq-faixa { font-size: 12px; color: var(--dim); font-weight: 400; line-height: 1.5; }
+.aliq-faixa strong { color: var(--ink); font-weight: 600; }
+
+/* ── ISENÇÕES ── */
+.isencao-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 28px 0; }
+.isencao {
+  background: rgba(42,122,75,.07);
+  border: 1px solid rgba(42,122,75,.25);
+  border-radius: 4px;
+  padding: 24px 22px;
+}
+.isencao-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.isencao h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--ink); }
+.isencao p { font-size: 13px; color: var(--mid); font-weight: 300; line-height: 1.65; }
+.isencao strong { color: var(--green); font-weight: 600; }
+
+/* ── CUSTO LIST ── */
+.custo-list { list-style: none; margin: 20px 0; }
+.custo-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13.5px;
+  color: var(--mid);
+  line-height: 1.6;
+  font-weight: 300;
+}
+.custo-list li:last-child { border: none; }
+.custo-list li strong { color: var(--ink); font-weight: 600; }
+.custo-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+/* ── REDUÇÃO TABLE ── */
+.red-table-wrap { overflow-x: auto; margin: 28px 0; }
+.red-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.red-table th { background: var(--ink); color: var(--bg); padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.red-table td { padding: 9px 14px; border-bottom: 1px solid var(--rule); color: var(--mid); }
+.red-table tr:hover td { background: var(--fire-dim); color: var(--ink); }
+.red-table .high { color: var(--green); font-weight: 600; }
+.red-table .mid-val { color: var(--amber); font-weight: 500; }
+.red-table .low-val { color: var(--fire); font-weight: 500; }
+
+/* ── IMPOSTOS ── */
+.imp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+@media(max-width:580px){ .imp-grid { grid-template-columns: 1fr; } }
+.imp-card {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 24px 22px;
+  background: var(--paper);
+}
+.imp-sigla {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--fire);
+  margin-bottom: 4px;
+}
+.imp-name { font-size: 11px; font-weight: 600; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.imp-card p { font-size: 12.5px; color: var(--mid); font-weight: 300; line-height: 1.65; }
+.imp-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.badge-mun { background: var(--fire-dim); color: var(--fire); }
+.badge-est { background: var(--amber-dim); color: var(--amber); }
+
+/* ── CALCULADORA ── */
+.calc-wrap {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 36px 32px;
+  margin: 28px 0;
+}
+.calc-wrap h3 { font-family: 'Fraunces', serif; font-size: 22px; margin-bottom: 24px; }
+.calc-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.calc-label { font-size: 12.5px; color: var(--mid); min-width: 180px; font-weight: 400; }
+.calc-input {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 9px 14px;
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color .2s;
+}
+.calc-input:focus { border-color: var(--fire); }
+.calc-btn {
+  background: var(--fire);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 11px 28px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: background .2s;
+  text-transform: uppercase;
+}
+.calc-btn:hover { background: var(--fire2); }
+.calc-result {
+  margin-top: 24px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 4px;
+  padding: 24px 26px;
+  font-size: 13.5px;
+  line-height: 2;
+  display: none;
+  font-family: 'Outfit', monospace;
+}
+.calc-result.show { display: block; }
+.calc-result .res-value { color: var(--fire2); font-size: 18px; font-weight: 700; font-family: 'Fraunces', serif; }
+.calc-result .res-ok { color: #7bc99a; }
+
+/* ── QUIZ ── */
+.quiz-wrap { background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 36px 32px; margin: 28px 0; }
+.quiz-bar { height: 4px; background: var(--rule); border-radius: 2px; margin-bottom: 28px; overflow: hidden; }
+.quiz-bar-fill { height: 100%; background: var(--fire); border-radius: 2px; transition: width .4s ease; }
+.quiz-num { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
+.quiz-q { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; line-height: 1.5; margin-bottom: 24px; color: var(--ink); }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; }
+.quiz-opt {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 13px 18px;
+  font-size: 13.5px;
+  color: var(--mid);
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Outfit', sans-serif;
+  transition: all .2s;
+}
+.quiz-opt:hover { border-color: var(--fire); color: var(--ink); }
+.quiz-opt.correct { border-color: var(--green); color: var(--green); background: rgba(42,122,75,.07); }
+.quiz-opt.wrong   { border-color: var(--fire);  color: var(--fire);  background: rgba(214,58,15,.07); }
+.quiz-fb { margin-top: 16px; padding: 14px 18px; border-radius: 3px; font-size: 13px; line-height: 1.65; display: none; }
+.quiz-fb.show { display: block; }
+.quiz-fb.ok  { background: rgba(42,122,75,.08);  border: 1px solid rgba(42,122,75,.3);  color: var(--green); }
+.quiz-fb.err { background: rgba(214,58,15,.08); border: 1px solid rgba(214,58,15,.3); color: var(--fire); }
+.quiz-next { margin-top: 16px; background: var(--ink); color: var(--bg); border: none; border-radius: 3px; padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; cursor: pointer; display: none; transition: background .2s; }
+.quiz-next:hover { background: var(--fire); }
+.quiz-score { text-align: center; }
+.quiz-score-num { font-family: 'Fraunces', serif; font-size: 80px; font-weight: 900; color: var(--fire); line-height: 1; }
+.quiz-score-msg { font-size: 14px; color: var(--mid); margin-top: 12px; font-weight: 300; }
+
+/* ── PRAZO BOX ── */
+.prazo-box {
+  background: var(--fire-dim);
+  border: 1px solid rgba(214,58,15,.3);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin: 20px 0;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.prazo-icon { font-size: 22px; flex-shrink: 0; }
+.prazo-text { font-size: 13.5px; color: var(--ink); line-height: 1.65; }
+.prazo-text strong { color: var(--fire); }
+
+.tip-box {
+  background: rgba(42,122,75,.07);
+  border: 1px solid rgba(42,122,75,.25);
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin: 16px 0;
+  font-size: 13.5px;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.tip-box strong { color: var(--green); }
+
+/* ── PERMUTA ── */
+.permuta-steps { margin: 24px 0; }
+.step {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 20px 22px;
+  align-items: flex-start;
+  transition: border-color .2s;
+}
+.step:hover { border-color: var(--fire); }
+.step-num {
+  font-family: 'Fraunces', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--rule);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 44px;
+}
+.step-body p { font-size: 13.5px; color: var(--mid); font-weight: 300; line-height: 1.65; }
+.step-body strong { color: var(--ink); font-weight: 600; }
+
+@media(max-width:600px){
+  .main { padding: 36px 20px; }
+  nav { padding: 0 16px; }
+  .hero { padding: 56px 24px 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-stripe"></div>
+  <div class="hero-bg-text">LUCRO</div>
+  <div class="hero-eyebrow">CRECI-SP · Curso EAD · Legislação Fiscal</div>
+  <h1>Lucro<br><span>Imobiliário</span></h1>
+  <p class="hero-sub">Ganho de capital, imposto de renda, isenções e obrigações fiscais na transação imobiliária — do conceito à calculadora.</p>
+  <div class="hero-pills">
+    <span class="pill hot">Ganho de Capital</span>
+    <span class="pill hot">Alíquotas IR</span>
+    <span class="pill hot">Isenções</span>
+    <span class="pill">Lei 9.250/95</span>
+    <span class="pill">Lei 13.259/16</span>
+    <span class="pill">IN SRF 84/2001</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-item active" onclick="show('conceito',this)">Conceito</div>
+  <div class="nav-item" onclick="show('aliquotas',this)">Alíquotas</div>
+  <div class="nav-item" onclick="show('custo',this)">Custo Aquisição</div>
+  <div class="nav-item" onclick="show('reducao',this)">Redução</div>
+  <div class="nav-item" onclick="show('isencao',this)">Isenções</div>
+  <div class="nav-item" onclick="show('permuta',this)">Permuta</div>
+  <div class="nav-item" onclick="show('calculadora',this)">Calculadora</div>
+  <div class="nav-item" onclick="show('quiz',this)">Quiz</div>
+</nav>
+
+<div class="main">
+
+<!-- ══ CONCEITO ══ -->
+<div id="conceito" class="section active">
+  <div class="tag">Fundamentos</div>
+  <h2 class="title">O que é Lucro Imobiliário?</h2>
+  <p class="desc">Saldo positivo entre o valor de aquisição do imóvel e o valor pelo qual ele foi revendido. Sobre esse ganho incide Imposto de Renda.</p>
+
+  <div class="concept-row">
+    <div class="cbox">
+      <div class="cbox-label">Definição</div>
+      <h3>Lucro (Ganho de Capital)</h3>
+      <p>Ganho auferido durante uma operação comercial. Saldo positivo após subtrair despesas das receitas. Na venda de imóvel: valor de venda menos valor de aquisição.</p>
+    </div>
+    <div class="cbox amber">
+      <div class="cbox-label">Valor considerado</div>
+      <h3>Base de Cálculo</h3>
+      <p>O valor do imóvel considerado é aquele <strong>declarado na mais recente Declaração de Imposto de Renda</strong>. Se vendido por valor igual ou inferior ao declarado, não há IR.</p>
+    </div>
+  </div>
+
+  <div class="law">
+    <div class="law-ref">Art. 153 — Constituição Federal</div>
+    <p>Compete à União instituir impostos sobre <strong>renda e proventos de qualquer natureza</strong> — os ganhos econômicos do contribuinte gerados por seu capital, trabalho ou pela combinação de ambos.</p>
+  </div>
+
+  <div class="law">
+    <div class="law-ref">IN SRF 84/2001 — Art. 3º · Operações sujeitas ao Ganho de Capital</div>
+    <p><strong>1. Alienação</strong> a qualquer título: compra e venda, permuta, adjudicação, desapropriação, dação em pagamento, promessa de compra e venda, cessão de direitos e contratos afins.<br><br>
+    <strong>2. Transferência a herdeiros</strong> e legatários (causa mortis), donatários (doação, adiantamento de legítima) ou ex-cônjuge (dissolução de sociedade conjugal), quando os bens foram adquiridos por valor superior ao declarado no IR do transmitente.</p>
+  </div>
+
+  <div class="note">⚠️ <strong>Atenção:</strong> Rendas provenientes de aluguéis NÃO são Lucro Imobiliário. O imposto sobre o Lucro Imobiliário deve ser quitado pelo vendedor até o <strong>último dia útil do mês seguinte</strong> ao mês em que ocorreu a venda.</div>
+
+  <div class="divider"></div>
+  <div class="tag">Mora e Penalidades</div>
+  <h3 class="title" style="font-size:26px; margin-bottom:16px;">Imposto pago após o vencimento</h3>
+
+  <div class="prazo-box">
+    <div class="prazo-icon">📅</div>
+    <div class="prazo-text"><strong>Juros:</strong> Taxa SELIC acumulada mensalmente, a partir do 1º dia do mês subsequente ao vencimento até o último dia do mês anterior ao pagamento, <strong>+ 1% no mês do pagamento</strong>.</div>
+  </div>
+  <div class="prazo-box">
+    <div class="prazo-icon">💸</div>
+    <div class="prazo-text"><strong>Multa de mora:</strong> <strong>0,33% por dia de atraso</strong>, a partir do 1º dia após o vencimento, limitada a <strong>20%</strong> do valor do débito.</div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="tag">Impostos relacionados</div>
+  <h3 class="title" style="font-size:26px; margin-bottom:16px;">ITBI e ITCMD</h3>
+
+  <div class="imp-grid">
+    <div class="imp-card">
+      <div class="imp-sigla">ITBI</div>
+      <div class="imp-name">Transmissão de Bens Imóveis</div>
+      <div class="imp-badge badge-mun">Municipal</div>
+      <p>Incide nas transmissões "inter vivos" por ato oneroso (compra e venda). Taxa entre 1% e 3%. Pago pelo <strong>comprador</strong> ao município onde o imóvel está localizado.</p>
+    </div>
+    <div class="imp-card">
+      <div class="imp-sigla">ITCMD</div>
+      <div class="imp-name">Transmissão Causa Mortis e Doação</div>
+      <div class="imp-badge badge-est">Estadual</div>
+      <p>Incide nas transmissões por <strong>herança ou doação</strong>. Pago por quem <strong>recebe</strong> a propriedade — o herdeiro ou o donatário. Imposto estadual.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ALÍQUOTAS ══ -->
+<div id="aliquotas" class="section">
+  <div class="tag">Tributação · Lei 13.259/2016</div>
+  <h2 class="title">Alíquotas do Imposto de Renda</h2>
+  <p class="desc">O IR sobre o Lucro Imobiliário é progressivo — quanto maior o ganho de capital, maior a alíquota aplicada sobre cada faixa.</p>
+
+  <div class="aliq-grid">
+    <div class="aliq-card">
+      <div class="aliq-pct">15%</div>
+      <div class="aliq-faixa">Sobre ganhos <strong>até R$ 5.000.000</strong></div>
+    </div>
+    <div class="aliq-card">
+      <div class="aliq-pct">17,5%</div>
+      <div class="aliq-faixa">Sobre ganhos entre <strong>R$ 5.000.000</strong> e <strong>R$ 10.000.000</strong></div>
+    </div>
+    <div class="aliq-card">
+      <div class="aliq-pct">20%</div>
+      <div class="aliq-faixa">Sobre ganhos entre <strong>R$ 10.000.000</strong> e <strong>R$ 30.000.000</strong></div>
+    </div>
+    <div class="aliq-card">
+      <div class="aliq-pct">22,5%</div>
+      <div class="aliq-faixa">Sobre ganhos <strong>acima de R$ 30.000.000</strong></div>
+    </div>
+  </div>
+
+  <div class="note">📌 As alíquotas são aplicadas de forma <strong>progressiva por faixa</strong> — cada percentual incide apenas sobre a parcela do ganho dentro daquela faixa, não sobre o total.</div>
+
+  <div class="law">
+    <div class="law-ref">Pessoa Jurídica · Lei 13.259/2016 · Art. 2º</div>
+    <p>No caso de pessoa jurídica, as alíquotas variam conforme o regime tributário: <strong>Simples, Lucro Presumido, Lucro Real ou Lucro Arbitrado</strong>. Consulte o contador da empresa para os detalhes específicos.</p>
+  </div>
+</div>
+
+<!-- ══ CUSTO DE AQUISIÇÃO ══ -->
+<div id="custo" class="section">
+  <div class="tag">Formação do Custo</div>
+  <h2 class="title">Valor de Aquisição</h2>
+  <p class="desc">O custo do imóvel é o valor declarado no IR. Mas diversas despesas podem ser adicionadas legalmente para reduzir o ganho de capital tributável.</p>
+
+  <div class="law">
+    <div class="law-ref">Quando não há valor declarado no IR</div>
+    <p>O custo será: o valor atribuído para o ITBI; o valor de avaliação no inventário ou arrolamento; o valor de transmissão usado para cálculo do ganho de capital do alienante; ou o valor corrente na data de aquisição.</p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="tag">IN SRF 84/2001 · Art. 17</div>
+  <h3 class="title" style="font-size:26px; margin-bottom:14px;">O que pode integrar o Custo de Aquisição?</h3>
+  <p style="font-size:13.5px; color:var(--mid); margin-bottom:24px; font-weight:300;">Apenas com <strong style="color:var(--ink)">documentação hábil e idônea</strong> e discriminado na Declaração de Ajuste Anual:</p>
+
+  <ul class="custo-list">
+    <li><span class="custo-icon">🏗️</span><div><strong>Construção, ampliação e reforma</strong> — desde que projetos aprovados pelos órgãos municipais, e pequenas obras (pintura, azulejos, encanamentos, pisos, paredes).</div></li>
+    <li><span class="custo-icon">🔨</span><div><strong>Demolição</strong> de prédio no terreno, desde que seja condição para efetivar a alienação.</div></li>
+    <li><span class="custo-icon">🤝</span><div><strong>Corretagem na aquisição</strong> do imóvel vendido — desde que o vendedor tenha suportado o ônus.</div></li>
+    <li><span class="custo-icon">🏛️</span><div><strong>Obras públicas</strong> pagas pelo proprietário: meio-fio, sarjetas, pavimentação, instalação de esgoto e eletricidade que beneficiaram o imóvel.</div></li>
+    <li><span class="custo-icon">📋</span><div><strong>Imposto de transmissão (ITBI)</strong> pago pelo alienante na aquisição do imóvel.</div></li>
+    <li><span class="custo-icon">📈</span><div><strong>Contribuição de melhoria</strong> — valor pago ao ente público pela valorização do imóvel.</div></li>
+    <li><span class="custo-icon">💳</span><div><strong>Juros e acréscimos</strong> pagos na aquisição — incluindo financiamento imobiliário.</div></li>
+    <li><span class="custo-icon">👑</span><div><strong>Laudêmio</strong> — taxa paga ao foreiro nos casos de imóveis em terreno de marinha.</div></li>
+  </ul>
+
+  <div class="tip-box">✅ <strong>Importante:</strong> Quanto mais despesas comprovadas o vendedor adicionar ao custo de aquisição, menor será o Lucro Imobiliário apurado — e consequentemente menor o imposto a pagar. Guarde toda a documentação!</div>
+</div>
+
+<!-- ══ REDUÇÃO ══ -->
+<div id="reducao" class="section">
+  <div class="tag">Lei 7.713/1988 · Art. 18</div>
+  <h2 class="title">Redução do Ganho de Capital</h2>
+  <p class="desc">Para imóveis antigos (adquiridos até 1988), a lei prevê um percentual de redução sobre o ganho de capital apurado, conforme o ano de aquisição.</p>
+
+  <div class="note">📌 Imóveis adquiridos a partir de <strong>1º de janeiro de 1989</strong> não têm direito a nenhuma redução. A redução é aplicada sobre o Ganho de Capital — não sobre o valor do imóvel.</div>
+
+  <div class="red-table-wrap">
+    <table class="red-table">
+      <thead>
+        <tr>
+          <th>Ano de Aquisição</th>
+          <th>% de Redução</th>
+          <th>Ano de Aquisição</th>
+          <th>% de Redução</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Até 1969</td><td class="high">100% — isento</td><td>1979</td><td class="mid-val">50%</td></tr>
+        <tr><td>1970</td><td class="high">95%</td><td>1980</td><td class="mid-val">45%</td></tr>
+        <tr><td>1971</td><td class="high">90%</td><td>1981</td><td class="mid-val">40%</td></tr>
+        <tr><td>1972</td><td class="high">85%</td><td>1982</td><td class="mid-val">35%</td></tr>
+        <tr><td>1973</td><td class="high">80%</td><td>1983</td><td class="low-val">30%</td></tr>
+        <tr><td>1974</td><td class="high">75%</td><td>1984</td><td class="low-val">25%</td></tr>
+        <tr><td>1975</td><td class="mid-val">70%</td><td>1985</td><td class="low-val">20%</td></tr>
+        <tr><td>1976</td><td class="mid-val">65%</td><td>1986</td><td class="low-val">15%</td></tr>
+        <tr><td>1977</td><td class="mid-val">60%</td><td>1987</td><td class="low-val">10%</td></tr>
+        <tr><td>1978</td><td class="mid-val">55%</td><td>1988</td><td class="low-val">5%</td></tr>
+        <tr><td colspan="2" style="color:var(--dim);">—</td><td>1989 em diante</td><td style="color:var(--dim);">Sem redução</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-box">💡 <strong>Exemplo:</strong> Imóvel adquirido em 1975 com Lucro Imobiliário apurado de R$ 200.000 → redução de 70% = R$ 140.000 de redução → base tributável = <strong>R$ 60.000</strong> → IR = R$ 9.000 (15%).</div>
+</div>
+
+<!-- ══ ISENÇÃO ══ -->
+<div id="isencao" class="section">
+  <div class="tag">Quando não há imposto</div>
+  <h2 class="title">Isenções do Imposto</h2>
+  <p class="desc">A legislação prevê três situações principais de isenção do IR sobre o Lucro Imobiliário.</p>
+
+  <div class="isencao-grid">
+    <div class="isencao">
+      <div class="isencao-tag">Lei 9.250/95 · Art. 22</div>
+      <h3>Imóvel de Pequeno Valor</h3>
+      <p>Ganho de capital isento quando o preço de alienação for <strong>igual ou inferior a R$ 35.000</strong> no mês da venda. No caso de ações em mercado de balcão: R$ 20.000. Atenção: o limite é sobre o <strong>valor do imóvel</strong>, não sobre o lucro.</p>
+    </div>
+    <div class="isencao">
+      <div class="isencao-tag">Lei 9.250/95 · Art. 23</div>
+      <h3>Único Imóvel até R$ 440 mil</h3>
+      <p>Isento quando o titular <strong>possui apenas 1 imóvel</strong>, o valor de alienação é <strong>até R$ 440.000</strong> e <strong>não realizou outra alienação</strong> nos últimos <strong>5 anos</strong>.</p>
+    </div>
+    <div class="isencao">
+      <div class="isencao-tag">Lei 11.196/2005 · Art. 39</div>
+      <h3>Reinvestimento em Imóvel Residencial</h3>
+      <p>Isento quando o produto da venda for <strong>reinvestido na compra de imóvel residencial</strong> no Brasil em até <strong>180 dias</strong>. Aplicação parcial: tributação proporcional. Benefício usável <strong>uma vez a cada 5 anos</strong>.</p>
+    </div>
+  </div>
+
+  <div class="prazo-box">
+    <div class="prazo-icon">⚠️</div>
+    <div class="prazo-text">O limite de <strong>R$ 35.000 refere-se ao valor do imóvel</strong> — não ao valor do lucro. Isso é fundamental! Um imóvel vendido por R$ 30.000 com R$ 15.000 de lucro está isento, não porque o lucro é pequeno, mas porque o valor de venda está abaixo do limite.</div>
+  </div>
+
+  <div class="law">
+    <div class="law-ref">Descumprimento do prazo de 180 dias · Art. 39 §4º</div>
+    <p>A inobservância implica exigência do imposto acrescido de: <strong>juros de mora</strong> a partir do 2º mês subsequente ao recebimento; e <strong>multa de mora ou de ofício</strong> a partir do 2º mês, se o imposto não for pago em até 30 dias após o prazo.</p>
+  </div>
+</div>
+
+<!-- ══ PERMUTA ══ -->
+<div id="permuta" class="section">
+  <div class="tag">Casos Especiais</div>
+  <h2 class="title">Permuta e Corretagem</h2>
+  <p class="desc">Casos específicos que alteram a forma de calcular o Lucro Imobiliário — permuta sem torna, com torna em dinheiro, e dedução da corretagem.</p>
+
+  <div class="concept-row">
+    <div class="cbox">
+      <div class="cbox-label">IN SRF 84/2001 · Art. 29</div>
+      <h3>Permuta Sem Torna</h3>
+      <p>Na permuta de unidades imobiliárias <strong>sem recebimento de torna</strong> (diferença em dinheiro), o ganho de capital é excluído da incidência do imposto. Não há IR a pagar.</p>
+    </div>
+    <div class="cbox green">
+      <div class="cbox-label">IN SRF 84/2001 · Art. 19 §4º</div>
+      <h3>Dedução da Corretagem</h3>
+      <p>O valor da corretagem suportado pelo vendedor é <strong>deduzido do valor da alienação</strong>. Na venda a prazo, a dedução ocorre sobre a parcela recebida no mês do pagamento da corretagem.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="tag">IN SRF 84/2001 · Art. 23</div>
+  <h3 class="title" style="font-size:26px; margin-bottom:14px;">Permuta com Torna em Dinheiro</h3>
+  <p style="font-size:13.5px; color:var(--mid); margin-bottom:24px; font-weight:300;">Quando há recebimento de diferença em dinheiro (torna), o ganho de capital é calculado em 3 passos:</p>
+
+  <div class="permuta-steps">
+    <div class="step">
+      <div class="step-num">I</div>
+      <div class="step-body"><p><strong>Some o valor da torna ao custo do imóvel dado em permuta.</strong><br>Ex.: Imóvel com custo de R$ 300.000 + torna de R$ 50.000 = R$ 350.000</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">II</div>
+      <div class="step-body"><p><strong>Divida a torna pelo valor apurado no Passo I e multiplique por 100.</strong><br>Ex.: 50.000 ÷ 350.000 × 100 = 14,28%</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">III</div>
+      <div class="step-body"><p><strong>Aplique o percentual encontrado sobre o valor da torna.</strong> Esse é o Ganho de Capital.<br>Ex.: 14,28% × R$ 50.000 = <strong>R$ 7.142,86</strong> de ganho de capital</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CALCULADORA ══ -->
+<div id="calculadora" class="section">
+  <div class="tag">Ferramenta prática</div>
+  <h2 class="title">Calculadora de Lucro Imobiliário</h2>
+  <p class="desc">Calcule o Imposto de Renda sobre o Lucro Imobiliário considerando custo de aquisição, despesas adicionais e redução por ano de aquisição.</p>
+
+  <div class="calc-wrap">
+    <h3>Calcular IR sobre Ganho de Capital</h3>
+    <div class="calc-row">
+      <span class="calc-label">Valor de venda (R$)</span>
+      <input type="number" class="calc-input" id="c_venda" placeholder="ex: 800000" step="0.01">
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Custo de aquisição (R$)</span>
+      <input type="number" class="calc-input" id="c_custo" placeholder="ex: 350000" step="0.01">
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Despesas adicionais (R$)</span>
+      <input type="number" class="calc-input" id="c_desp" placeholder="ex: 30000" step="0.01" value="0">
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Corretagem suportada (R$)</span>
+      <input type="number" class="calc-input" id="c_corr" placeholder="ex: 24000" step="0.01" value="0">
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Ano de aquisição</span>
+      <input type="number" class="calc-input" id="c_ano" placeholder="ex: 2010" min="1900" max="2025">
+    </div>
+    <button class="calc-btn" onclick="calcLucro()">Calcular IR</button>
+    <div class="calc-result" id="res_lucro"></div>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div id="quiz" class="section">
+  <div class="tag">Fixação</div>
+  <h2 class="title">Quiz — Lucro Imobiliário</h2>
+  <p class="desc">Teste seus conhecimentos sobre a tributação do ganho de capital na transação imobiliária.</p>
+
+  <div class="quiz-wrap">
+    <div class="quiz-bar"><div class="quiz-bar-fill" id="qprog" style="width:0%"></div></div>
+    <div class="quiz-num" id="qnum"></div>
+    <div class="quiz-q" id="qq"></div>
+    <div class="quiz-opts" id="qopts"></div>
+    <div class="quiz-fb" id="qfb"></div>
+    <button class="quiz-next" id="qnext" onclick="nextQ()">Próxima →</button>
+    <div class="quiz-score" id="qscore" style="display:none;"></div>
+  </div>
+</div>
+
+</div>
+
+<footer style="background:var(--ink); color:rgba(250,248,245,.35); text-align:center; padding:30px 40px; font-size:12px; margin-top:80px;">
+  CRECI-SP · Curso EAD · Lucro Imobiliário — Baseado na Lei 9.250/95, Lei 13.259/16 e IN SRF 84/2001
+</footer>
+
+<script>
+// ── NAV ──
+function show(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── REDUÇÃO POR ANO ──
+const reducao = { 1969:100,1970:95,1971:90,1972:85,1973:80,1974:75,1975:70,1976:65,1977:60,1978:55,1979:50,1980:45,1981:40,1982:35,1983:30,1984:25,1985:20,1986:15,1987:10,1988:5 };
+
+function getReducao(ano) {
+  if (ano <= 1969) return 100;
+  if (reducao[ano] !== undefined) return reducao[ano];
+  return 0; // 1989+
+}
+
+function calcAliquota(ganho) {
+  if (ganho <= 0) return { ir: 0, det: '' };
+  let ir = 0, det = '';
+  const f = [
+    { lim: 5000000,   alq: 0.15,  label: '15%' },
+    { lim: 10000000,  alq: 0.175, label: '17,5%' },
+    { lim: 30000000,  alq: 0.20,  label: '20%' },
+    { lim: Infinity,  alq: 0.225, label: '22,5%' }
+  ];
+  let prev = 0;
+  for (const faixa of f) {
+    if (ganho <= prev) break;
+    const base = Math.min(ganho, faixa.lim) - prev;
+    if (base <= 0) continue;
+    const imp = base * faixa.alq;
+    det += `\n  ${faixa.label} sobre ${fmt(base)} = ${fmt(imp)}`;
+    ir += imp;
+    prev = faixa.lim;
+  }
+  return { ir, det };
+}
+
+const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function calcLucro() {
+  const venda = parseFloat(document.getElementById('c_venda').value) || 0;
+  const custo = parseFloat(document.getElementById('c_custo').value) || 0;
+  const desp  = parseFloat(document.getElementById('c_desp').value)  || 0;
+  const corr  = parseFloat(document.getElementById('c_corr').value)  || 0;
+  const ano   = parseInt(document.getElementById('c_ano').value)     || 0;
+  const r = document.getElementById('res_lucro');
+
+  if (!venda || !custo || !ano) {
+    r.innerHTML = '⚠ Preencha ao menos: valor de venda, custo de aquisição e ano.';
+    r.className = 'calc-result show'; return;
+  }
+
+  const custoTotal = custo + desp;
+  const valorLiquido = venda - corr;
+  const ganhobruto = valorLiquido - custoTotal;
+
+  if (ganhobruto <= 0) {
+    r.innerHTML = `Custo total: ${fmt(custoTotal)}\nValor líquido: ${fmt(valorLiquido)}\n\n<span class="res-ok">✓ Sem Lucro Imobiliário — não há IR a pagar.</span>`;
+    r.className = 'calc-result show'; return;
+  }
+
+  if (venda <= 35000) {
+    r.innerHTML = `Valor de venda: ${fmt(venda)}\n<span class="res-ok">✓ ISENTO — imóvel de pequeno valor (≤ R$ 35.000).</span>`;
+    r.className = 'calc-result show'; return;
+  }
+
+  const red = getReducao(ano);
+  const ganhoReduzido = red > 0 ? ganhobruto * (1 - red / 100) : ganhobruto;
+  const { ir, det } = calcAliquota(ganhoReduzido);
+
+  r.innerHTML =
+    `Valor de venda:            ${fmt(venda)}\n` +
+    `(−) Corretagem:            ${fmt(corr)}\n` +
+    `Valor líquido:             ${fmt(valorLiquido)}\n` +
+    `(−) Custo de aquisição:   ${fmt(custo)}\n` +
+    `(−) Despesas adicionais:  ${fmt(desp)}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `Ganho bruto:               ${fmt(ganhobruto)}\n` +
+    (red > 0 ? `(−) Redução ${red}% (acq. ${ano}):  ${fmt(ganhobruto * red / 100)}\n` +
+    `Ganho tributável:          ${fmt(ganhoReduzido)}\n` : '') +
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `Detalhamento IR:${det}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<span class="res-value">IR TOTAL A PAGAR: ${fmt(ir)}</span>`;
+  r.className = 'calc-result show';
+}
+
+// ── QUIZ ──
+const questions = [
+  { q: "Qual o prazo para o vendedor recolher o IR sobre o Lucro Imobiliário?", opts: ["Até 31 de dezembro do ano seguinte","Até o último dia útil do mês seguinte ao da venda","Em até 90 dias após a escritura","No mesmo mês da venda"], correct: 1, fb: "O imposto deve ser quitado pelo vendedor até o último dia útil do mês seguinte ao mês em que ocorreu a venda do imóvel." },
+  { q: "Um imóvel vendido por R$ 30.000 está isento de IR sobre o Lucro Imobiliário por qual motivo?", opts: ["Porque o lucro foi inferior a R$ 35.000","Porque o valor de venda é inferior a R$ 35.000","Porque todo imóvel residencial é isento","Porque o vendedor possui apenas um imóvel"], correct: 1, fb: "O limite de R$ 35.000 refere-se ao VALOR DO IMÓVEL — não ao lucro apurado. A isenção aplica-se quando o preço de alienação for igual ou inferior a R$ 35.000." },
+  { q: "Para ter direito à isenção de IR ao reinvestir o produto da venda em outro imóvel residencial, qual o prazo máximo?", opts: ["90 dias","180 dias","360 dias","5 anos"], correct: 1, fb: "O prazo é de 180 dias contados da celebração do contrato de venda. O benefício pode ser usado apenas uma vez a cada 5 anos (Lei 11.196/2005, Art. 39)." },
+  { q: "A multa de mora por atraso no pagamento do IR sobre Lucro Imobiliário é calculada a:", opts: ["1% ao mês, limitada a 20%","0,33% por dia de atraso, limitada a 20%","SELIC + 2%","0,5% por dia, sem limite"], correct: 1, fb: "A multa de mora é de 0,33% por dia de atraso, a partir do 1º dia após o vencimento, limitada a 20% do valor do débito (IN SRF 84/2001, Art. 32)." },
+  { q: "Qual a alíquota de IR sobre Lucro Imobiliário para ganhos de capital que não ultrapassam R$ 5 milhões?", opts: ["10%","12,5%","15%","17,5%"], correct: 2, fb: "A alíquota é de 15% sobre a parcela dos ganhos que não ultrapassar R$ 5.000.000,00 (Lei 13.259/2016, Art. 1º)." },
+  { q: "Em uma permuta de imóveis SEM recebimento de torna em dinheiro, o que ocorre com o IR?", opts: ["Incide normalmente sobre o ganho de capital","É reduzido em 50%","O ganho de capital é excluído — não há IR","Depende do valor dos imóveis trocados"], correct: 2, fb: "Na permuta sem torna de unidades imobiliárias, os ganhos de capital são excluídos da incidência do imposto (IN SRF 84/2001, Art. 29, IV)." },
+  { q: "O ITBI é um imposto de natureza:", opts: ["Federal, pago pelo vendedor","Estadual, pago pelo comprador","Municipal, pago pelo comprador","Municipal, pago pelo vendedor"], correct: 2, fb: "O ITBI é um imposto MUNICIPAL, que incide sobre transmissões inter vivos por ato oneroso, e deve ser pago pelo COMPRADOR (adquirente) do imóvel." },
+  { q: "Um imóvel adquirido em 1975 é vendido com ganho de capital de R$ 100.000. Qual o valor tributável após a redução legal?", opts: ["R$ 100.000 (sem redução)","R$ 50.000 (50% de redução)","R$ 30.000 (70% de redução)","Isento — 100% de redução"], correct: 2, fb: "Para aquisição em 1975, a redução é de 70%. Ganho tributável = R$ 100.000 × (1 − 70%) = R$ 30.000 (Lei 7.713/1988, Art. 18)." }
+];
+
+let cur = 0, score = 0, answered = false;
+
+function renderQ() {
+  const q = questions[cur];
+  document.getElementById('qnum').textContent = `Questão ${cur+1} de ${questions.length}`;
+  document.getElementById('qprog').style.width = (cur / questions.length * 100) + '%';
+  document.getElementById('qq').textContent = q.q;
+  const opts = document.getElementById('qopts');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = o;
+    btn.onclick = () => answer(i, btn);
+    opts.appendChild(btn);
+  });
+  document.getElementById('qfb').className = 'quiz-fb';
+  document.getElementById('qnext').style.display = 'none';
+  document.getElementById('qscore').style.display = 'none';
+  answered = false;
+}
+
+function answer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  const q = questions[cur];
+  document.querySelectorAll('.quiz-opt').forEach((b, i) => {
+    if (i === q.correct) b.classList.add('correct');
+    else if (i === idx && idx !== q.correct) b.classList.add('wrong');
+    b.style.cursor = 'default';
+  });
+  const fb = document.getElementById('qfb');
+  if (idx === q.correct) { score++; fb.textContent = '✓ ' + q.fb; fb.className = 'quiz-fb show ok'; }
+  else { fb.textContent = '✗ ' + q.fb; fb.className = 'quiz-fb show err'; }
+  const nxt = document.getElementById('qnext');
+  nxt.style.display = 'inline-block';
+  nxt.textContent = cur === questions.length - 1 ? 'Ver resultado →' : 'Próxima →';
+}
+
+function nextQ() {
+  cur++;
+  if (cur >= questions.length) {
+    document.getElementById('qnum').textContent = 'Resultado Final';
+    document.getElementById('qq').textContent = '';
+    document.getElementById('qopts').innerHTML = '';
+    document.getElementById('qfb').className = 'quiz-fb';
+    document.getElementById('qnext').style.display = 'none';
+    document.getElementById('qprog').style.width = '100%';
+    const pct = Math.round(score / questions.length * 100);
+    const msg = pct >= 80 ? '🎯 Excelente! Você domina a tributação imobiliária.'
+               : pct >= 60 ? '👍 Bom resultado — revise os pontos em que errou.'
+               : '📖 Revise a apostila — especialmente isenções e alíquotas.';
+    document.getElementById('qscore').style.display = 'block';
+    document.getElementById('qscore').innerHTML = `
+      <div class="quiz-score-num">${pct}%</div>
+      <div class="quiz-score-msg">${score} de ${questions.length} corretas · ${msg}</div>
+      <button class="quiz-next" style="display:inline-block;margin-top:20px;" onclick="resetQuiz()">↺ Refazer</button>
+    `;
+    return;
+  }
+  renderQ();
+}
+
+function resetQuiz() {
+  cur = 0; score = 0;
+  document.getElementById('qscore').style.display = 'none';
+  renderQ();
+}
+
+renderQ();
+</script>
+</body>
+</html>

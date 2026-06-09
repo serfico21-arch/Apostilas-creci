@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resolução COFECI nº 1.336/2014 — Prevenção à Lavagem de Dinheiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1eb;
+    --bg2: #ece8df;
+    --tinta: #1a1510;
+    --tinta2: #3d3529;
+    --verde: #1e4d35;
+    --verde-claro: #2d6e4e;
+    --acento: #8b4513;
+    --linha: rgba(26,21,16,.12);
+    --ouro: #b8860b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--tinta);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── CABEÇALHO TOPO ── */
+  .top-bar {
+    background: var(--verde);
+    color: #fff;
+    text-align: center;
+    padding: 10px 24px;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--verde);
+    color: #fff;
+    padding: 80px 24px 90px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,.03) 79px, rgba(255,255,255,.03) 80px),
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,.03) 79px, rgba(255,255,255,.03) 80px);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '§';
+    position: absolute;
+    right: -30px;
+    top: -20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28rem;
+    color: rgba(255,255,255,.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp .7s ease both;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,.35);
+    color: rgba(255,255,255,.8);
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,.65);
+    font-weight: 400;
+  }
+
+  .hero-desc {
+    font-size: .95rem;
+    color: rgba(255,255,255,.65);
+    max-width: 540px;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: .62rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.45);
+  }
+
+  .meta-val {
+    font-size: .88rem;
+    color: rgba(255,255,255,.9);
+    font-weight: 400;
+  }
+
+  /* ── ÍNDICE ── */
+  .indice {
+    background: var(--bg2);
+    border-bottom: 2px solid var(--verde);
+    padding: 48px 24px;
+  }
+
+  .indice-inner {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .indice h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: 20px;
+  }
+
+  .indice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    border: 1px solid var(--linha);
+  }
+
+  .indice-item {
+    padding: 16px 20px;
+    border-right: 1px solid var(--linha);
+    border-bottom: 1px solid var(--linha);
+    cursor: pointer;
+    transition: background .2s;
+    text-decoration: none;
+    color: var(--tinta);
+    display: block;
+  }
+
+  .indice-item:hover { background: rgba(30,77,53,.06); }
+
+  .indice-rom {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    color: var(--verde);
+    letter-spacing: .08em;
+    margin-bottom: 4px;
+  }
+
+  .indice-item h3 {
+    font-size: .85rem;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  /* ── SEÇÕES ── */
+  .secao {
+    border-bottom: 1px solid var(--linha);
+    padding: 72px 24px;
+  }
+
+  .secao:nth-child(even) { background: var(--bg2); }
+
+  .secao-inner {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .secao-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--verde);
+  }
+
+  .secao-rom {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    color: var(--verde);
+    letter-spacing: .1em;
+    flex-shrink: 0;
+    padding-top: 6px;
+  }
+
+  .secao-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  /* artigos */
+  .artigo {
+    margin-bottom: 32px;
+    padding: 28px 32px;
+    background: rgba(255,255,255,.55);
+    border: 1px solid var(--linha);
+    border-left: 4px solid var(--verde);
+  }
+
+  .artigo-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    color: var(--verde);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .artigo p {
+    font-size: .92rem;
+    color: var(--tinta2);
+    margin-bottom: 10px;
+  }
+
+  .artigo p:last-child { margin-bottom: 0; }
+
+  /* listas de incisos */
+  .incisos {
+    list-style: none;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .incisos li {
+    display: flex;
+    gap: 12px;
+    font-size: .88rem;
+    color: var(--tinta2);
+    padding: 10px 14px;
+    background: rgba(30,77,53,.04);
+    border-left: 2px solid rgba(30,77,53,.2);
+  }
+
+  .inc-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    color: var(--verde);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 28px;
+  }
+
+  /* alíneas */
+  .alineas {
+    list-style: none;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .alineas li {
+    display: flex;
+    gap: 10px;
+    font-size: .87rem;
+    color: var(--tinta2);
+    padding: 8px 12px;
+    background: rgba(139,69,19,.04);
+    border-left: 2px solid rgba(139,69,19,.2);
+  }
+
+  .al-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem;
+    color: var(--acento);
+    flex-shrink: 0;
+    padding-top: 2px;
+    min-width: 20px;
+  }
+
+  /* parágrafo */
+  .paragrafo {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: rgba(184,134,11,.06);
+    border: 1px solid rgba(184,134,11,.2);
+    border-radius: 2px;
+    font-size: .86rem;
+    color: var(--tinta2);
+  }
+
+  .paragrafo strong {
+    color: var(--ouro);
+    font-weight: 500;
+  }
+
+  /* destaque alerta */
+  .alerta {
+    background: rgba(139,69,19,.07);
+    border: 1px solid rgba(139,69,19,.25);
+    border-left: 4px solid var(--acento);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-size: .88rem;
+    color: var(--tinta2);
+  }
+
+  .alerta strong { color: var(--acento); }
+
+  /* destaque verde */
+  .destaque {
+    background: rgba(30,77,53,.07);
+    border: 1px solid rgba(30,77,53,.2);
+    border-left: 4px solid var(--verde);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-size: .88rem;
+    color: var(--tinta2);
+  }
+
+  .destaque strong { color: var(--verde); }
+
+  /* tabela cadastro */
+  .tabela-wrap { overflow-x: auto; margin-top: 16px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .84rem;
+  }
+
+  th {
+    background: var(--verde);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 400;
+    font-size: .78rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--linha);
+    color: var(--tinta2);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,.4); }
+
+  td .tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    background: rgba(30,77,53,.1);
+    color: var(--verde);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-right: 4px;
+    margin-bottom: 3px;
+  }
+
+  /* sinais de alerta grid */
+  .sinais-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .sinal-card {
+    background: rgba(255,255,255,.6);
+    border: 1px solid var(--linha);
+    padding: 18px 20px;
+    font-size: .84rem;
+    color: var(--tinta2);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .sinal-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    color: var(--acento);
+    flex-shrink: 0;
+    font-weight: 400;
+    padding-top: 2px;
+  }
+
+  /* linha tempo */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 16px;
+  }
+
+  .tl-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .tl-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--verde);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    color: #fff;
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .tl-text h4 {
+    font-size: .88rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--tinta);
+  }
+
+  .tl-text p {
+    font-size: .83rem;
+    color: var(--tinta2);
+    opacity: .8;
+  }
+
+  /* sanções */
+  .sancao-box {
+    background: rgba(139,69,19,.06);
+    border: 1px solid rgba(139,69,19,.25);
+    padding: 28px 32px;
+    margin-top: 16px;
+  }
+
+  .sancao-box h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--acento);
+    margin-bottom: 12px;
+  }
+
+  .sancao-box p {
+    font-size: .88rem;
+    color: var(--tinta2);
+  }
+
+  /* rodapé */
+  footer {
+    background: var(--tinta);
+    color: rgba(244,241,235,.6);
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  footer .assinatura {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 32px;
+  }
+
+  .ass-item { text-align: center; }
+
+  .ass-nome {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: rgba(244,241,235,.9);
+    font-weight: 600;
+  }
+
+  .ass-cargo {
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(244,241,235,.45);
+    margin-top: 4px;
+  }
+
+  footer p {
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* nav lateral */
+  .nav-lateral {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+  }
+
+  .nl-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(30,77,53,.25);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+
+  .nl-dot.active, .nl-dot:hover {
+    background: var(--verde);
+    transform: scale(1.6);
+  }
+
+  @media(max-width:480px){ .nav-lateral{ display:none; } }
+
+  /* animações */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+
+  .reveal.vis { opacity:1; transform:translateY(0); }
+
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82em;
+    background: rgba(30,77,53,.1);
+    color: var(--verde);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav-lateral" id="navLat"></nav>
+
+<!-- TOPO -->
+<div class="top-bar">Conselho Federal de Corretores de Imóveis — COFECI · www.cofeci.gov.br</div>
+
+<!-- HERO -->
+<section class="hero" id="s0">
+  <div class="hero-inner">
+    <span class="hero-tag">Legislação Imobiliária</span>
+    <h1>Resolução COFECI<br><em>nº 1.336/2014</em></h1>
+    <p class="hero-desc">Prevenção e combate à lavagem de dinheiro e ao financiamento do terrorismo no mercado imobiliário — obrigações dos corretores e pessoas jurídicas.</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Aprovada em</span>
+        <span class="meta-val">15 set. 2014</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Publicada em</span>
+        <span class="meta-val">20 out. 2014</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Vigência</span>
+        <span class="meta-val">90 dias após publicação</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Revoga</span>
+        <span class="meta-val">Resolução COFECI 1.168/2010</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Fundamentação</span>
+        <span class="meta-val">Lei 9.613/98 · Lei 12.683/12</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÍNDICE -->
+<nav class="indice" id="s1">
+  <div class="indice-inner">
+    <h2>Seções da Resolução</h2>
+    <div class="indice-grid">
+      <a class="indice-item" href="#sec1"><div class="indice-rom">Seção I</div><h3>Disposições Preliminares</h3></a>
+      <a class="indice-item" href="#sec2"><div class="indice-rom">Seção II</div><h3>Cadastro no Sistema COFECI/CRECI</h3></a>
+      <a class="indice-item" href="#sec3"><div class="indice-rom">Seção III</div><h3>Política de Prevenção</h3></a>
+      <a class="indice-item" href="#sec4"><div class="indice-rom">Seção IV</div><h3>Identificação dos Clientes e Cadastros</h3></a>
+      <a class="indice-item" href="#sec5"><div class="indice-rom">Seção V</div><h3>Registros das Transações</h3></a>
+      <a class="indice-item" href="#sec6"><div class="indice-rom">Seção VI</div><h3>Comunicações ao COAF</h3></a>
+      <a class="indice-item" href="#sec7"><div class="indice-rom">Seção VII</div><h3>Disposições Gerais e Finais</h3></a>
+    </div>
+  </div>
+</nav>
+
+<!-- SEÇÃO I -->
+<section class="secao" id="sec1">
+  <div class="secao-inner">
+    <div class="secao-header reveal">
+      <span class="secao-rom">SEÇÃO I</span>
+      <h2>Disposições Preliminares</h2>
+    </div>
+
+    <div class="destaque reveal">
+      <strong>Objetivo:</strong> Prevenir e combater os crimes de financiamento ao terrorismo, "lavagem" ou ocultação de bens, direitos e valores, conforme a Lei nº 9.613/98 e alterações da Lei nº 12.683/12.
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 1º — Sujeitos Obrigados</div>
+      <p>Estão sujeitas a esta Resolução as <strong>pessoas físicas e jurídicas</strong> que exerçam atividades de:</p>
+      <ul class="incisos">
+        <li><span class="inc-label">→</span> Promoção imobiliária</li>
+        <li><span class="inc-label">→</span> Compra e venda de imóveis</li>
+      </ul>
+      <p style="margin-top:12px;">Em caráter <strong>permanente ou eventual</strong>, de forma <strong>principal ou acessória</strong>, incluindo a compra ou venda de bens móveis ou imóveis que integrem o ativo de pessoas jurídicas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO II -->
+<section class="secao" id="sec2">
+  <div class="secao-inner">
+    <div class="secao-header reveal">
+      <span class="secao-rom">SEÇÃO II</span>
+      <h2>Cadastro no Sistema COFECI/CRECI</h2>
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 2º — Obrigação de Cadastro</div>
+      <p>Os sujeitos obrigados devem cadastrar-se e manter cadastro atualizado junto ao COFECI/CRECI.</p>
+    </div>
+
+    <div class="tabela-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Dados Obrigatórios</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pessoa Física</strong></td>
+            <td>
+              <span class="tag">a)</span> Nome completo<br>
+              <span class="tag">b)</span> CPF<br>
+              <span class="tag">c)</span> Nº documento de identidade / órgão expedidor (ou passaporte se estrangeiro)<br>
+              <span class="tag">d)</span> Endereço completo, e-mail e telefones
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Pessoa Jurídica</strong></td>
+            <td>
+              <span class="tag">a)</span> Razão social e nome fantasia<br>
+              <span class="tag">b)</span> CNPJ<br>
+              <span class="tag">c)</span> Endereço completo, e-mail e telefones<br>
+              <span class="tag">d)</span> Identificação do responsável pelo cumprimento desta Resolução
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO III -->
+<section class="secao" id="sec3">
+  <div class="secao-inner">
+    <div class="secao-header reveal">
+      <span class="secao-rom">SEÇÃO III</span>
+      <h2>Política de Prevenção</h2>
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 3º — Programa de Conformidade</div>
+      <p>Os sujeitos obrigados devem estabelecer e implementar política de prevenção à lavagem de dinheiro e financiamento do terrorismo, abrangendo no mínimo:</p>
+      <ul class="incisos">
+        <li><span class="inc-label">I</span> Identificação e qualificação de clientes e demais envolvidos nas operações</li>
+        <li><span class="inc-label">II</span> Obtenção de informações sobre o propósito e a natureza das relações de negócio</li>
+        <li><span class="inc-label">III</span> Identificação do beneficiário final das operações</li>
+        <li><span class="inc-label">IV</span> Identificação de operações suspeitas ou de comunicação obrigatória</li>
+        <li><span class="inc-label">V</span> Verificação periódica da eficácia da política adotada</li>
+      </ul>
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 3º §1º e §2º — Formalização para Pessoas Jurídicas</div>
+      <p>A política deve ser <strong>formalizada expressamente</strong> com aprovação da autoridade máxima de gestão para:</p>
+      <ul class="alineas">
+        <li><span class="al-label">§1º</span> Pessoas jurídicas com mais de 10 funcionários</li>
+        <li><span class="al-label">§2º</span> PJ com menos de 10 funcionários, mas com faturamento ≥ R$ 1.000.000,00/ano <em>ou</em> 5 ou mais transações imobiliárias por mês</li>
+      </ul>
+      <p style="margin-top:14px;">Abrangendo também:</p>
+      <ul class="incisos" style="margin-top:8px;">
+        <li><span class="inc-label">I</span> Seleção e treinamento de empregados</li>
+        <li><span class="inc-label">II</span> Disseminação do conteúdo ao quadro de pessoal (processo contínuo)</li>
+        <li><span class="inc-label">III</span> Monitoramento das atividades dos empregados</li>
+        <li><span class="inc-label">IV</span> Prevenção de conflitos entre interesses comerciais e mecanismos de prevenção</li>
+      </ul>
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 4º — Avaliação de Suspeição</div>
+      <p>Os sujeitos obrigados devem avaliar a existência de suspeição nas propostas e operações, com atenção especial a transações incomuns em relação a:</p>
+      <ul class="incisos">
+        <li><span class="inc-label">→</span> Partes envolvidas</li>
+        <li><span class="inc-label">→</span> Valores</li>
+        <li><span class="inc-label">→</span> Forma de realização</li>
+        <li><span class="inc-label">→</span> Finalidade e complexidade</li>
+        <li><span class="inc-label">→</span> Instrumentos utilizados</li>
+        <li><span class="inc-label">→</span> Falta de fundamento econômico ou legal</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO IV -->
+<section class="secao" id="sec4">
+  <div class="secao-inner">
+    <div class="secao-header reveal">
+      <span class="secao-rom">SEÇÃO IV</span>
+      <h2>Identificação dos Clientes e Manutenção de Cadastros</h2>
+    </div>
+
+    <div class="alerta reveal">
+      <strong>Limite:</strong> Nas transações de valor igual ou superior a <strong>R$ 100.000,00</strong>, é obrigatório identificar e manter cadastro atualizado de todos os envolvidos no negócio imobiliário.
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 5º — Dados do Cadastro de Clientes</div>
+    </div>
+
+    <div class="tabela-wrap reveal">
+      <table>
+        <thead>
+          <tr><th>Tipo</th><th>Dados Exigidos (Art. 5º)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pessoa Física</strong></td>
+            <td>
+              <span class="tag">a)</span> Nome, sexo, nascimento, filiação, naturalidade, nacionalidade, estado civil, cônjuge<br>
+              <span class="tag">b)</span> Endereço residencial completo, e-mail, telefones<br>
+              <span class="tag">c)</span> CPF<br>
+              <span class="tag">d)</span> RG / órgão expedidor / data ou passaporte (estrangeiro)<br>
+              <span class="tag">e)</span> Principal atividade desenvolvida<br>
+              <span class="tag">f)</span> Enquadramento nos incisos I, II e III do art. 1º da Res. COAF nº 15/2007<br>
+              <span class="tag">g)</span> Pessoa Politicamente Exposta (Res. COAF nº 16/2007)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Pessoa Jurídica</strong></td>
+            <td>
+              <span class="tag">a)</span> Razão social e nome fantasia<br>
+              <span class="tag">b)</span> CNPJ<br>
+              <span class="tag">c)</span> Endereço completo, e-mail, telefone<br>
+              <span class="tag">d)</span> Principal atividade<br>
+              <span class="tag">e)</span> Identificação dos sócios e representantes (como pessoa física acima)<br>
+              <span class="tag">f)</span> Identificação dos beneficiários finais (ou registro das medidas para identificá-los)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="paragrafo reveal">
+      <strong>§1º — Capital Aberto:</strong> informações sobre representantes, controladores e administradores.<br>
+      <strong>§1º — Capital Fechado:</strong> cadeia de participação societária até alcançar o beneficiário final (pessoa natural).
+    </div>
+
+    <div class="artigo reveal" style="margin-top:20px;">
+      <div class="artigo-num">Art. 6º — Atualização Cadastral</div>
+      <p>As informações cadastrais devem estar <strong>atualizadas no momento da realização do negócio</strong>. Quando não for possível identificar o beneficiário final, especial atenção deve ser dispensada à conveniência de realizar a transação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO V -->
+<section class="secao" id="sec5">
+  <div class="secao-inner">
+    <div class="secao-header reveal">
+      <span class="secao-rom">SEÇÃO V</span>
+      <h2>Registros das Transações</h2>
+    </div>
+
+    <div class="alerta reveal">
+      <strong>Limite:</strong> Toda transação imobiliária de valor igual ou superior a <strong>R$ 100.000,00</strong> deve ter registro em arquivo próprio.
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 7º — Dados Mínimos do Registro</div>
+      <ul class="incisos">
+        <li><span class="inc-label">I</span> Identificação dos clientes e intervenientes (conforme Seção IV)</li>
+        <li><span class="inc-label">II</span> Identificação do imóvel: descrição, endereço completo, CEP, nº de matrícula e data de registro no Ofício Predial</li>
+        <li><span class="inc-label">III</span> Identificação da transação: data, valor, forma de pagamento, moeda, condições (à vista, a prazo, financiamento)</li>
+      </ul>
+      <div class="paragrafo" style="margin-top:14px;">
+        <strong>Parágrafo Único:</strong> Pagamentos por cheque ou transferência bancária devem registrar banco, agência, conta corrente e número do cheque.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO VI -->
+<section class="secao" id="sec6">
+  <div class="secao-inner">
+    <div class="secao-header reveal">
+      <span class="secao-rom">SEÇÃO VI</span>
+      <h2>Comunicações ao COAF</h2>
+    </div>
+
+    <div class="destaque reveal">
+      <strong>Canal:</strong> As comunicações devem ser feitas pelo formulário eletrônico em <code>www.coaf.fazenda.gov.br</code>, no prazo de <strong>24 horas</strong>, sem dar ciência ao cliente.
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 8º — Comunicação Obrigatória (independe de análise)</div>
+      <ul class="incisos">
+        <li><span class="inc-label">I</span> Transação ou proposta com pagamento/recebimento <strong>em espécie ≥ R$ 100.000,00</strong> (ou equivalente em moeda estrangeira)</li>
+        <li><span class="inc-label">II</span> Hipóteses previstas na Resolução COAF nº 15/2007</li>
+      </ul>
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 9º — Sinais de Alerta (se suspeitas, comunicar ao COAF)</div>
+      <p style="margin-bottom:14px;">Transações que podem configurar indícios dos crimes da Lei 9.613/98:</p>
+      <div class="sinais-grid">
+        <div class="sinal-card"><span class="sinal-num">I</span> Valores abaixo do limite, mas com habitualidade que sugira artifício para burlar registros</div>
+        <div class="sinal-card"><span class="sinal-num">II</span> Aumento ou diminuição injustificada do valor do imóvel</div>
+        <div class="sinal-card"><span class="sinal-num">III</span> Valor em contrato divergente da base de cálculo do ITBI recolhido</div>
+        <div class="sinal-card"><span class="sinal-num">IV</span> Incompatibilidade com o patrimônio, atividade ou capacidade financeira das partes</div>
+        <div class="sinal-card"><span class="sinal-num">V</span> Agentes que induzam à não-manutenção dos registros</div>
+        <div class="sinal-card"><span class="sinal-num">VI</span> Resistência na prestação de informações, informação falsa ou de difícil verificação</div>
+        <div class="sinal-card"><span class="sinal-num">VII</span> Características que indiquem falta de fundamento econômico ou legal</div>
+        <div class="sinal-card"><span class="sinal-num">VIII</span> Pagamento ou recebimento realizado por terceiros</div>
+        <div class="sinal-card"><span class="sinal-num">IX</span> Pagamento com recursos de origens diversas (cheques de várias praças/emitentes)</div>
+        <div class="sinal-card"><span class="sinal-num">X</span> Comprador que tenha sido anteriormente dono do mesmo imóvel</div>
+        <div class="sinal-card"><span class="sinal-num">XI</span> Transferências do exterior, especialmente de países com tributação favorecida ou listados pelo GAFI como de alto risco</div>
+        <div class="sinal-card"><span class="sinal-num">XII</span> Pagamento ou recebimento envolvendo pessoa física ou jurídica estrangeira ou com domicílio/sede em outro país</div>
+      </div>
+      <div class="paragrafo" style="margin-top:14px;">
+        <strong>Parágrafo Único:</strong> As hipóteses acima não excluem a possibilidade de outras operações com características distintas serem consideradas suspeitas.
+      </div>
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 10 — Proteção da Boa-fé</div>
+      <p>As comunicações feitas de boa-fé (conforme §2º do art. 11 da Lei 9.613/98) <strong>não acarretarão responsabilidade civil ou administrativa</strong>.</p>
+    </div>
+
+    <div class="artigo reveal">
+      <div class="artigo-num">Art. 12 — Declaração de Ausência de Operações Suspeitas</div>
+      <p>Caso não sejam identificadas transações ou propostas enquadráveis nos artigos 8º, 9º ou 12 durante o ano civil, deve-se declarar tal fato ao COFECI/CRECI <strong>até 31 de janeiro do ano seguinte</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO VII -->
+<section class="secao" id="sec7">
+  <div class="secao-inner">
+    <div class="secao-header reveal">
+      <span class="secao-rom">SEÇÃO VII</span>
+      <h2>Disposições Gerais e Finais</h2>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-icon">5a</div>
+        <div class="tl-text">
+          <h4>Art. 13 — Prazo de Conservação de Registros</h4>
+          <p>Os cadastros e registros previstos nesta Resolução devem ser conservados por <strong>mínimo de 5 anos</strong> a partir da conclusão da transação.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-icon">∞</div>
+        <div class="tl-text">
+          <h4>Art. 14 — Requisições de Informações</h4>
+          <p>Os sujeitos obrigados devem atender a qualquer tempo às requisições formuladas pelo <strong>COAF ou pelo Sistema COFECI/CRECI</strong>. As informações fornecidas são classificadas como confidenciais (Lei 12.527/11).</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-icon">16</div>
+        <div class="tl-text">
+          <h4>Art. 16 — Cadastro Transitório</h4>
+          <p>Durante a fase de implantação dos sistemas COFECI/CRECI, o cadastro deve ser realizado diretamente no COAF via <code>www1.fazenda.gov.br/siscoaf/português</code>.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-icon">90d</div>
+        <div class="tl-text">
+          <h4>Art. 17 — Vigência</h4>
+          <p>Esta Resolução entra em vigor <strong>90 dias após a publicação</strong>, revogando a Resolução COFECI 1.168/2010.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sancao-box reveal">
+      <h4>Art. 15 — Sanções pelo Descumprimento</h4>
+      <p>O descumprimento das obrigações desta Resolução sujeita os infratores (pessoas físicas e jurídicas, bem como seus administradores) às sanções <strong>cumulativas ou não</strong>:</p>
+      <ul class="incisos" style="margin-top:12px;">
+        <li><span class="inc-label">→</span> Sanções do <strong>art. 12 da Lei 9.613/98</strong> (Decreto 2.799/98 e Portaria MF 330/1998)</li>
+        <li><span class="inc-label">→</span> Penalidades da <strong>Lei 6.530/78</strong> por infração ao Código de Ética Profissional (Resolução COFECI 326/1992)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer id="s8">
+  <div class="assinatura">
+    <div class="ass-item">
+      <div style="font-size:.65rem;letter-spacing:.15em;color:rgba(244,241,235,.35);margin-bottom:8px;">ORIGINAL ASSINADO</div>
+      <div class="ass-nome">João Teodoro da Silva</div>
+      <div class="ass-cargo">Presidente</div>
+    </div>
+    <div class="ass-item">
+      <div style="font-size:.65rem;letter-spacing:.15em;color:rgba(244,241,235,.35);margin-bottom:8px;">ORIGINAL ASSINADO</div>
+      <div class="ass-nome">Sérgio Waldemar de Freire Sobral</div>
+      <div class="ass-cargo">Diretor Secretário</div>
+    </div>
+  </div>
+  <p>Brasília (DF), 20 de outubro de 2014 · COFECI · Resolução nº 1.336/2014</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+  // Nav lateral
+  const secs = document.querySelectorAll('[id^="s"]');
+  const nav  = document.getElementById('navLat');
+  secs.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'nl-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => s.scrollIntoView({ behavior: 'smooth' }));
+    nav.appendChild(d);
+  });
+  const dots = nav.querySelectorAll('.nl-dot');
+  const sObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = Array.from(secs).indexOf(e.target);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.4 });
+  secs.forEach(s => sObs.observe(s));
+</script>
+</body>
+</html>

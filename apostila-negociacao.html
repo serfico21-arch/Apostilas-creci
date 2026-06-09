@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noções Básicas de Negociação – Modelo Harvard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f0e8;
+    --accent: #c8422a;
+    --gold: #b8952a;
+    --mid: #4a4540;
+    --light: #e8e2d6;
+    --card-bg: #fffcf7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #c8422a44 0%, transparent 70%);
+  }
+  .hero::after {
+    content: 'NEGOCIAÇÃO';
+    position: absolute;
+    bottom: -20px; right: -10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: -4px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    max-width: 700px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 15px;
+    color: rgba(245,240,232,0.65);
+    max-width: 480px;
+    font-weight: 300;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    background: rgba(200,66,42,0.18);
+    border: 1px solid rgba(200,66,42,0.35);
+    border-radius: 40px;
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #f0a090;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--card-bg);
+    border-bottom: 2px solid var(--light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-item {
+    padding: 16px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--mid);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all .2s;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ── LAYOUT ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+  .section { display: none; animation: fadeUp .4s ease; }
+  .section.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SEÇÃO TÍTULOS ── */
+  .sec-header { margin-bottom: 40px; }
+  .sec-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .sec-desc {
+    margin-top: 14px;
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 620px;
+    font-weight: 300;
+  }
+
+  /* ── CARDS DE ESTILOS ── */
+  .styles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+  }
+  .style-card {
+    background: var(--card-bg);
+    border: 1px solid var(--light);
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .style-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+  .style-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .card-pp::before { background: #e74c3c; }
+  .card-pg::before { background: #e67e22; }
+  .card-gp::before { background: #3498db; }
+  .card-gg::before { background: #27ae60; }
+
+  .style-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card-pp .style-label { color: #e74c3c; }
+  .card-pg .style-label { color: #e67e22; }
+  .card-gp .style-label { color: #3498db; }
+  .card-gg .style-label { color: #27ae60; }
+
+  .style-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .style-desc { font-size: 13.5px; color: var(--mid); line-height: 1.65; font-weight: 300; }
+
+  /* ── ABORDAGENS ── */
+  .abordagens {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) { .abordagens { grid-template-columns: 1fr; } }
+
+  .abord-card {
+    border-radius: 12px;
+    padding: 32px 28px;
+    color: white;
+  }
+  .abord-dist { background: linear-gradient(135deg, #2c3e50, #4a5568); }
+  .abord-int  { background: linear-gradient(135deg, #1a6b3a, #2d9e5f); }
+  .abord-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 12px; }
+  .abord-card p  { font-size: 13.5px; opacity: .85; font-weight: 300; line-height: 1.65; }
+  .abord-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.18);
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin-bottom: 14px;
+  }
+
+  /* ── CONCEITO BOX ── */
+  .concept-box {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 16px;
+    padding: 40px 36px;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .concept-box::after {
+    content: '"';
+    position: absolute;
+    top: -20px; right: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    color: rgba(255,255,255,.04);
+    pointer-events: none;
+  }
+  .concept-box h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent); margin-bottom: 16px; }
+  .concept-box p  { font-size: 15px; font-weight: 300; color: rgba(245,240,232,.85); line-height: 1.75; }
+
+  /* ── RESUMO BULLETS ── */
+  .resumo-list { list-style: none; margin: 32px 0; }
+  .resumo-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--light);
+    font-size: 14.5px;
+    color: var(--mid);
+    font-weight: 300;
+  }
+  .resumo-list li:last-child { border: none; }
+  .resumo-list li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 8px;
+  }
+  .resumo-list li strong { color: var(--ink); font-weight: 600; }
+
+  /* ── POSIÇÃO vs INTERESSE ── */
+  .pi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) { .pi-grid { grid-template-columns: 1fr; } }
+
+  .pi-card {
+    border-radius: 12px;
+    padding: 28px 24px;
+    border: 1px solid var(--light);
+    background: var(--card-bg);
+  }
+  .pi-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--light);
+  }
+  .pi-posicao h3 { color: #2c3e50; border-color: #2c3e50; }
+  .pi-interesse h3 { color: #c8422a; border-color: #c8422a; }
+  .pi-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    color: var(--mid);
+  }
+  .pi-items { list-style: none; }
+  .pi-items li { padding: 7px 0; font-size: 13.5px; color: var(--mid); font-weight: 300; }
+  .pi-items li::before { content: '→ '; color: var(--accent); font-weight: 600; }
+
+  /* ── PREMISSAS ── */
+  .premissas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .premissa {
+    background: var(--card-bg);
+    border: 1px solid var(--light);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+    transition: transform .2s;
+  }
+  .premissa:hover { transform: translateY(-3px); }
+  .premissa-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .premissa h4 { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .premissa p  { font-size: 12.5px; color: var(--mid); font-weight: 300; line-height: 1.6; }
+
+  /* ── ETAPAS ── */
+  .etapas { margin: 40px 0; }
+  .etapa {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--light);
+    border-radius: 12px;
+    padding: 28px 28px;
+    transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+  .etapa:hover { transform: translateX(6px); box-shadow: -4px 0 0 var(--accent), 0 8px 30px rgba(0,0,0,.06); }
+  .etapa-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--light);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+  }
+  .etapa-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .etapa-body p { font-size: 13.5px; color: var(--mid); font-weight: 300; line-height: 1.65; }
+  .etapa-detail {
+    margin-top: 14px;
+    display: none;
+  }
+  .etapa.open .etapa-detail { display: block; }
+  .etapa-detail ul { list-style: none; margin-top: 12px; }
+  .etapa-detail li {
+    font-size: 13px;
+    color: var(--mid);
+    padding: 6px 0;
+    padding-left: 16px;
+    position: relative;
+    font-weight: 300;
+    border-bottom: 1px solid var(--light);
+  }
+  .etapa-detail li:last-child { border: none; }
+  .etapa-detail li::before { content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+  /* ── FERRAMENTAS ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+  }
+  .tool-card {
+    background: var(--card-bg);
+    border: 1px solid var(--light);
+    border-radius: 14px;
+    padding: 30px 26px;
+    position: relative;
+  }
+  .tool-icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
+  .tool-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .tool-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: white;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-bottom: 14px;
+  }
+  .tool-card p { font-size: 13.5px; color: var(--mid); font-weight: 300; line-height: 1.65; }
+  .tool-example {
+    margin-top: 16px;
+    background: #fdf6ee;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* ── CONFLITOS ── */
+  .conflitos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 28px 0;
+  }
+  .conflito-tag {
+    background: var(--card-bg);
+    border: 1px solid var(--light);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 12.5px;
+    color: var(--mid);
+    font-weight: 500;
+    transition: all .2s;
+    cursor: default;
+  }
+  .conflito-tag:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* ── QUIZ ── */
+  .quiz-box {
+    background: var(--ink);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 50px 0;
+    color: var(--paper);
+  }
+  .quiz-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 24px;
+    color: var(--paper);
+  }
+  .quiz-q { font-size: 15px; font-weight: 500; margin-bottom: 16px; color: var(--paper); }
+  .quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .quiz-opt {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 13.5px;
+    color: rgba(245,240,232,.85);
+    cursor: pointer;
+    transition: all .2s;
+    text-align: left;
+  }
+  .quiz-opt:hover { background: rgba(200,66,42,.25); border-color: var(--accent); }
+  .quiz-opt.correct { background: rgba(39,174,96,.3); border-color: #27ae60; color: #a8f0c6; }
+  .quiz-opt.wrong   { background: rgba(231,76,60,.3);  border-color: #e74c3c; color: #f0a8a8; }
+  .quiz-feedback {
+    font-size: 13px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: none;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok  { background: rgba(39,174,96,.2); color: #a8f0c6; border: 1px solid rgba(39,174,96,.4); }
+  .quiz-feedback.err { background: rgba(231,76,60,.2); color: #f0a8a8; border: 1px solid rgba(231,76,60,.4); }
+  .quiz-next {
+    margin-top: 16px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: none;
+    transition: opacity .2s;
+  }
+  .quiz-next:hover { opacity: .85; }
+  .quiz-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,.4);
+    text-align: center;
+    padding: 36px 40px;
+    font-size: 12px;
+    margin-top: 80px;
+  }
+  footer strong { color: rgba(245,240,232,.7); }
+
+  /* ── DIVIDERS ── */
+  .divider { height: 1px; background: var(--light); margin: 40px 0; }
+
+  @media (max-width: 600px) {
+    .main { padding: 40px 20px; }
+    nav { padding: 0 16px; }
+    .hero { padding: 60px 24px 48px; }
+    .concept-box { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">CRECI-SP · Curso EAD</div>
+  <h1>Noções Básicas de<br><span>Negociação</span></h1>
+  <p class="hero-sub">Metodologia Harvard aplicada ao mercado imobiliário — do conceito à prática.</p>
+  <div class="hero-badge">🤝 Modelo Ganha-Ganha · Baseado em Princípios</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-item active" onclick="show('estilos',this)">Estilos</div>
+  <div class="nav-item" onclick="show('conceitos',this)">Conceitos</div>
+  <div class="nav-item" onclick="show('conflitos',this)">Conflitos</div>
+  <div class="nav-item" onclick="show('modelo',this)">Modelo Harvard</div>
+  <div class="nav-item" onclick="show('ferramentas',this)">Ferramentas</div>
+  <div class="nav-item" onclick="show('etapas',this)">Etapas</div>
+  <div class="nav-item" onclick="show('quiz',this)">Quiz</div>
+</nav>
+
+<div class="main">
+
+  <!-- ══ ESTILOS ══ -->
+  <div id="estilos" class="section active">
+    <div class="sec-header">
+      <div class="sec-tag">Fundamentos</div>
+      <h2 class="sec-title">Os 4 Estilos de Negociação</h2>
+      <p class="sec-desc">A literatura identifica quatro estratégias principais. Conhecê-las é o primeiro passo para escolher o caminho certo.</p>
+    </div>
+
+    <div class="styles-grid">
+      <div class="style-card card-pp">
+        <div class="style-label">Estilo 01</div>
+        <div class="style-name">Perde–Perde</div>
+        <p class="style-desc">Ambas as partes preferem perder a ceder. Comum em divórcios e partilhas com alto envolvimento emocional. Resultado: prejuízo para todos.</p>
+      </div>
+      <div class="style-card card-pg">
+        <div class="style-label">Estilo 02</div>
+        <div class="style-name">Perde–Ganha</div>
+        <p class="style-desc">Uma parte abre concessões para fidelizar a outra, apostando em ganhos futuros. Estratégia de relacionamento de longo prazo.</p>
+      </div>
+      <div class="style-card card-gp">
+        <div class="style-label">Estilo 03</div>
+        <div class="style-name">Ganha–Perde</div>
+        <p class="style-desc">O mais comum no mercado imobiliário. Foco no resultado imediato, sem pensar a longo prazo. Um sai satisfeito, o outro não.</p>
+      </div>
+      <div class="style-card card-gg">
+        <div class="style-label">Estilo 04</div>
+        <div class="style-name">Ganha–Ganha</div>
+        <p class="style-desc">O mais sustentável. Ambas as partes saem satisfeitas. É a base do Modelo Harvard — foco nos interesses, não nas posições.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-header">
+      <div class="sec-tag">Abordagens</div>
+      <h2 class="sec-title">Distributiva vs. Integrativa</h2>
+    </div>
+
+    <div class="abordagens">
+      <div class="abord-card abord-dist">
+        <div class="abord-tag">Tradicional</div>
+        <h3>Distributiva</h3>
+        <p>O bolo é fixo. Quem tem a boca maior, come mais. As partes competem pela maior fatia. Encaixam-se os estilos Ganha-Perde e Perde-Perde. Usa persuasão, truques e ameaças — método já superado.</p>
+      </div>
+      <div class="abord-card abord-int">
+        <div class="abord-tag">Harvard</div>
+        <h3>Integrativa</h3>
+        <p>O bolo pode crescer. Todos cooperam para aumentar os recursos disponíveis. Outros valores são adicionados ao objetivo central. Resultado: satisfação igualitária para todos.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONCEITOS ══ -->
+  <div id="conceitos" class="section">
+    <div class="sec-header">
+      <div class="sec-tag">Definições</div>
+      <h2 class="sec-title">O que é Negociação?</h2>
+      <p class="sec-desc">Várias vozes, uma convergência: negociar é um processo de comunicação para alcançar acordos satisfatórios.</p>
+    </div>
+
+    <div class="concept-box">
+      <h3>Fisher, Ury & Patton — Como Chegar ao Sim</h3>
+      <p>"Um meio básico de conseguir o que se quer de outrem. É uma comunicação bidirecional concebida para chegar a um acordo, quando você e o outro lado têm alguns interesses em comum, e outros opostos."</p>
+    </div>
+
+    <ul class="resumo-list">
+      <li><div><strong>Wanderley (1998):</strong> Processo de alcançar objetivos por meio de um acordo em situações de conflito, divergências e antagonismos.</div></li>
+      <li><div><strong>Acuff (1993):</strong> Processo de comunicação com o propósito de atingir um acordo agradável sobre diferentes ideias e necessidades.</div></li>
+      <li><div><strong>Sociedade Brasileira de Coaching:</strong> Processo de troca em que duas ou mais partes procuram chegar a um acordo mutuamente satisfatório.</div></li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <div class="sec-tag">Resumindo</div>
+    <h3 class="sec-title" style="font-size:26px; margin-bottom:20px;">A negociação é um caminho</h3>
+    <ul class="resumo-list">
+      <li>A principal maneira de satisfazer nossos interesses</li>
+      <li>Uma oportunidade de criar algo totalmente novo</li>
+      <li><strong>É um processo</strong> — e não um evento</li>
+      <li>Um processo para alcançar qualquer objetivo</li>
+    </ul>
+
+    <div class="divider"></div>
+    <div class="sec-tag">Habilidades</div>
+    <h3 class="sec-title" style="font-size:26px; margin-bottom:20px;">Para negociar bem, desenvolva:</h3>
+    <div class="conflitos-grid">
+      <span class="conflito-tag">Comunicação</span>
+      <span class="conflito-tag">Arte de ouvir</span>
+      <span class="conflito-tag">Fazer perguntas</span>
+      <span class="conflito-tag">Empatia</span>
+      <span class="conflito-tag">Diplomacia</span>
+      <span class="conflito-tag">Compartilhar informações</span>
+      <span class="conflito-tag">Linguagem corporal</span>
+      <span class="conflito-tag">Resolução de conflitos</span>
+    </div>
+  </div>
+
+  <!-- ══ CONFLITOS ══ -->
+  <div id="conflitos" class="section">
+    <div class="sec-header">
+      <div class="sec-tag">Dinâmica</div>
+      <h2 class="sec-title">De onde surgem os conflitos?</h2>
+      <p class="sec-desc">Negociar é lidar com conflitos. Entender suas origens é fundamental para criar espirais construtivas.</p>
+    </div>
+
+    <div class="conflitos-grid">
+      <span class="conflito-tag">Disputa de poder</span>
+      <span class="conflito-tag">Desejo de sucesso</span>
+      <span class="conflito-tag">Falta de recursos</span>
+      <span class="conflito-tag">Diferenças culturais</span>
+      <span class="conflito-tag">Mudanças</span>
+      <span class="conflito-tag">Ambiente hostil</span>
+      <span class="conflito-tag">Acomodação</span>
+      <span class="conflito-tag">Manipulação</span>
+      <span class="conflito-tag">Necessidades insatisfeitas</span>
+      <span class="conflito-tag">Preconceitos</span>
+      <span class="conflito-tag">Falta de informação</span>
+      <span class="conflito-tag">Objetivos divergentes</span>
+      <span class="conflito-tag">Valores</span>
+      <span class="conflito-tag">Pressupostos</span>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-tag">Reações na Mesa</div>
+    <h3 class="sec-title" style="font-size:26px; margin-bottom:20px;">As 3 reações que destroem negociações</h3>
+    <p style="font-size:13.5px; color:var(--mid); margin-bottom:28px; font-weight:300;">William Ury identifica três reações comuns que não contribuem para um bom acordo:</p>
+
+    <div class="styles-grid">
+      <div class="style-card card-pp">
+        <div class="style-label">⚡ Reação 01</div>
+        <div class="style-name">O Revide</div>
+        <p class="style-desc">"Olho por olho, dente por dente." Trata o outro como oponente. Gera um círculo vicioso de ação e reação que não leva a bons negócios.</p>
+      </div>
+      <div class="style-card card-gp">
+        <div class="style-label">⚡ Reação 02</div>
+        <div class="style-name">A Concessão</div>
+        <p class="style-desc">Ceder em excesso por pressão ou por receber uma proposta que supera expectativas. Pode quebrar a confiança e a legitimidade do acordo.</p>
+      </div>
+      <div class="style-card card-pg">
+        <div class="style-label">⚡ Reação 03</div>
+        <div class="style-name">A Ruptura</div>
+        <p class="style-desc">Abandono da negociação por questões emocionais — sentir-se ofendido, lesado ou mal interpretado. Um mal entendido coloca tudo a perder.</p>
+      </div>
+    </div>
+
+    <div class="concept-box">
+      <h3>Espirais Construtivas vs. Destrutivas</h3>
+      <p>A competição produz espirais destrutivas. A colaboração produz espirais construtivas. Diante de um conflito, busque pontos de convergência sempre através da empatia. Um conflito pode levar ambas as partes a um ponto de acordo — isso é uma espiral construtiva.</p>
+    </div>
+  </div>
+
+  <!-- ══ MODELO HARVARD ══ -->
+  <div id="modelo" class="section">
+    <div class="sec-header">
+      <div class="sec-tag">Metodologia</div>
+      <h2 class="sec-title">As 4 Premissas do Modelo Harvard</h2>
+      <p class="sec-desc">Desenvolvido por Fisher, Ury e Patton. "Negociação baseada em princípios" — rigorosa com os méritos, suave com as pessoas.</p>
+    </div>
+
+    <div class="premissas">
+      <div class="premissa">
+        <div class="premissa-num">1</div>
+        <h4>Pessoas ≠ Problemas</h4>
+        <p>Separe as pessoas dos problemas. O conflito não é a pessoa — é a questão a resolver.</p>
+      </div>
+      <div class="premissa">
+        <div class="premissa-num">2</div>
+        <h4>Interesses, não posições</h4>
+        <p>Posições divergem. Interesses convergem. Descubra o "por quê" de cada pedido.</p>
+      </div>
+      <div class="premissa">
+        <div class="premissa-num">3</div>
+        <h4>Opções de ganho mútuo</h4>
+        <p>Gere alternativas criativas usando Brainstorming antes de criticar qualquer ideia.</p>
+      </div>
+      <div class="premissa">
+        <div class="premissa-num">4</div>
+        <h4>Critérios objetivos</h4>
+        <p>Use padrões verificáveis: valor de mercado, leis, índices, laudos técnicos, precedentes.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-tag">Posição vs. Interesse</div>
+    <h3 class="sec-title" style="font-size:26px; margin-bottom:20px;">Entendendo a diferença</h3>
+
+    <div class="pi-grid">
+      <div class="pi-card pi-posicao">
+        <div class="pi-tag">Racional · Mensurável</div>
+        <h3>Posição</h3>
+        <ul class="pi-items">
+          <li>Números e volumes</li>
+          <li>Cotas e metas</li>
+          <li>Descontos percentuais</li>
+          <li>Preços e dinheiro</li>
+          <li>Produtos e mix</li>
+        </ul>
+      </div>
+      <div class="pi-card pi-interesse">
+        <div class="pi-tag">Emocional · Intangível</div>
+        <h3>Interesse</h3>
+        <ul class="pi-items">
+          <li>Necessidades</li>
+          <li>Aspirações e esperanças</li>
+          <li>Desejos</li>
+          <li>Receios e temores</li>
+          <li>Objetivos de vida</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="concept-box">
+      <h3>A técnica da cebola — descobrindo o real interesse</h3>
+      <p>Não hesite em perguntar <strong style="color:var(--accent)">POR QUÊ / PARA QUÊ</strong>. Exemplo: "Você quer vender sua casa. Por quê? → Para ganhar dinheiro. Para quê? → Para comprar outra casa. Por quê? → Para mudar de bairro. Por quê? → Porque quero vida tranquila no interior." Aí você descobre o real interesse. Vá fundo como quem descasca uma cebola.</p>
+    </div>
+  </div>
+
+  <!-- ══ FERRAMENTAS ══ -->
+  <div id="ferramentas" class="section">
+    <div class="sec-header">
+      <div class="sec-tag">Caixa de Ferramentas</div>
+      <h2 class="sec-title">BATNA / MAPAN e ZOPA</h2>
+      <p class="sec-desc">Criadas por Fisher, Ury e Patton em 1981. São o fundamento do seu poder de barganha em qualquer negociação.</p>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-icon">🛡️</div>
+        <div class="tool-badge">Poder de barganha</div>
+        <h3>BATNA / MAPAN</h3>
+        <p style="font-size:13.5px; color:var(--mid); font-weight:300; line-height:1.65; margin-bottom:12px;">
+          <strong>Best Alternative To a Negotiated Agreement</strong> — Melhor Alternativa para um Acordo Negociado. É o seu plano B: o limite a partir do qual vale mais a pena sair da negociação do que fechar um mau acordo.
+        </p>
+        <div class="tool-example">
+          💡 <strong>Como usar:</strong> Se a MAPAN for forte, revele-a — mostra poder. Se for fraca, mantenha em segredo. Sempre descubra a MAPAN da outra parte para calibrar sua estratégia.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🎯</div>
+        <div class="tool-badge">Zona de acordo</div>
+        <h3>ZOPA</h3>
+        <p style="font-size:13.5px; color:var(--mid); font-weight:300; line-height:1.65; margin-bottom:12px;">
+          <strong>Zone of Possible Agreement</strong> — Zona de Acordo Possível. É o intervalo de intersecção entre os limites de ambas as partes. Se não houver ZOPA, não há negociação possível.
+        </p>
+        <div class="tool-example">
+          💡 <strong>Exemplo:</strong> Vendedor quer R$ 500 mil, aceita no mínimo R$ 480 mil. Comprador pode pagar até R$ 490 mil. A ZOPA é de R$ 480 mil a R$ 490 mil.
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">⚓</div>
+        <div class="tool-badge">Primeira proposta</div>
+        <h3>Ancoragem</h3>
+        <p style="font-size:13.5px; color:var(--mid); font-weight:300; line-height:1.65; margin-bottom:12px;">
+          O primeiro lance influencia todo o restante da negociação. Apresentar a proposta primeiro pode direcionar as tratativas ao seu favor — desde que seja baseada em dados de mercado reais.
+        </p>
+        <div class="tool-example">
+          ⚠️ <strong>Risco:</strong> Ancorar muito fora do valor de mercado destrói credibilidade e pode encerrar a negociação antes de começar.
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="sec-tag">Gerando alternativas</div>
+    <h3 class="sec-title" style="font-size:26px; margin-bottom:16px;">3 passos para gerar sua MAPAN</h3>
+    <ul class="resumo-list">
+      <li><strong>1. Crie uma lista de opções</strong> — sem julgar, anote tudo que poderia ser uma alternativa.</li>
+      <li><strong>2. Aperfeiçoe as melhores ideias</strong> — transforme as mais promissoras em alternativas reais e viáveis.</li>
+      <li><strong>3. Selecione a melhor alternativa</strong> — essa será o seu limite e poder de negociação.</li>
+    </ul>
+  </div>
+
+  <!-- ══ ETAPAS ══ -->
+  <div id="etapas" class="section">
+    <div class="sec-header">
+      <div class="sec-tag">Processo</div>
+      <h2 class="sec-title">As 5 Etapas da Negociação</h2>
+      <p class="sec-desc">O Programa de Negociação de Harvard estrutura o processo em cinco fases. Clique em cada etapa para expandir.</p>
+    </div>
+
+    <div class="etapas">
+      <div class="etapa" onclick="toggleEtapa(this)">
+        <div class="etapa-num">1</div>
+        <div class="etapa-body">
+          <h3>Preparação</h3>
+          <p>A base de tudo. Mapear interesses, MAPAN, ZOPA e perfil da outra parte antes de sentar à mesa.</p>
+          <div class="etapa-detail">
+            <ul>
+              <li>Descubra os reais interesses (seus e da outra parte)</li>
+              <li>Defina sua MAPAN e tente identificar a MAPAN deles</li>
+              <li>Estabeleça a ZOPA — valores mínimo e ideal</li>
+              <li>Pesquise quem vai negociar: perfil, poder de decisão</li>
+              <li>Prepare perguntas abertas: Onde? O que? Como? De que forma?</li>
+              <li>Elabore estudos técnicos: avaliações, comparativos de mercado</li>
+              <li>Evite perguntas com "por que?" — prefira "para quê?"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa" onclick="toggleEtapa(this)">
+        <div class="etapa-num">2</div>
+        <div class="etapa-body">
+          <h3>Criação</h3>
+          <p>Gerar valor e ampliar opções. É o momento criativo da negociação — aumentar o bolo antes de dividi-lo.</p>
+          <div class="etapa-detail">
+            <ul>
+              <li>Explore oportunidades e discuta opções</li>
+              <li>Identifique interesses comuns entre as partes</li>
+              <li>Busque trocas de baixo custo e ganhos mútuos</li>
+              <li>Use Brainstorming: liste tudo sem criticar, filtre depois</li>
+              <li>Identifique preferências distintas que podem ser trocadas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa" onclick="toggleEtapa(this)">
+        <div class="etapa-num">3</div>
+        <div class="etapa-body">
+          <h3>Negociação / Distribuição</h3>
+          <p>A hora de "dividir o bolo". BATNA/MAPAN e ZOPA assumem protagonismo. Legitimidade das propostas é essencial.</p>
+          <div class="etapa-detail">
+            <ul>
+              <li>Use critérios objetivos: valor de mercado, índices, leis, laudos</li>
+              <li>Apresente a primeira proposta se sua ancoragem for sólida</li>
+              <li>Conheça a ZOPA para saber até onde ir</li>
+              <li>Evite: revide, concessão excessiva e ruptura</li>
+              <li>Dizer NÃO pode ser o melhor acordo — saiba a hora de sair</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa" onclick="toggleEtapa(this)">
+        <div class="etapa-num">4</div>
+        <div class="etapa-body">
+          <h3>Fechamento</h3>
+          <p>Construir o compromisso final. Controlar emoções, esclarecer dúvidas e firmar o acordo.</p>
+          <div class="etapa-detail">
+            <ul>
+              <li>Ouça atentamente todas as partes envolvidas</li>
+              <li>Dirima todas as dúvidas — especialmente financeiras</li>
+              <li>Evite palavras negativas ou que tragam peso desnecessário</li>
+              <li>Não rediscuta pontos já resolvidos — apenas resuma se necessário</li>
+              <li>Seja transparente e objetivo com seus interesses</li>
+              <li>Solicite o compromisso formal de ambas as partes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa" onclick="toggleEtapa(this)">
+        <div class="etapa-num">5</div>
+        <div class="etapa-body">
+          <h3>Reconstrução</h3>
+          <p>Consolidar o relacionamento após o negócio. Criar pontes para futuras negociações.</p>
+          <div class="etapa-detail">
+            <ul>
+              <li>Elogie e encoraje a outra parte com discurso positivo</li>
+              <li>Afirme a legitimidade e os benefícios do acordo</li>
+              <li>Valorize o desfecho — empodere os clientes</li>
+              <li>Peça feedback sobre o processo</li>
+              <li>Invista no relacionamento — ele será base para negócios futuros</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QUIZ ══ -->
+  <div id="quiz" class="section">
+    <div class="sec-header">
+      <div class="sec-tag">Fixação</div>
+      <h2 class="sec-title">Quiz — Teste seu conhecimento</h2>
+      <p class="sec-desc">Responda as perguntas baseadas no conteúdo da apostila e veja quanto você absorveu.</p>
+    </div>
+
+    <div class="quiz-box">
+      <h3 id="quiz-title">📝 Iniciando Quiz...</h3>
+      <div id="quiz-q" class="quiz-q"></div>
+      <div id="quiz-opts" class="quiz-opts"></div>
+      <div id="quiz-feedback" class="quiz-feedback"></div>
+      <button id="quiz-next" class="quiz-next" onclick="nextQ()">Próxima →</button>
+      <div id="quiz-score" class="quiz-score" style="display:none;"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Noções Básicas de Negociação — Modelo Harvard</strong><br>
+  Baseado na apostila EAD CRECI-SP · Fisher, Ury & Patton — Como Chegar ao Sim
+</footer>
+
+<script>
+// ── NAV ──
+function show(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── ETAPAS ──
+function toggleEtapa(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.etapa').forEach(e => e.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+// ── QUIZ ──
+const questions = [
+  {
+    q: "Qual estilo de negociação é considerado o mais sustentável e preconizado pelo Modelo Harvard?",
+    opts: ["Ganha-Perde", "Perde-Ganha", "Ganha-Ganha", "Perde-Perde"],
+    correct: 2,
+    feedback: "✅ Correto! O estilo Ganha-Ganha é a base do Modelo Harvard. Ambas as partes saem satisfeitas e buscam pontos de congruência."
+  },
+  {
+    q: "O que significa a sigla BATNA / MAPAN?",
+    opts: ["Base Alternativa de Negociação Avançada", "Melhor Alternativa para um Acordo Negociado", "Método Ativo para Atingir Negócios Abertos", "Margem Aprovada para Términos de Acordos Negociados"],
+    correct: 1,
+    feedback: "✅ Correto! MAPAN = Melhor Alternativa para um Acordo Negociado. É o seu plano B — o limite do que você aceita antes de sair da negociação."
+  },
+  {
+    q: "O que é a ZOPA em uma negociação?",
+    opts: ["A proposta inicial feita na mesa de negociação", "O intervalo de intersecção entre os limites aceitáveis de ambas as partes", "Uma técnica de persuasão distributiva", "O valor mínimo que o vendedor aceita"],
+    correct: 1,
+    feedback: "✅ Correto! ZOPA = Zone of Possible Agreement. É a margem onde um acordo é possível — entre o preço-alvo e o preço de reserva de ambas as partes."
+  },
+  {
+    q: "Na abordagem distributiva, como o 'bolo' da negociação é visto?",
+    opts: ["Como algo que pode crescer com criatividade", "Como algo fixo — quem tem a boca maior come mais", "Como irrelevante para o resultado", "Como dividido igualmente entre as partes"],
+    correct: 1,
+    feedback: "✅ Correto! Na abordagem distributiva o bolo é fixo e a competição define quem fica com a maior fatia. Já na integrativa, o bolo pode crescer."
+  },
+  {
+    q: "Qual das perguntas abaixo NÃO é recomendada como pergunta aberta na sondagem durante a negociação?",
+    opts: ["O que você precisa?", "Como posso ajudá-lo?", "Por que você quer isso?", "De que forma isso resolve seu problema?"],
+    correct: 2,
+    feedback: "✅ Correto! A pergunta 'Por que?' pode soar desafiadora e colocar o outro na defensiva. Prefira 'Para quê?' — ela é menos ameaçadora e leva ao mesmo objetivo."
+  },
+  {
+    q: "Qual é a primeira etapa do Processo de Negociação de Harvard?",
+    opts: ["Criação de valor", "Fechamento do acordo", "Preparação", "Distribuição do bolo"],
+    correct: 2,
+    feedback: "✅ Correto! A Preparação é a base de tudo: mapear interesses, MAPAN, ZOPA e o perfil da outra parte antes de sentar à mesa."
+  },
+  {
+    q: "A 'ancoragem' em negociação refere-se a:",
+    opts: ["Manter uma posição rígida durante toda a negociação", "A primeira proposta lançada na mesa, que influencia o restante das tratativas", "Usar argumentos legais para embasar uma contraproposta", "Encerrar uma negociação quando não há ZOPA"],
+    correct: 1,
+    feedback: "✅ Correto! A ancoragem é a primeira proposta. Ela influencia psicologicamente todo o processo — quem ancora primeiro direciona as negociações ao seu referencial."
+  }
+];
+
+let current = 0, score = 0, answered = false;
+
+function renderQ() {
+  const q = questions[current];
+  document.getElementById('quiz-title').textContent = `Pergunta ${current + 1} de ${questions.length}`;
+  document.getElementById('quiz-q').textContent = q.q;
+  const opts = document.getElementById('quiz-opts');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = o;
+    btn.onclick = () => answer(i, btn);
+    opts.appendChild(btn);
+  });
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  document.getElementById('quiz-feedback').textContent = '';
+  document.getElementById('quiz-next').style.display = 'none';
+  document.getElementById('quiz-score').style.display = 'none';
+  answered = false;
+}
+
+function answer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const allBtns = document.querySelectorAll('.quiz-opt');
+  allBtns.forEach((b, i) => {
+    if (i === q.correct) b.classList.add('correct');
+    else if (i === idx && idx !== q.correct) b.classList.add('wrong');
+    b.style.cursor = 'default';
+  });
+  const fb = document.getElementById('quiz-feedback');
+  if (idx === q.correct) {
+    score++;
+    fb.textContent = q.feedback;
+    fb.className = 'quiz-feedback show ok';
+  } else {
+    fb.textContent = '❌ Não exatamente. ' + q.feedback.replace('✅ Correto! ', '');
+    fb.className = 'quiz-feedback show err';
+  }
+  document.getElementById('quiz-next').style.display = 'inline-block';
+  if (current === questions.length - 1) {
+    document.getElementById('quiz-next').textContent = 'Ver resultado →';
+  }
+}
+
+function nextQ() {
+  current++;
+  if (current >= questions.length) {
+    // resultado
+    document.getElementById('quiz-title').textContent = '🏆 Resultado Final';
+    document.getElementById('quiz-q').textContent = `Você acertou ${score} de ${questions.length} questões.`;
+    document.getElementById('quiz-opts').innerHTML = '';
+    document.getElementById('quiz-feedback').className = 'quiz-feedback';
+    document.getElementById('quiz-next').style.display = 'none';
+    const pct = Math.round((score / questions.length) * 100);
+    let msg = pct >= 80 ? '🎉 Excelente! Você domina os conceitos do Modelo Harvard.'
+             : pct >= 60 ? '👍 Bom! Revise os pontos em que errou e você estará pronto.'
+             : '📖 Revise a apostila — a prática leva à perfeição!';
+    document.getElementById('quiz-score').style.display = 'block';
+    document.getElementById('quiz-score').innerHTML = `<div style="font-size:52px;margin-bottom:8px;">${pct}%</div><div style="font-size:14px;font-weight:300;opacity:.8;margin-top:4px;">${msg}</div>
+    <button class="quiz-next" style="display:inline-block;margin-top:20px;" onclick="resetQuiz()">Refazer Quiz ↺</button>`;
+    return;
+  }
+  renderQ();
+}
+
+function resetQuiz() {
+  current = 0; score = 0;
+  document.getElementById('quiz-score').style.display = 'none';
+  renderQ();
+}
+
+// iniciar quiz ao carregar
+renderQ();
+</script>
+</body>
+</html>
